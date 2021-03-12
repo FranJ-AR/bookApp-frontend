@@ -8,12 +8,12 @@
 
 <ng-template #thenBlock>
     <p>Hello {{username}}</p>
-    <button type="button" (click)="closeSession()">Close session</button>
+    <button type="button" (click)="closeSession()" >Close session</button>
 </ng-template>
 <ng-template #elseBlock>
    
     <p>Please, log in the application</p>
-<button type="button" (click)="login()">Login</button>
+<button type="button" (click)="login()" [disabled]="!authenticated">Login</button>
 </ng-template>
 
 

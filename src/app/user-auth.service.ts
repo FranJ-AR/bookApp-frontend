@@ -7,9 +7,10 @@ import { User } from './User';
 })
 export class UserAuthService {
 
-  public user = new BehaviorSubject<User|null>(null);
+  public userSubject = new BehaviorSubject<User|null>(null);
 
   constructor() { 
 
   }
+
 }

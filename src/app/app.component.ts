@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { LoginService } from './login.service';
 import { User } from './User';
 import { UserAuthService } from './user-auth.service';
 
@@ -9,29 +8,36 @@ import { UserAuthService } from './user-auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy{
   title = 'angularAuth2';
 
   authenticated:boolean = false;
 
   username:string = "";
 
-  constructor(private userAuthService:UserAuthService){
+  constructor(private userAuthService:UserAuthService, private loginService:LoginService){
 
     //const result:Observable<User|null> = userAuthService.user.pipe( tap( (user:User|null) => {console.log(user)} ));
 
     //result.subscribe( (user:User) => {});
 
-    userAuthService.user.subscribe( (user) => {
+  }
+  
 
-      if(user === null){
+  public ngOnInit(){
 
-        this.authenticated = false;
+    this.autologin();
 
-      }else{
+    this.userAuthService.userSubject.subscribe( (user) => {
+
+      if(!! user){ // not logged
 
         this.authenticated = true;
         this.username = user.username;
+
+      }else{ // logged
+
+        this.authenticated = false;
       }
 
     })
@@ -40,14 +46,28 @@ export class AppComponent {
 
   login(){
 
-    this.userAuthService.user.next(new User("testuser","null","null",20000));
+    this.userAuthService.userSubject.next(new User("testuser","null","null",new Date()));
 
 
   }
 
   closeSession(){
 
-    this.userAuthService.user.next(null);
+    this.loginService.logout();
 
   }
+
+  ngOnDestroy(): void {
+
+    this.userAuthService.userSubject.unsubscribe();
+
+  }
+
+  autologin(){
+
+    this.loginService.autologin();
+
+  }
+
+  
 }
