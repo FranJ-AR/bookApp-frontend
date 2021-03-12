@@ -1,0 +1,22 @@
+<p>Init</p>
+
+<a routerLink="/public-section" routerLinkActive="active">Public section </a>
+<a routerLink="/login" routerLinkActive="active">Login </a>
+<a routerLink="" routerLinkActive="active">Root </a>
+
+<div *ngIf="authenticated; then thenBlock else elseBlock"></div>
+
+<ng-template #thenBlock>
+    <p>Hello {{username}}</p>
+    <button type="button" (click)="closeSession()">Close session</button>
+</ng-template>
+<ng-template #elseBlock>
+   
+    <p>Please, log in the application</p>
+<button type="button" (click)="login()">Login</button>
+</ng-template>
+
+
+
+
+<router-outlet></router-outlet>
