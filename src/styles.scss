@@ -2,3 +2,27 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+main{
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main > *{
+
+    flex: 1 0 auto;
+}
+
+app-footer{
+
+    flex: auto;
+    flex-grow: 0;
+}

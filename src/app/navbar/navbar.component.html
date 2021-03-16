@@ -12,20 +12,32 @@
 
     </div>
 
+    <div *ngIf="!authenticated; then thenBlock else elseBlock"></div>
+
+    <ng-template #thenBlock>
+
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
 
       <a class="nav-item nav-link" href="#">Register</a>
-      <a class="nav-item nav-link" href="#">Login</a>
+      <a routerLink="/login" routerLinkActive="active">Login </a>
 
     </div>
 
+  </ng-template>
+
+  <ng-template #elseBlock>
+
+    
+
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
 
-        <a class="nav-item nav-link" href="#">My Books</a>
-        <a class="nav-item nav-link" href="#">Logout</a>
+        <a class="nav-item nav-link" href="#">Hello {{username}}</a>
+        <a class="nav-item nav-link" href="#" (click)="closeSession()">Logout</a>
+        
   
       </div>
 
+  </ng-template>
     
             <!--
 

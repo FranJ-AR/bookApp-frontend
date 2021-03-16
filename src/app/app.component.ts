@@ -8,14 +8,14 @@ import { UserAuthService } from './user-auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy{
+export class AppComponent implements OnInit{
   title = 'angularAuth2';
 
-  authenticated:boolean = false;
+  //authenticated:boolean = false;
 
-  username:string = "";
+  //username:string = "";
 
-  constructor(private userAuthService:UserAuthService, private loginService:LoginService){
+  constructor(private loginService:LoginService){
 
     //const result:Observable<User|null> = userAuthService.user.pipe( tap( (user:User|null) => {console.log(user)} ));
 
@@ -28,48 +28,12 @@ export class AppComponent implements OnInit, OnDestroy{
 
     this.autologin();
 
-    this.userAuthService.userSubject.subscribe( (user) => {
-
-      if(!! user){ // not logged
-
-        this.authenticated = true;
-        this.username = user.username;
-
-      }else{ // logged
-
-        this.authenticated = false;
-      }
-
-    })
-
   }
 
-  login(){
-
-    // deprecated
-
-    this.userAuthService.userSubject.next(new User("testuser","null","null",new Date()));
-
-
-  }
-
-  closeSession(){
-
-    this.loginService.logout();
-
-  }
-
-  ngOnDestroy(): void {
-
-    this.userAuthService.userSubject.unsubscribe();
-
-  }
-
-  autologin(){
+  private autologin(){
 
     this.loginService.autologin();
 
   }
-
   
 }

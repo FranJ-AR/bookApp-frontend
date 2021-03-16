@@ -1,21 +1,10 @@
-<app-navbar></app-navbar>
+<main>
 
-<a routerLink="/public-section" routerLinkActive="active">Public section </a>
-<a routerLink="/login" routerLinkActive="active">Login </a>
-<a routerLink="" routerLinkActive="active">Root </a>
+    
+    <app-navbar></app-navbar>
 
-<div *ngIf="authenticated; then thenBlock else elseBlock"></div>
+    <router-outlet></router-outlet>
 
-<ng-template #thenBlock>
-    <p>Hello {{username}}</p>
-    <button type="button" (click)="closeSession()" >Close session</button>
-</ng-template>
-<ng-template #elseBlock>
-   
-    <p>Please, log in the application</p>
-<button type="button" (click)="login()" [disabled]="!authenticated">Login</button>
-</ng-template>
+    <app-footer></app-footer>
 
-<router-outlet></router-outlet>
-
-<app-footer></app-footer>
+</main>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   errorMessage:string = "";
 
-  constructor(private loginService:LoginService) { }
+  constructor(private loginService:LoginService, private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -30,7 +31,17 @@ export class LoginComponent implements OnInit {
 
     console.log(loginForm.value.username);
 
-    this.loginService.login(username, password).subscribe( (val) => {console.log(val), this.messageErrorLogin = false; },
+    this.loginService.login(username, password).subscribe( (val) => {
+
+      // user succeeds to login, so redirect
+      
+      console.log("user fully logged", val), this.messageErrorLogin = false; 
+
+      this.router.navigate(['private-section']);
+    
+    }, 
+
+    // user fails to login
     
     (errorMessage:string) => { this.messageErrorLogin = true; 
     
