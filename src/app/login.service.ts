@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { LoginResponse } from './LoginResponse'
+import { LoginResponse } from './loginResponse'
 import { catchError, exhaustMap, take, tap } from 'rxjs/operators';
 import { User } from './User';
 import { UserAuthService } from './user-auth.service';
@@ -9,8 +9,8 @@ import { UserAuthService } from './user-auth.service';
 interface StoredUserDetails{
 
   username: string;
-  token: string;
-  expirationDate: string;
+  _token: string;
+  tokenExpirationDate: string;
 
 
 }
@@ -23,13 +23,11 @@ interface StoredUserDetails{
 
 export class LoginService {
 
-  userNameFake: string = "test";
-  passwordFake: string = "1234";
-  tokenFake: string = "test@token";
-
   private KEY_USER_SESSION_STORAGE = "user-details";
 
   private loginUrl = "http://localhost:8080/login";
+
+  private timer:any|null;
 
   constructor(private http: HttpClient, private userAuthService: UserAuthService) { }
 
@@ -47,8 +45,12 @@ export class LoginService {
 
         tap((loginResponse: LoginResponse) => {
 
+          let expirationDate:Date = new Date(new Date().getTime() + loginResponse.tokenExpirationTime);
+
+          this.startTimeOut(expirationDate);
+
           let user: User = new User(username, password, loginResponse.token,
-            new Date(loginResponse.tokenExpirationTime));
+            expirationDate);
           this.storeUserDetails(user);
           this.userAuthService.userSubject.next(user);
         }
@@ -121,16 +123,28 @@ export class LoginService {
 
     let storedUser: string | null = localStorage.getItem(this.KEY_USER_SESSION_STORAGE);
 
+    console.log("storedUserData", storedUser);
+
     //let userDetails:UserDetails = storedUser;
 
-    if(! storedUser ) return; // if no stored user, end
+    if(!! storedUser ) { // if stored user
 
     let storedUserDetails:StoredUserDetails = JSON.parse(storedUser);
 
+    let expirationDate:Date = new Date(storedUserDetails.tokenExpirationDate);
+
+    console.log("autologinUserDetails",storedUserDetails.tokenExpirationDate);
+
     let user:User = new User(storedUserDetails.username, "null", 
-    storedUserDetails.token, new Date(storedUserDetails.expirationDate));
+    storedUserDetails._token, expirationDate);
+
+    this.startTimeOut(expirationDate)
 
     this.userAuthService.userSubject.next(user);
+
+    console.log("autologin",user);
+
+    }
 
   }
 
@@ -160,6 +174,49 @@ export class LoginService {
     return true;
 
 
+  }
+
+  private startTimeOut(expirationDate:Date):void{
+
+    let timeRemainingInms = expirationDate.getTime() - new Date().getTime();
+
+    if(timeRemainingInms <= 0){ // timed out
+
+      this.userAuthService.userSubject.next(null);
+
+      this.endTimeOut();
+
+      return;
+
+    }
+
+      //if timer exists, reset it
+
+      this.timer = setTimeout(
+
+        () => {
+
+          console.log("set timer");
+
+          this.endTimeOut();
+
+        },timeRemainingInms);
+
+  }
+
+  private endTimeOut():void{
+
+    console.log("token has expired");
+
+    if(!!this.timer){ // if timer is not null
+
+    this.userAuthService.userSubject.next(null);
+
+    clearTimeout(this.timer);
+
+    this.logout();
+
+    }
   }
 
 

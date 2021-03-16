@@ -18,9 +18,24 @@ export class AuthInterceptorService implements HttpInterceptor{
 
     console.log("intercepted");
 
-    if(!!user){ // if there is user logged
+    if(!!user){ // if there is user logged AND the token has not expired yet
 
       console.log("intercepted logged");
+
+      let token:string|null = user.token;
+
+      if(!!token) {
+        
+        return next.handle(req); 
+      
+      } // if token has expired, end 
+
+      let newReq:HttpRequest<any> = req.clone({
+
+        headers: req.headers.set('Authorization','Bearer '+token)
+        .append('Access-Control-Allow-Origin', '*')
+
+      });
 
 
     }else{ // if not logged

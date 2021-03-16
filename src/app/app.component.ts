@@ -46,6 +46,8 @@ export class AppComponent implements OnInit, OnDestroy{
 
   login(){
 
+    // deprecated
+
     this.userAuthService.userSubject.next(new User("testuser","null","null",new Date()));
 
 
