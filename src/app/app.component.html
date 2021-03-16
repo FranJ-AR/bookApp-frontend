@@ -1,4 +1,4 @@
-<p>Init</p>
+<app-navbar></app-navbar>
 
 <a routerLink="/public-section" routerLinkActive="active">Public section </a>
 <a routerLink="/login" routerLinkActive="active">Login </a>
@@ -16,7 +16,6 @@
 <button type="button" (click)="login()" [disabled]="!authenticated">Login</button>
 </ng-template>
 
-
-
-
 <router-outlet></router-outlet>
+
+<app-footer></app-footer>

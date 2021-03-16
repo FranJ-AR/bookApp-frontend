@@ -13,13 +13,17 @@ import { AuthGuard } from './auth.guard';
 import { IndexComponent } from './index/index.component';
 import { PublicSectionRoutingModule } from './public-section/public-section-routing.module';
 import { AuthInterceptorService } from './auth-interceptor.service';
+import { FooterComponent } from './footer/footer.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PrivateSectionComponent,
-    IndexComponent
+    IndexComponent,
+    FooterComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
