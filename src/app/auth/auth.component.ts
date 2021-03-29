@@ -11,7 +11,7 @@ import { RegisterService } from '../register.service';
 })
 export class AuthComponent implements OnInit {
 
-  private isLoginMode: boolean = false;
+  isLoginMode: boolean = false;
 
   private messageRegister: string = "Registrar nuevo usuario";
 
@@ -49,9 +49,12 @@ export class AuthComponent implements OnInit {
 
   }
 
-  validateUserPassword(username: string, password: string): boolean {
+  validateUserPassword(username: string, 
+    password: string, confirmPassword:string): boolean {
 
     let errorLength: boolean = false;
+
+    this.errorMessage = "";
 
     if (username.length < 5) {
 
@@ -76,6 +79,25 @@ export class AuthComponent implements OnInit {
 
     }
 
+    // register mode, needs confirm password
+    if ( ! this.isLoginMode && confirmPassword.length < 5){
+
+    // if not null error message, add a line break to add the following message
+    if (this.errorMessage !== "") { this.errorMessage += "\n"; }
+
+      this.errorMessage += "El campo confirmar contraseña debe tener al menos 5 caracteres";
+
+    }
+
+    if( ! this.isLoginMode && password !== confirmPassword){
+
+      // if not null error message, add a line break to add the following message
+      if (this.errorMessage !== "") { this.errorMessage += "\n"; }
+
+      this.errorMessage += "Los campos contraseña y confirmar contraseña deben ser iguales";
+
+    }
+
     return errorLength;
 
   }
@@ -86,7 +108,9 @@ export class AuthComponent implements OnInit {
 
     let password: string = loginForm.value.password;
 
-    if (this.validateUserPassword(username, password)) { // if error, end form by returning
+    let confirmPassword: string = loginForm.value.confirmPassword;
+
+    if (this.validateUserPassword(username, password, confirmPassword)) { // if error, end form by returning
 
       return;
 
@@ -126,7 +150,24 @@ export class AuthComponent implements OnInit {
 
   register(username:string, password: string){
 
-    this.registerService.register(username, password).subscribe( (_) => {} );
+    this.registerService.register(username, password).subscribe( (_) => {
+      
+      this.messageErrorLogin = false;
+
+    },
+
+    (errorMessage) => {
+
+      this.messageErrorLogin = true;
+
+      this.errorMessage = errorMessage;
+
+
+      
+    
+    }
+    
+    );
 
 
   }
