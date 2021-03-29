@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { PrivateSectionComponent } from './private-section/private-section.component';
 import { PublicSectionComponent } from './public-section/public-section.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -15,11 +14,12 @@ import { PublicSectionRoutingModule } from './public-section/public-section-rout
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    AuthComponent,
     PrivateSectionComponent,
     IndexComponent,
     FooterComponent,

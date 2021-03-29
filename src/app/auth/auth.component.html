@@ -1,9 +1,13 @@
-<form #loginForm="ngForm" (submit)="login(loginForm)" novalidate>
+<form #loginForm="ngForm" (submit)="submitAuthForm(loginForm)" novalidate>
   <div class="c-form d-flex flex-column justify-content-center align-items-center">
     <div class="form-group">
-      <div class="alert alert-danger c-warning-incorrect-user-password" *ngIf="messageErrorLogin">
-        {{ errorMessage }}
+      <div style="white-space: pre-line" 
+      class="alert alert-danger c-warning-incorrect-user-password" *ngIf="messageErrorLogin">
+     {{ errorMessage }}
       </div>
+
+      <p >{{infoSection}}</p>
+
       <label for="Username">Username</label>
       <input type="text" name="username" ngModel class="form-control" id="inputUsername" 
         placeholder="Enter username">
