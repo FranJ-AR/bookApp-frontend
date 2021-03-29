@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
+import { RegisterService } from '../register.service';
 
 @Component({
   selector: 'app-auth',
@@ -22,7 +23,8 @@ export class AuthComponent implements OnInit {
 
   infoSection: string = "";
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private registerService:RegisterService,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -94,6 +96,9 @@ export class AuthComponent implements OnInit {
 
       this.login(username, password);
 
+    }else {
+
+      this.register(username, password);
     }
 
   }
@@ -120,6 +125,8 @@ export class AuthComponent implements OnInit {
   }
 
   register(username:string, password: string){
+
+    this.registerService.register(username, password).subscribe( (_) => {} );
 
 
   }
