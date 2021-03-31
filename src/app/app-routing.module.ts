@@ -7,7 +7,7 @@ import { PrivateSectionComponent } from './private-section/private-section.compo
 import { PublicSectionComponent } from './public-section/public-section.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'index', pathMatch: 'full' },
+ 
   { path: 'index', component: IndexComponent },
   {
     path: 'login', component: AuthComponent, canActivate: [AuthGuard]

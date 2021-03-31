@@ -1,1 +1,29 @@
-<p>index works!</p>
+<table class = "table">
+    <tr *ngFor="let item of items">
+      <td>
+              <img src = '/assets/book_pictures/{{item.imageUrl}}' alt = "Portada no disponible">
+              <p>Título: {{item.name}}</p>
+              <p>Autoría: {{item.author.name}}</p>
+              <p *ngIf = "item.canBeLoaned">Disponible para préstamo, 
+                  hay {{ item.numberCopies - item.numberLoaned}} ejemplar/es disponibles</p>
+              <p *ngIf = "! item.canBeLoaned">Préstamo con lista de espera</p>
+              Pulse aquí para más detalles y opciones de préstamo
+              
+    </td>
+      </tr>
+
+
+<!-- <table class = "table">
+    <tr *ngFor="let item of items">
+      <td>
+              <p>Título: {{item.name}}</p>
+              <p>Género: {{item.category.name}}</p>
+              <p>Subgénero: {{item.subcategory.name}}</p>
+              <p>Autor: {{item.author.name}}</p>
+              <p>Descripción: {{item.description}}</p>
+              <p *ngIf = "item.canBeLoaned">Disponible para préstamo, 
+                  hay {{ item.numberCopies - item.numberLoaned}} ejemplar/es disponibles</p>
+              <p *ngIf = "! item.canBeLoaned">Préstamo con lista de espera</p>
+    </td>
+      </tr>
+  </table> -->

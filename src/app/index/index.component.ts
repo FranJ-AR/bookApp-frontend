@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Book } from 'src/Book';
+import { BookService } from '../book.service';
 
 @Component({
   selector: 'app-index',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexComponent implements OnInit {
 
-  constructor() { }
+  items: Book[] = [];
+
+  item1:string = "";
+
+  constructor(private bookService:BookService) { }
 
   ngOnInit(): void {
+
+    this.bookService.findAllBooks().subscribe( (books) => {
+
+      this.items = books;
+
+      this.item1 = books[4].name;
+
+    }, (err) => console.log("Error loading books", err))
   }
 
 }
