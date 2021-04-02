@@ -8,12 +8,12 @@ import { Author } from './Author';
 })
 export class AuthorService {
 
-  private authorUrl:string = "";
+  private authorUrl:string = "http://localhost:8080/authors-by-substring-name/author={author}";
 
   constructor(private httpClient:HttpClient) { }
 
   getAuthorBySubstring(substring:string):Observable<Author[]>{
 
-    return this.httpClient.get<Author[]>(this.authorUrl);
+    return this.httpClient.get<Author[]>(this.authorUrl.replace("{author}",substring));
   }
 }
