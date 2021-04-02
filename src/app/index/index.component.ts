@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/Book';
+import { Category } from 'src/Category';
 import { ParamsBookSearch } from 'src/ParamsBookSearch';
+import { Subcategory } from 'src/Subcategory';
+import { Author } from '../Author';
+import { AuthorService } from '../author.service';
 import { BookService } from '../book.service';
+import { CategoryService } from '../category.service';
+import { SubcategoryService } from '../subcategory.service';
 
 @Component({
   selector: 'app-index',
@@ -10,13 +16,24 @@ import { BookService } from '../book.service';
 })
 export class IndexComponent implements OnInit {
 
-  items: Book[] = [];
+  books: Book[] = [];
+  authors: Author[] = [];
+  categories: Category[] = []
+  subcategories: Subcategory[] = [];
 
-  constructor(private bookService:BookService) { }
+  private categorySubcategoryDefaultName = "Cualquiera";
+  private categorySubCategoryDefaultId = 0;
+
+  constructor(private bookService: BookService, private authorService: AuthorService,
+    private categoryService: CategoryService, private subcategoryService: SubcategoryService) { }
 
   ngOnInit(): void {
 
     this.getAllBooks();
+
+    this.getAllCategories();
+
+    this.getAllSubcategories();
 
     //this.getAllBooks();
 
@@ -24,31 +41,90 @@ export class IndexComponent implements OnInit {
 
   }
 
-  getAllBooks(){
+  getAllBooks() {
 
-    this.bookService.findAllBooks().subscribe( (books) => {
+    this.bookService.findAllBooks().subscribe((books) => {
 
-      this.items = books;
+      this.books = books;
 
     }, (err) => console.log("Error loading books", err))
 
   }
 
-  getBooksByParams(){
+  getBooksByParams(): void {
 
-    let params:ParamsBookSearch = { //"titleSubstring":"Pott"
-      "authorId":4
-     // "categoryId": number =
-     // "subcategoryId": number = 
+    let params: ParamsBookSearch = { //"titleSubstring":"Pott"
+      "authorId": 4
+      // "categoryId": number =
+      // "subcategoryId": number = 
     }
 
-    this.bookService.findBooksByParams(params).subscribe( (books) => {
+    this.bookService.findBooksByParams(params).subscribe((books) => {
 
-      this.items = books;
+      this.books = books;
 
     }, (err) => console.log("Error loading new books", err))
 
 
+  }
+
+  getAllCategories(): void {
+
+    this.categoryService.getAllCategories().subscribe(
+
+      (categories: Category[]) => {
+
+        this.categories = categories;
+
+        this.categories.unshift(this.getDefaultCategory());
+
+        console.log(categories);
+
+      }, (error) => { }
+
+    )
+
+  }
+
+  getAllSubcategories(): void {
+
+    this.subcategoryService.getAllSubcategories().subscribe(
+
+      (subcategories: Subcategory[]) => {
+
+        this.subcategories = subcategories;
+
+        this.subcategories.unshift(this.getDefaultSubcategory());
+
+      }, (error) => { }
+
+    )
+
+  }
+
+  getAuthorsBySubtring(substringAuthor: string): void {
+
+    this.authorService.getAuthorBySubstring(substringAuthor).subscribe(
+
+      (authors: Author[]) => {
+
+        this.authors = authors;
+
+      }, (error) => { }
+
+    )
+
+
+  }
+
+  private getDefaultCategory():Category{
+
+    return {id: this.categorySubCategoryDefaultId, name: this.categorySubcategoryDefaultName};
+  }
+
+  private getDefaultSubcategory():Category{
+
+    return {id: this.categorySubCategoryDefaultId, name: this.categorySubcategoryDefaultName};
   }
 
 }

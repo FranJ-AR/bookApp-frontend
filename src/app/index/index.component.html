@@ -1,16 +1,29 @@
+<label for="fname">Introduce el título del libro</label><br>
+<input type="text" class = "form-control c-input-title" id="fname" name="fname" ><br>
 
+<label for="cars">Categorías</label>
+
+<select class = "form-control c-form" name="cars" id="cars">
+  <option *ngFor = "let category of categories" [value]="category.id">{{category.name}}</option>
+</select> 
+
+<label for="cars">Subcategorías</label>
+<select class = "form-control c-form" name="cars" id="cars">
+  <option *ngFor = "let subcategory of subcategories" 
+  [value]="subcategory.id">{{subcategory.name}}</option>
+</select> 
 
 <table class = "table">
-    <tr *ngFor="let item of items">
+    <tr *ngFor="let book of books">
       <td class = "d-flex flex-row c-book-details">
-              <img src = '/assets/book_pictures/{{item.imageUrl}}' alt = "Portada no disponible">
+              <img src = '/assets/book_pictures/{{book.imageUrl}}' alt = "Portada no disponible">
               
               <p>
-             <span class = "c-title">{{item.name}}</span> <br>
-             {{item.author.name}} <br>
-              <ng-template *ngIf = "item.canBeLoaned">Disponible para préstamo, 
-                  hay {{ item.numberCopies - item.numberLoaned}} ejemplar/es disponibles</ng-template>
-              <ng-template *ngIf = "! item.canBeLoaned">Préstamo con lista de espera</ng-template>
+             <span class = "c-title">{{book.name}}</span> <br>
+             {{book.author.name}} <br>
+              <ng-template *ngIf = "book.canBeLoaned">Disponible para préstamo, 
+                  hay {{ book.numberCopies - book.numberLoaned}} ejemplar/es disponibles</ng-template>
+              <ng-template *ngIf = "! book.canBeLoaned">Préstamo con lista de espera</ng-template>
               <br>
               <span class = "c-book-link">Pulse aquí para más detalles y opciones de préstamo</span>
               </p>
@@ -20,16 +33,16 @@
 
 
 <!-- <table class = "table">
-    <tr *ngFor="let item of items">
+    <tr *ngFor="let book of books">
       <td>
-              <p>Título: {{item.name}}</p>
-              <p>Género: {{item.category.name}}</p>
-              <p>Subgénero: {{item.subcategory.name}}</p>
-              <p>Autor: {{item.author.name}}</p>
-              <p>Descripción: {{item.description}}</p>
-              <p *ngIf = "item.canBeLoaned">Disponible para préstamo, 
-                  hay {{ item.numberCopies - item.numberLoaned}} ejemplar/es disponibles</p>
-              <p *ngIf = "! item.canBeLoaned">Préstamo con lista de espera</p>
+              <p>Título: {{book.name}}</p>
+              <p>Género: {{book.category.name}}</p>
+              <p>Subgénero: {{book.subcategory.name}}</p>
+              <p>Autor: {{book.author.name}}</p>
+              <p>Descripción: {{book.description}}</p>
+              <p *ngIf = "book.canBeLoaned">Disponible para préstamo, 
+                  hay {{ book.numberCopies - book.numberLoaned}} ejemplar/es disponibles</p>
+              <p *ngIf = "! book.canBeLoaned">Préstamo con lista de espera</p>
     </td>
       </tr>
   </table> -->
