@@ -24,6 +24,13 @@ export class IndexComponent implements OnInit {
   private categorySubcategoryDefaultName = "Cualquiera";
   private categorySubCategoryDefaultId = 0;
 
+  selectedCategoryId = 0;
+  selectedSubcategoryId = 0;
+  selectedAuthorId = 0;
+  selectedAuthorName = "";
+  showAuthorDropdown = false;
+  selectedTitleSubString:string = "";
+
   constructor(private bookService: BookService, private authorService: AuthorService,
     private categoryService: CategoryService, private subcategoryService: SubcategoryService) { }
 
@@ -53,10 +60,10 @@ export class IndexComponent implements OnInit {
 
   getBooksByParams(): void {
 
-    let params: ParamsBookSearch = { //"titleSubstring":"Pott"
-      "authorId": 4
-      // "categoryId": number =
-      // "subcategoryId": number = 
+    let params: ParamsBookSearch = { "titleSubstring": this.selectedTitleSubString,
+      "authorId": this.selectedAuthorId,
+       "categoryId": this.selectedCategoryId,
+       "subcategoryId": this.selectedSubcategoryId 
     }
 
     this.bookService.findBooksByParams(params).subscribe((books) => {
@@ -104,13 +111,30 @@ export class IndexComponent implements OnInit {
 
   getAuthorsBySubtring(substringAuthor: string): void {
 
+    if ( substringAuthor === "" ) { this.showAuthorDropdown = false;
+
+      this.selectedAuthorId = 0;
+      
+      return;
+
+    }
+
+    this.showAuthorDropdown = true;
+
+    console.log("author");
+
     this.authorService.getAuthorBySubstring(substringAuthor).subscribe(
 
       (authors: Author[]) => {
 
         this.authors = authors;
 
-      }, (error) => { }
+        console.log("authors",authors);
+
+      }, (error) => {
+
+        console.log("authorerror", error);
+       }
 
     )
 
@@ -125,6 +149,17 @@ export class IndexComponent implements OnInit {
   private getDefaultSubcategory():Category{
 
     return {id: this.categorySubCategoryDefaultId, name: this.categorySubcategoryDefaultName};
+  }
+
+  selectAuthor(authorId:number, authorName:string){
+
+    console.log("Author",authorId+" "+authorName);
+
+    this.selectedAuthorId= authorId;
+
+    this.selectedAuthorName = authorName;
+
+    this.showAuthorDropdown = false;
   }
 
 }

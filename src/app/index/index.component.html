@@ -1,17 +1,37 @@
-<label for="fname">Introduce el título del libro</label><br>
-<input type="text" class = "form-control c-input-title" id="fname" name="fname" ><br>
+<p>Proporciona caracteres del título o del autor de la obra para iniciar búsqueda</p>
+<form>
+<label for="fname">Título</label><br>
+<input type="text" class = "form-control c-input-title" 
+id="ftitle" name="ftitle" [(ngModel)] = "selectedTitleSubString"><br>
+
+<label for="fname">Escrito por</label><br>
+<input type="text" class = "form-control c-input-author" 
+id="fauthor" name="fauthor" [(ngModel)] = "selectedAuthorName"
+(keyup)="getAuthorsBySubtring(selectedAuthorName)"><br>
+
+<table class="table table-bordered c-author" *ngIf = "showAuthorDropdown">
+  <tr *ngFor = "let author of authors" (click)="selectAuthor(author.id,author.name)">
+    <td>
+      {{author.name}}
+    </td>
+  </tr>
+</table>
+
+<button type="submit" (click)="getBooksByParams()" (submit)="getBooksByParams()">Buscar</button> 
 
 <label for="cars">Categorías</label>
 
-<select class = "form-control c-form" name="cars" id="cars">
-  <option *ngFor = "let category of categories" [value]="category.id">{{category.name}}</option>
+<select class = "form-control c-form" name="cars" id="cars" [(ngModel)] = "selectedCategoryId">
+  <option class = "form-control" *ngFor = "let category of categories" [value]="category.id">{{category.name}}</option>
 </select> 
 
 <label for="cars">Subcategorías</label>
-<select class = "form-control c-form" name="cars" id="cars">
+<select class = "form-control c-form" name="cars" id="cars" [(ngModel)] = "selectedSubcategoryId">
   <option *ngFor = "let subcategory of subcategories" 
   [value]="subcategory.id">{{subcategory.name}}</option>
 </select> 
+
+<p *ngIf = "books.length === 0">No hay resultados, pruebe variando los filtros de búsqueda</p>
 
 <table class = "table">
     <tr *ngFor="let book of books">
@@ -30,6 +50,10 @@
               
     </td>
       </tr>
+      </table>
+      
+
+    </form>
 
 
 <!-- <table class = "table">
