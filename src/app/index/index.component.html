@@ -1,13 +1,19 @@
+
+
 <table class = "table">
     <tr *ngFor="let item of items">
-      <td>
+      <td class = "d-flex flex-row c-book-details">
               <img src = '/assets/book_pictures/{{item.imageUrl}}' alt = "Portada no disponible">
-              <p>Título: {{item.name}}</p>
-              <p>Autoría: {{item.author.name}}</p>
-              <p *ngIf = "item.canBeLoaned">Disponible para préstamo, 
-                  hay {{ item.numberCopies - item.numberLoaned}} ejemplar/es disponibles</p>
-              <p *ngIf = "! item.canBeLoaned">Préstamo con lista de espera</p>
-              Pulse aquí para más detalles y opciones de préstamo
+              
+              <p>
+             <span class = "c-title">{{item.name}}</span> <br>
+             {{item.author.name}} <br>
+              <ng-template *ngIf = "item.canBeLoaned">Disponible para préstamo, 
+                  hay {{ item.numberCopies - item.numberLoaned}} ejemplar/es disponibles</ng-template>
+              <ng-template *ngIf = "! item.canBeLoaned">Préstamo con lista de espera</ng-template>
+              <br>
+              <span class = "c-book-link">Pulse aquí para más detalles y opciones de préstamo</span>
+              </p>
               
     </td>
       </tr>
