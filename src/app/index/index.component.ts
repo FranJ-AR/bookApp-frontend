@@ -8,6 +8,8 @@ import { AuthorService } from '../author.service';
 import { BookService } from '../book.service';
 import { CategoryService } from '../category.service';
 import { SubcategoryService } from '../subcategory.service';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-index',
@@ -15,6 +17,8 @@ import { SubcategoryService } from '../subcategory.service';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
+
+  searchIcon = faSearch;
 
   books: Book[] = [];
   authors: Author[] = [];
@@ -30,19 +34,20 @@ export class IndexComponent implements OnInit {
   selectedAuthorName = "";
   showAuthorDropdown = false;
   selectedTitleSubString:string = "";
+  searchPerformed:boolean = false;
+
+  noAuthorAndNoTitleError:boolean = false;
 
   constructor(private bookService: BookService, private authorService: AuthorService,
     private categoryService: CategoryService, private subcategoryService: SubcategoryService) { }
 
   ngOnInit(): void {
 
-    this.getAllBooks();
-
     this.getAllCategories();
 
     this.getAllSubcategories();
 
-    //this.getAllBooks();
+    this.getAllBooks();
 
     //this.getBooksByParams();
 
@@ -153,6 +158,8 @@ export class IndexComponent implements OnInit {
 
   selectAuthor(authorId:number, authorName:string){
 
+    this.searchPerformed = true;
+
     console.log("Author",authorId+" "+authorName);
 
     this.selectedAuthorId= authorId;
@@ -160,6 +167,30 @@ export class IndexComponent implements OnInit {
     this.selectedAuthorName = authorName;
 
     this.showAuthorDropdown = false;
+
+    this.getBooksByParams();
+
+    this.noAuthorAndNoTitleError = false;
+  }
+
+  getBooksByOptionalParams():void{
+
+    // If there is no author selected or a substring title provided, disallow search
+
+    console.log(this.selectedAuthorId);
+    console.log(this.selectedTitleSubString);
+    if(this.selectedAuthorId === 0 && this.selectedTitleSubString === ""){
+
+      this.noAuthorAndNoTitleError = true;
+
+      this.books = [];
+
+      return;
+
+    }
+
+    this.getBooksByParams();
+
   }
 
 }

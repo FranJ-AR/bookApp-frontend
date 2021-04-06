@@ -1,3 +1,43 @@
+.c-info-search {
+
+    text-align: center;
+    margin: 15px 0;
+
+    p { /* restart default margin */
+
+        margin: 0;
+    }
+}
+
+.c-group-field{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    label{
+
+        color: #3d6e94;
+        font-weight: 600;
+    }
+
+    .c-field{
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 30%;
+
+    }
+
+}
+
+
+
+
+
+
+
 .c-book-details > *{
 
     padding: 10px;

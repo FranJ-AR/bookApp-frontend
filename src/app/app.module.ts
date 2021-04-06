@@ -14,6 +14,7 @@ import { AuthInterceptorService } from './auth-interceptor.service';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AuthComponent } from './auth/auth.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AuthComponent } from './auth/auth.component';
     NgbModule,
     HttpClientModule,
     FormsModule,
-    PublicSectionRoutingModule
+    PublicSectionRoutingModule,
+    FontAwesomeModule,
     
   ],
   providers: [AuthGuard, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi:true}],

@@ -1,59 +1,115 @@
-<p>Proporciona caracteres del título o del autor de la obra para iniciar búsqueda</p>
+<div class="c-info-search">
+  <p>Proporciona como mínimo caracteres del título o del autor de la obra para iniciar búsqueda</p>
+</div>
 <form>
-<label for="fname">Título</label><br>
-<input type="text" class = "form-control c-input-title" 
-id="ftitle" name="ftitle" [(ngModel)] = "selectedTitleSubString"><br>
+  <div class="c-group-field">
+    <div class="c-field">
+      <label for="fname">Título</label><br>
+      <div class="input-group">
+        <input type="text" class="form-control" id="ftitle" name="ftitle" [(ngModel)]="selectedTitleSubString">
+        <div class="input-group-append">
+          <button class="btn btn-secondary" (click) = "getBooksByParams()" type="button">
+            <fa-icon [icon]="searchIcon"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
 
-<label for="fname">Escrito por</label><br>
-<input type="text" class = "form-control c-input-author" 
-id="fauthor" name="fauthor" [(ngModel)] = "selectedAuthorName"
-(keyup)="getAuthorsBySubtring(selectedAuthorName)"><br>
+    <div class="c-field">
+      <label for="fname">Escrito por</label><br>
+      <input type="text" class="form-control" id="fauthor" name="fauthor" [(ngModel)]="selectedAuthorName"
+        (keyup)="getAuthorsBySubtring(selectedAuthorName)"><br>
 
-<table class="table table-bordered c-author" *ngIf = "showAuthorDropdown">
-  <tr *ngFor = "let author of authors" (click)="selectAuthor(author.id,author.name)">
-    <td>
-      {{author.name}}
-    </td>
-  </tr>
-</table>
 
-<button type="submit" (click)="getBooksByParams()" (submit)="getBooksByParams()">Buscar</button> 
-
-<label for="cars">Categorías</label>
-
-<select class = "form-control c-form" name="cars" id="cars" [(ngModel)] = "selectedCategoryId">
-  <option class = "form-control" *ngFor = "let category of categories" [value]="category.id">{{category.name}}</option>
-</select> 
-
-<label for="cars">Subcategorías</label>
-<select class = "form-control c-form" name="cars" id="cars" [(ngModel)] = "selectedSubcategoryId">
-  <option *ngFor = "let subcategory of subcategories" 
-  [value]="subcategory.id">{{subcategory.name}}</option>
-</select> 
-
-<p *ngIf = "books.length === 0">No hay resultados, pruebe variando los filtros de búsqueda</p>
-
-<table class = "table">
-    <tr *ngFor="let book of books">
-      <td class = "d-flex flex-row c-book-details">
-              <img src = '/assets/book_pictures/{{book.imageUrl}}' alt = "Portada no disponible">
-              
-              <p>
-             <span class = "c-title">{{book.name}}</span> <br>
-             {{book.author.name}} <br>
-              <ng-template *ngIf = "book.canBeLoaned">Disponible para préstamo, 
-                  hay {{ book.numberCopies - book.numberLoaned}} ejemplar/es disponibles</ng-template>
-              <ng-template *ngIf = "! book.canBeLoaned">Préstamo con lista de espera</ng-template>
-              <br>
-              <span class = "c-book-link">Pulse aquí para más detalles y opciones de préstamo</span>
-              </p>
-              
-    </td>
-      </tr>
+      <table class="table table-bordered c-author" *ngIf="showAuthorDropdown">
+        <tr *ngFor="let author of authors" (click)="selectAuthor(author.id,author.name)">
+          <td>
+            {{author.name}}
+          </td>
+        </tr>
       </table>
-      
+    </div>
+  </div>
 
-    </form>
+  <div class="c-group-field">
+    <div class="c-field">
+      <label for="cars">Categorías</label>
+
+      <select class="form-control c-form" name="cars" id="cars" [(ngModel)]="selectedCategoryId"
+        (change)="getBooksByOptionalParams()">
+        <option class="form-control" *ngFor="let category of categories" [value]="category.id"> {{category.name}}
+        </option>
+      </select>
+
+    </div>
+    <div class="c-field">
+      <label for="cars">Subcategorías</label>
+      <select class="form-control c-form" name="cars" id="cars" [(ngModel)]="selectedSubcategoryId"
+        (change)="getBooksByOptionalParams()">
+        <option *ngFor="let subcategory of subcategories" [value]="subcategory.id"> {{subcategory.name}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+</form>
+
+<div class="row">
+
+
+  <div class="col col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+
+    <p *ngIf="searchPerformed && books.length === 0 && !noAuthorAndNoTitleError">
+      No hay resultados, pruebe variando los filtros de búsqueda</p>
+
+    <p *ngIf="noAuthorAndNoTitleError"> Por favor proporciona caracteres en el campo título
+      o seleccione un autor en el campo autor después de proporcionar caracteres </p>
+
+
+    <table class="table">
+      <tr *ngFor="let book of books">
+        <td class="d-flex flex-row c-book-details">
+          <img src='/assets/book_pictures/{{book.imageUrl}}' alt="Portada no disponible">
+
+          <div>
+            <p>
+              <span class="c-title">{{book.name}}</span><br>
+              <span>{{book.author.name}}</span>
+            </p>
+            <!-- Show message available for loan -->
+            <ng-container *ngIf="book.canBeLoaned; else waitList">
+              <!-- Show message 1 left -->
+              <p *ngIf="book.copiesLeft === 1; else moreThan1Copies">
+                Disponible para préstamo, hay 1 ejemplar disponible
+              </p>
+              <!-- Show message more than 1 left -->
+              <ng-template #moreThan1Copies>
+                <p>
+                  Disponible para préstamo, hay
+                  {{ book.copiesLeft}} ejemplares disponibles
+                </p>
+              </ng-template>
+            </ng-container>
+            <!-- Show message wait list -->
+            <ng-template #waitList>
+              <p #waitList>Préstamo con lista de espera</p>
+            </ng-template>
+
+            <p class="c-book-link">Pulse aquí para más detalles y opciones de préstamo</p>
+
+          </div>
+
+
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+</div>
+
+
+
 
 
 <!-- <table class = "table">
