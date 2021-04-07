@@ -9,6 +9,7 @@ import { BookService } from '../book.service';
 import { CategoryService } from '../category.service';
 import { SubcategoryService } from '../subcategory.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faEraser } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 export class IndexComponent implements OnInit {
 
   searchIcon = faSearch;
+  eraserIcon = faEraser;
 
   books: Book[] = [];
   authors: Author[] = [];
@@ -47,7 +49,7 @@ export class IndexComponent implements OnInit {
 
     this.getAllSubcategories();
 
-    this.getAllBooks();
+    //this.getAllBooks();
 
     //this.getBooksByParams();
 
@@ -63,7 +65,7 @@ export class IndexComponent implements OnInit {
 
   }
 
-  getBooksByParams(): void {
+  private getBooksByParams(): void {
 
     let params: ParamsBookSearch = { "titleSubstring": this.selectedTitleSubString,
       "authorId": this.selectedAuthorId,
@@ -173,7 +175,11 @@ export class IndexComponent implements OnInit {
     this.noAuthorAndNoTitleError = false;
   }
 
-  getBooksByOptionalParams():void{
+  triggerSearch():void{
+
+    this.searchPerformed = true;
+
+    this.noAuthorAndNoTitleError = false;
 
     // If there is no author selected or a substring title provided, disallow search
 
@@ -190,6 +196,21 @@ export class IndexComponent implements OnInit {
     }
 
     this.getBooksByParams();
+
+  }
+
+  removeAuthor(){
+
+    this.selectedAuthorId = 0;
+    this.selectedAuthorName = "";
+
+    this.triggerSearch();
+
+    if(this.selectedTitleSubString === ""){
+
+      this.noAuthorAndNoTitleError;
+
+    }
 
   }
 

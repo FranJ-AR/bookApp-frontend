@@ -8,7 +8,7 @@
       <div class="input-group">
         <input type="text" class="form-control" id="ftitle" name="ftitle" [(ngModel)]="selectedTitleSubString">
         <div class="input-group-append">
-          <button class="btn btn-secondary" (click) = "getBooksByParams()" type="button">
+          <button class="btn btn-secondary" (click)="triggerSearch()" type="button">
             <fa-icon [icon]="searchIcon"></fa-icon>
           </button>
         </div>
@@ -17,17 +17,28 @@
 
     <div class="c-field">
       <label for="fname">Escrito por</label><br>
-      <input type="text" class="form-control" id="fauthor" name="fauthor" [(ngModel)]="selectedAuthorName"
-        (keyup)="getAuthorsBySubtring(selectedAuthorName)"><br>
+      <div class="input-group">
+        <input type="text" class="form-control" id="fauthor" name="fauthor" autocomplete="off"
+          [(ngModel)]="selectedAuthorName" (keyup)="getAuthorsBySubtring(selectedAuthorName)">
+        <div class="input-group-append">
+          <button class="btn btn-secondary" (click)="removeAuthor()" type="button">
+            <fa-icon [icon]="eraserIcon"></fa-icon>
+          </button>
+        </div>
+      </div>
 
 
-      <table class="table table-bordered c-author" *ngIf="showAuthorDropdown">
-        <tr *ngFor="let author of authors" (click)="selectAuthor(author.id,author.name)">
-          <td>
-            {{author.name}}
-          </td>
-        </tr>
-      </table>
+      <br>
+
+      <div class="c-author-container">
+        <table class="table table-bordered c-author" *ngIf="showAuthorDropdown">
+          <tr *ngFor="let author of authors" (click)="selectAuthor(author.id,author.name)">
+            <td>
+              {{author.name}}
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -36,7 +47,7 @@
       <label for="cars">Categorías</label>
 
       <select class="form-control c-form" name="cars" id="cars" [(ngModel)]="selectedCategoryId"
-        (change)="getBooksByOptionalParams()">
+        (change)="triggerSearch()">
         <option class="form-control" *ngFor="let category of categories" [value]="category.id"> {{category.name}}
         </option>
       </select>
@@ -45,7 +56,7 @@
     <div class="c-field">
       <label for="cars">Subcategorías</label>
       <select class="form-control c-form" name="cars" id="cars" [(ngModel)]="selectedSubcategoryId"
-        (change)="getBooksByOptionalParams()">
+        (change)="triggerSearch()">
         <option *ngFor="let subcategory of subcategories" [value]="subcategory.id"> {{subcategory.name}}
         </option>
       </select>
@@ -54,17 +65,19 @@
 
 </form>
 
-<div class="row">
+<div class="c-warn-searching" *ngIf="searchPerformed && books.length === 0 || noAuthorAndNoTitleError">
 
+  <p *ngIf="searchPerformed && books.length === 0 && !noAuthorAndNoTitleError">
+    No hay resultados, pruebe variando los filtros de búsqueda</p>
+
+  <p *ngIf="noAuthorAndNoTitleError"> Por favor proporciona caracteres en el campo título
+    o seleccione un autor en el campo autor después de proporcionar caracteres </p>
+
+</div>
+
+<div class="row c-result-table" *ngIf="books.length !== 0">
 
   <div class="col col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-
-    <p *ngIf="searchPerformed && books.length === 0 && !noAuthorAndNoTitleError">
-      No hay resultados, pruebe variando los filtros de búsqueda</p>
-
-    <p *ngIf="noAuthorAndNoTitleError"> Por favor proporciona caracteres en el campo título
-      o seleccione un autor en el campo autor después de proporcionar caracteres </p>
-
 
     <table class="table">
       <tr *ngFor="let book of books">

@@ -12,8 +12,9 @@
 .c-group-field{
 
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    margin: 10px auto;
+    align-items: center;
 
     label{
 
@@ -25,18 +26,11 @@
 
         display: flex;
         flex-direction: column;
-        align-items: center;
-        width: 30%;
+        width: 90%;
 
     }
 
 }
-
-
-
-
-
-
 
 .c-book-details > *{
 
@@ -62,16 +56,76 @@ img{
     cursor: pointer;
 }
 
-.c-author{
+.c-author-container{
 
-position:relative;
-top: -25px;
+    overflow: auto;
+    max-height: 97px;
+    height: auto;
+    width: 100%;
+
+    .c-author{
+
+        position:relative;
+        top: -2px;
+        width: 100%;
+        margin: 0;
+        
 
     td:hover{
 
     background-color: #d7dae0;
-    overflow: scroll;
+    
 
     }
+
+    }
+
+
     
+}
+
+.c-warn-searching, .c-result-table {
+
+    margin: 30px auto;
+   
+}
+
+.c-warn-searching{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p{
+
+        margin: 0;
+        width: 80%;
+
+
+    }
+}
+
+/* For tablets and desktop */
+@media (min-width: 768px){
+
+    .c-group-field{
+
+        flex-direction: row;
+        justify-content: space-around;
+
+            .c-field{
+
+                align-items: center;
+                width: 30%;
+        
+            }
+
+    }
+
+    .c-warn-searching p{
+
+        width: 100%;
+    }
+
+
 }
