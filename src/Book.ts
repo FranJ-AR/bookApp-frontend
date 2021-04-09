@@ -4,6 +4,7 @@ import { Subcategory } from "./Subcategory";
 
 export interface Book{
 
+    id:number,
     name:string,
     category:Category,
     subcategory:Subcategory,
