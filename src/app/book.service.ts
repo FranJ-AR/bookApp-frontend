@@ -38,6 +38,8 @@ export class BookService {
 
   findBookById(id:number):Observable<Book>{
 
-    return this.httpClient.get<Book>(this.urlBook);
+    let fullUrlBook = this.urlBook.replace("{id}",id.toString());
+
+    return this.httpClient.get<Book>(fullUrlBook);
   }
 }
