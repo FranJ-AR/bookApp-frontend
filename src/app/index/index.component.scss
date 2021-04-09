@@ -1,11 +1,12 @@
-.c-info-search {
+.c-info-search, .c-warn-searching {
 
-    text-align: center;
-    margin: 15px 0;
+    margin: 15px auto;
+    width: 80%;
 
     p { /* restart default margin */
 
         margin: 0;
+        text-align: center;
     }
 }
 
@@ -27,6 +28,7 @@
         display: flex;
         flex-direction: column;
         width: 90%;
+        margin: 10px auto;
 
     }
 
@@ -37,6 +39,11 @@
     padding: 10px;
     justify-self: center;
 
+}
+
+tr:last-child .c-book-details{
+
+    border-bottom: 1px solid #dee2e6;
 }
 
 img{
@@ -79,30 +86,13 @@ img{
     }
 
     }
-
-
     
 }
 
-.c-warn-searching, .c-result-table {
+.c-warn-searching, .c-result-table, .c-spinner {
 
     margin: 30px auto;
    
-}
-
-.c-warn-searching{
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    p{
-
-        margin: 0;
-        width: 80%;
-
-
-    }
 }
 
 /* For tablets and desktop */
@@ -117,6 +107,7 @@ img{
 
                 align-items: center;
                 width: 30%;
+                margin: auto;
         
             }
 
