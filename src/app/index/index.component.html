@@ -65,7 +65,7 @@
 
 </form>
 
-<div class="c-warn-searching" *ngIf="searchPerformed && books.length === 0 || noAuthorAndNoTitleError">
+<div class="c-warn-searching" *ngIf="books.length === 0 || noAuthorAndNoTitleError">
 
   <p *ngIf="searchPerformed && books.length === 0 && !noAuthorAndNoTitleError">
     No hay resultados, pruebe variando los filtros de búsqueda</p>
@@ -73,11 +73,17 @@
   <p *ngIf="noAuthorAndNoTitleError"> Por favor proporciona caracteres en el campo título
     o seleccione un autor en el campo autor después de proporcionar caracteres </p>
 
+  <p *ngIf="!searchPerformed"> Aquí podrás visualizar los resultados de la búsqueda </p>
+
+</div>
+
+<div *ngIf="showSpinner" class="spinner-border c-spinner d-flex justify-content-center align-items-center">
+  
 </div>
 
 <div class="row c-result-table" *ngIf="books.length !== 0">
 
-  <div class="col col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+  <div class="col col-md-10 offset-md-1 col-lg-6 offset-lg-3">
 
     <table class="table">
       <tr *ngFor="let book of books">

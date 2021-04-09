@@ -19,31 +19,41 @@ import { faEraser } from '@fortawesome/free-solid-svg-icons';
 })
 export class IndexComponent implements OnInit {
 
+  /* icons */
   searchIcon = faSearch;
   eraserIcon = faEraser;
 
+  /* data */
   books: Book[] = [];
   authors: Author[] = [];
   categories: Category[] = []
   subcategories: Subcategory[] = [];
 
+  /* default (sub)categories for display */
   private categorySubcategoryDefaultName = "Cualquiera";
   private categorySubCategoryDefaultId = 0;
 
+  /* form data */
   selectedCategoryId = 0;
   selectedSubcategoryId = 0;
   selectedAuthorId = 0;
   selectedAuthorName = "";
   showAuthorDropdown = false;
-  selectedTitleSubString:string = "";
-  searchPerformed:boolean = false;
+  selectedTitleSubString: string = "";
+  searchPerformed: boolean = false;
 
-  noAuthorAndNoTitleError:boolean = false;
+  /* when neither author or title is provided */
+  noAuthorAndNoTitleError: boolean = false;
+
+  /* whether showing spinner or not */
+  showSpinner: boolean = false;
 
   constructor(private bookService: BookService, private authorService: AuthorService,
     private categoryService: CategoryService, private subcategoryService: SubcategoryService) { }
 
   ngOnInit(): void {
+
+    /* load all categories and subcategories */
 
     this.getAllCategories();
 
@@ -67,18 +77,30 @@ export class IndexComponent implements OnInit {
 
   private getBooksByParams(): void {
 
-    let params: ParamsBookSearch = { "titleSubstring": this.selectedTitleSubString,
+    this.showSpinner = true;
+
+    /* building params, absent params are sent with 0 or empty string values 
+       depending on the param type */
+
+    let params: ParamsBookSearch = {
+      "titleSubstring": this.selectedTitleSubString,
       "authorId": this.selectedAuthorId,
-       "categoryId": this.selectedCategoryId,
-       "subcategoryId": this.selectedSubcategoryId 
+      "categoryId": this.selectedCategoryId,
+      "subcategoryId": this.selectedSubcategoryId
     }
 
     this.bookService.findBooksByParams(params).subscribe((books) => {
 
       this.books = books;
 
-    }, (err) => console.log("Error loading new books", err))
+      this.showSpinner = false;
 
+    }, (err) => {
+      console.log("Error loading books", err);
+
+      this.showSpinner = false;
+
+    })
 
   }
 
@@ -118,10 +140,11 @@ export class IndexComponent implements OnInit {
 
   getAuthorsBySubtring(substringAuthor: string): void {
 
-    if ( substringAuthor === "" ) { this.showAuthorDropdown = false;
+    if (substringAuthor === "") {
+      this.showAuthorDropdown = false;
 
       this.selectedAuthorId = 0;
-      
+
       return;
 
     }
@@ -136,35 +159,35 @@ export class IndexComponent implements OnInit {
 
         this.authors = authors;
 
-        console.log("authors",authors);
+        console.log("authors", authors);
 
       }, (error) => {
 
         console.log("authorerror", error);
-       }
+      }
 
     )
 
 
   }
 
-  private getDefaultCategory():Category{
+  private getDefaultCategory(): Category {
 
-    return {id: this.categorySubCategoryDefaultId, name: this.categorySubcategoryDefaultName};
+    return { id: this.categorySubCategoryDefaultId, name: this.categorySubcategoryDefaultName };
   }
 
-  private getDefaultSubcategory():Category{
+  private getDefaultSubcategory(): Category {
 
-    return {id: this.categorySubCategoryDefaultId, name: this.categorySubcategoryDefaultName};
+    return { id: this.categorySubCategoryDefaultId, name: this.categorySubcategoryDefaultName };
   }
 
-  selectAuthor(authorId:number, authorName:string){
+  selectAuthor(authorId: number, authorName: string) {
 
     this.searchPerformed = true;
 
-    console.log("Author",authorId+" "+authorName);
+    console.log("Author", authorId + " " + authorName);
 
-    this.selectedAuthorId= authorId;
+    this.selectedAuthorId = authorId;
 
     this.selectedAuthorName = authorName;
 
@@ -175,7 +198,7 @@ export class IndexComponent implements OnInit {
     this.noAuthorAndNoTitleError = false;
   }
 
-  triggerSearch():void{
+  triggerSearch(): void {
 
     this.searchPerformed = true;
 
@@ -185,7 +208,7 @@ export class IndexComponent implements OnInit {
 
     console.log(this.selectedAuthorId);
     console.log(this.selectedTitleSubString);
-    if(this.selectedAuthorId === 0 && this.selectedTitleSubString === ""){
+    if (this.selectedAuthorId === 0 && this.selectedTitleSubString === "") {
 
       this.noAuthorAndNoTitleError = true;
 
@@ -199,14 +222,14 @@ export class IndexComponent implements OnInit {
 
   }
 
-  removeAuthor(){
+  removeAuthor():void {
 
     this.selectedAuthorId = 0;
     this.selectedAuthorName = "";
 
     this.triggerSearch();
 
-    if(this.selectedTitleSubString === ""){
+    if (this.selectedTitleSubString === "") {
 
       this.noAuthorAndNoTitleError;
 
