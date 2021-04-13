@@ -5,6 +5,7 @@ import { IndexComponent } from './index/index.component';
 import { AuthComponent } from './auth/auth.component';
 import { PrivateSectionComponent } from './private-section/private-section.component';
 import { PublicSectionComponent } from './public-section/public-section.component';
+import { MyBooksComponent } from './my-books/my-books.component';
 
 const routes: Routes = [
  
@@ -19,6 +20,11 @@ const routes: Routes = [
     path: 'public-section', loadChildren: () =>
       import('./public-section/public-section-routing.module').then(m => m.PublicSectionRoutingModule),
       canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'my-books', component: MyBooksComponent
+
   },
   {
     path: 'private-section', component: PrivateSectionComponent
