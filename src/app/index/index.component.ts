@@ -48,6 +48,10 @@ export class IndexComponent implements OnInit {
   /* whether showing spinner or not */
   showSpinner: boolean = false;
 
+  /* book details id */
+
+  indexArrayBooks: number = -1;
+
   constructor(private bookService: BookService, private authorService: AuthorService,
     private categoryService: CategoryService, private subcategoryService: SubcategoryService) { }
 
@@ -222,7 +226,7 @@ export class IndexComponent implements OnInit {
 
   }
 
-  removeAuthor():void {
+  removeAuthor(): void {
 
     this.selectedAuthorId = 0;
     this.selectedAuthorName = "";
@@ -235,6 +239,34 @@ export class IndexComponent implements OnInit {
 
     }
 
+  }
+
+  private findBookIdByBookIndex(id: number): void {
+
+    this.indexArrayBooks = -1;
+
+    /* checks every value until from index 0 to size-1 until 
+       one matches the condition and stops */
+
+    this.books.some((element, index) => {
+
+      if (element.id === id) {
+
+        this.indexArrayBooks = index;
+
+        return true;
+
+      }
+
+      return false;
+
+    })
+
+  }
+
+  showDetails(id:number):void{
+
+    this.findBookIdByBookIndex(id);
   }
 
 }

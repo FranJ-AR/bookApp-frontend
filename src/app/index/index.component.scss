@@ -1,3 +1,8 @@
+.c-content{
+
+    display: flex;
+}
+
 .c-info-search, .c-warn-searching {
 
     margin: 15px auto;
@@ -93,6 +98,12 @@ img{
 
     margin: 30px auto;
    
+}
+
+.c-result-table{
+
+    max-height: 500px;
+    overflow: auto;
 }
 
 /* For tablets and desktop */
