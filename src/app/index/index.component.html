@@ -95,7 +95,8 @@
               <div>
                 <p>
                   <span class="c-title">{{book.name}}</span><br>
-                  <span>{{book.author.name}}</span>
+                  <span class = "c-author">{{book.author.name}}<br></span>
+                  <span>{{book.category.name}} / {{book.subcategory.name}}</span>
                 </p>
                 <!-- Show message available for loan -->
                 <ng-container *ngIf="book.canBeLoaned; else waitList">

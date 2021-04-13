@@ -63,7 +63,7 @@ export class IndexComponent implements OnInit {
 
     this.getAllSubcategories();
 
-    //this.getAllBooks();
+    this.getAllBooks(); /* on and off to see all books, useful when debugging*/
 
     //this.getBooksByParams();
 
