@@ -7,8 +7,7 @@
       <a class="nav-item nav-link active" href="#">LibraryApp<span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="#">Search Books</a>
       <a class="nav-item nav-link" href="#">Rooms</a>
-      <a class="nav-item nav-link disabled" href="#">My Books</a>
-
+      <a class="nav-item nav-link" [class.disabled] = "user === null" href="#">My Books</a>
 
     </div>
 
