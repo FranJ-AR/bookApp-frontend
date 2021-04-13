@@ -11,29 +11,32 @@ export class BookDetailsComponent implements OnInit, OnChanges {
   @Input() books: Book[] = [];
   @Input() indexArrayBooks = -1;
 
-  currentBook = this.books[this.indexArrayBooks];
   hasUp: boolean = false;
   hasDown: boolean = false;
 
-  nombre = "Hola";
+  localIndexArrayBooks:number = -1;
+
+  nombre = "";
 
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    alert("changes");
+    alert(this.books);
+    alert(this.indexArrayBooks);
+    this.localIndexArrayBooks = this.indexArrayBooks;
     this.updateArrows();
   }
 
   ngOnInit(): void {
 
-    this.currentBook = this.books[this.indexArrayBooks];
     this.updateArrows();
+    this.localIndexArrayBooks = this.indexArrayBooks;
 
   }
 
   goUpList() {
 
-    this.indexArrayBooks--;
+    this.localIndexArrayBooks--;
     this.updateArrows();
 
 
@@ -41,20 +44,20 @@ export class BookDetailsComponent implements OnInit, OnChanges {
 
   goDownList() {
 
-    this.indexArrayBooks++;
+    this.localIndexArrayBooks++;
     this.updateArrows();
 
   }
 
   updateCurrentBook(): void {
 
-    this.currentBook = this.books[this.indexArrayBooks];
+    //this.currentBook = this.books[this.indexArrayBooks];
 
   }
 
   updateArrows(): void {
 
-    if (this.indexArrayBooks > 0) {
+    if (this.localIndexArrayBooks > 0) {
 
       this.hasUp = true;
 
@@ -67,7 +70,7 @@ export class BookDetailsComponent implements OnInit, OnChanges {
     console.log("indexArrayBooks",this.indexArrayBooks);
     console.log("booksLength",this.books.length);
 
-    if (this.indexArrayBooks < this.books.length-1) {
+    if (this.localIndexArrayBooks < this.books.length-1) {
 
       console.log("hasDown",this.hasDown);
       this.hasDown = true;
