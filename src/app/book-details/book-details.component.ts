@@ -1,12 +1,15 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Book } from 'src/Book';
+import { User } from '../User';
+import { UserAuthService } from '../user-auth.service';
 
 @Component({
   selector: 'app-book-details',
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.scss']
 })
-export class BookDetailsComponent implements OnInit, OnChanges {
+export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() books: Book[] = [];
   @Input() indexArrayBooks = -1;
@@ -15,23 +18,31 @@ export class BookDetailsComponent implements OnInit, OnChanges {
   hasDown: boolean = false;
 
   localIndexArrayBooks:number = -1;
+  user:User | null = null;
 
   nombre = "";
 
-  constructor() { }
+  constructor(private userAuthService:UserAuthService) { }
+
+  ngOnInit(): void {
+
+    this.updateArrows();
+    this.localIndexArrayBooks = this.indexArrayBooks;
+    this.userAuthService.userSubject.subscribe( (user) => {
+      this.user = user;
+    })
+
+  }
+
+  ngOnDestroy(): void {
+    this.userAuthService.userSubject.unsubscribe();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     alert(this.books);
     alert(this.indexArrayBooks);
     this.localIndexArrayBooks = this.indexArrayBooks;
     this.updateArrows();
-  }
-
-  ngOnInit(): void {
-
-    this.updateArrows();
-    this.localIndexArrayBooks = this.indexArrayBooks;
-
   }
 
   goUpList() {

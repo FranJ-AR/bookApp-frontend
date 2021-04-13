@@ -26,8 +26,17 @@
         esté disponible
     </p>
 </ng-template>
+<div class = "direction-buttons">
 <button (click)="goUpList()" [disabled]="!hasUp">↑</button>
 <button (click)="goDownList()" [disabled]="!hasDown">↓</button>
+</div>
 
-<button>Pedir prestado</button>
-<button>Añadir a lista de espera</button>
+<p *ngIf = "user === null">Necesitas iniciar sesión para pedir prestados 
+    libros o añadirse a la lista de espera</p>
+
+<ng-container *ngIf="books[localIndexArrayBooks].canBeLoaned; else waitListButton">
+    <button [disabled] = "user === null">Pedir prestado</button>
+</ng-container>
+<ng-template #waitListButton>
+    <button [disabled] = "user === null">Añadir a lista de espera</button>
+</ng-template>
