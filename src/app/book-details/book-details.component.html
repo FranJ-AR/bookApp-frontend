@@ -22,8 +22,8 @@
 <!-- Show message wait list -->
 <ng-template #waitList>
     <p #waitList>Préstamo con lista de espera</p>
-    <p>Pulse el botón de abajo para añadirse a la lista de espera, recibirá una notificación cuando
-        esté disponible
+    <p>Pulse el botón de abajo para añadirse a la lista de espera, recibirá una notificación una vez
+        esté disponible para confirmar el préstamo y poder recogerlo en la biblioteca
     </p>
 </ng-template>
 <div class = "direction-buttons">
@@ -35,8 +35,10 @@
     libros o añadirse a la lista de espera</p>
 
 <ng-container *ngIf="books[localIndexArrayBooks].canBeLoaned; else waitListButton">
-    <button [disabled] = "user === null">Pedir prestado</button>
+    <button [disabled] = "user === null" 
+    (click) = "addLoan(books[localIndexArrayBooks].id)">Pedir prestado</button>
 </ng-container>
 <ng-template #waitListButton>
-    <button [disabled] = "user === null">Añadir a lista de espera</button>
+    <button [disabled] = "user === null"
+    (click) = "addReservation(books[localIndexArrayBooks].id)">Añadir a lista de espera</button>
 </ng-template>

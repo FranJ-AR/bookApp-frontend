@@ -1,6 +1,8 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Book } from 'src/Book';
+import { LoanService } from '../loan.service';
+import { ReservationService } from '../reservation.service';
 import { User } from '../User';
 import { UserAuthService } from '../user-auth.service';
 
@@ -19,30 +21,44 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   localIndexArrayBooks:number = -1;
   user:User | null = null;
+  userSubscription: Subscription | null = null;
 
   nombre = "";
 
-  constructor(private userAuthService:UserAuthService) { }
+  constructor(private userAuthService:UserAuthService, private loanService:LoanService,
+    private reservationService:ReservationService) { }
 
   ngOnInit(): void {
 
     this.updateArrows();
     this.localIndexArrayBooks = this.indexArrayBooks;
-    this.userAuthService.userSubject.subscribe( (user) => {
+    this.userSubscription = this.userAuthService.userSubject.subscribe( (user) => {
       this.user = user;
     })
 
   }
 
   ngOnDestroy(): void {
-    this.userAuthService.userSubject.unsubscribe();
+
+    if(this.userSubscription !== null){
+    this.userSubscription.unsubscribe();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    alert(this.books);
-    alert(this.indexArrayBooks);
     this.localIndexArrayBooks = this.indexArrayBooks;
     this.updateArrows();
+  }
+
+  addLoan(id:number):void{
+
+    this.loanService.addLoanByLoggedUser(id).subscribe ( () => {} );
+
+  }
+
+  addReservation(id:number):void{
+
+    this.reservationService.addReservationByLoggedUser(id).subscribe( () => {});
   }
 
   goUpList() {
