@@ -1,6 +1,6 @@
 <main>
 
-<p class="description">Libros prestados</p>
+<p class="description">Libros prestados (máximo 6 libros)</p>
 
 <ng-container *ngIf="loans.length === 0; else showLoans">
 
@@ -58,6 +58,8 @@
 
 </ng-template>
 
+<p class="description">Listas de espera (máximo 6 libros)</p>
+
 <ng-container *ngIf="reservations.length === 0; else showReservation">
 
     <p>Esta cuenta no tiene ningún libro en lista de espera en este momento</p>
@@ -65,8 +67,6 @@
 </ng-container>
 
 <ng-template #showReservation>
-
-    <p class="description">Listas de espera</p>
 
     <table class="table">
 
