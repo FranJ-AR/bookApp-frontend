@@ -1,0 +1,106 @@
+<main>
+
+<p class="description">Libros prestados</p>
+
+<ng-container *ngIf="loans.length === 0; else showLoans">
+
+    <p>Esta cuenta no tiene ningún libro prestado en este momento</p>
+
+</ng-container>
+
+<ng-template #showLoans>
+
+    <table class="table">
+
+        <thead>
+
+            <tr>
+
+                <th scope="col">Título</th>
+                <th scope="col">Fecha préstamo</th>
+                <th scope="col">Fecha máxima recogida</th>
+                <th scope="col">Fecha máxima devolución</th>
+                <th scope="col">Detalles libro</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let loan of loans">
+
+                <td>{{loan.book.name}}</td>
+
+                <td>{{loan.timestamp | date:'dd/MM/yy HH:mm:ss'}}</td>
+
+                <ng-container *ngIf="loan.maximumPickedUpDate === null; else AlreadyPickedUp">
+
+                    <td>Ya recogido</td>
+
+                </ng-container>
+
+                <ng-template #AlreadyPickedUp>
+
+                    <td>{{loan.maximumPickedUpDate | date:'dd/MM/yy HH:mm:ss'}}</td>
+
+                </ng-template>
+
+                <td>{{loan.maximumReturnDate | date:'dd/MM/yy HH:mm:ss'}}</td>
+
+                <td>Pulsa para ver detalles</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</ng-template>
+
+<ng-container *ngIf="reservations.length === 0; else showReservation">
+
+    <p>Esta cuenta no tiene ningún libro en lista de espera en este momento</p>
+
+</ng-container>
+
+<ng-template #showReservation>
+
+    <p class="description">Listas de espera</p>
+
+    <table class="table">
+
+        <thead>
+
+            <tr>
+
+                <th scope="col">Título</th>
+                <th scope="col">Fecha solicitud</th>
+                <th scope="col">¿Eliminar solicitud?</th>
+                <th scope="col">Detalles libro</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let reservation of reservations">
+
+                <td>{{reservation.book.name}}</td>
+
+                <td>{{reservation.timestamp | date:'dd/MM/yy HH:mm:ss'}}</td>
+
+                <td>Eliminar solicitud</td>
+
+                <td>Pulsa para ver detalles</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</ng-template>
+
+</main>
