@@ -8,48 +8,46 @@ import { UserAuthService } from './user-auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthInterceptorService implements HttpInterceptor{
+export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private userAuthService:UserAuthService) { }
-  
+  constructor(private userAuthService: UserAuthService) { }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    return this.userAuthService.userSubject.pipe(take(1),exhaustMap( (user:User|null) => {
+    return this.userAuthService.userSubject.pipe(take(1), exhaustMap((user: User | null) => {
 
-    console.log("intercepted");
+      console.log("intercepted");
 
-    if(!!user){ // if there is user logged AND the token has not expired yet
+      let newReq: HttpRequest<any> | undefined;
 
-      console.log("intercepted logged");
+      if (!!user) { // if there is user logged AND the token has not expired yet
 
-      let token:string|null = user.token;
+        let token: string | null = user.token;
 
-      if(!!token) {
-        
-        return next.handle(req); 
-      
-      } // if token has expired, end 
+        if (!token) {
 
-      let newReq:HttpRequest<any> = req.clone({
+          return next.handle(req); // if token has expired, end 
 
-        headers: req.headers.set('Authorization','Bearer '+token)
-        .append('Access-Control-Allow-Origin', '*')
+        } 
 
-      });
+        newReq = req.clone({
 
+          headers: req.headers.set('Authorization', 'Bearer ' + token)
+            .append('Access-Control-Allow-Origin', '*')
 
-    }else{ // if not logged
+        });
 
-      console.log("intercepted not logged");
+      } else { // if not logged
 
+        return next.handle(req);
 
-    }
+      }
 
-    //if(this.userAuthService
-    
-    return next.handle(req);
+      //if(this.userAuthService
+
+      return next.handle(newReq);
 
     }));
   }
-  
+
 }
