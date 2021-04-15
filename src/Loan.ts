@@ -4,7 +4,7 @@ export interface Loan{
 
     book:Book,
     timestamp:Date,
-    beenPickedUp:boolean,
     maximumReturnDate:Date
+    maximumPickedUpDate:Date|null
 
 }
