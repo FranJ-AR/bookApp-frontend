@@ -16,6 +16,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AuthComponent } from './auth/auth.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BookDetailsComponent } from './book-details/book-details.component';
+import { MytestsComponent } from './mytests/mytests.component';
+import { MyBooksComponent } from './myBooks/myBooks.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { BookDetailsComponent } from './book-details/book-details.component';
     IndexComponent,
     FooterComponent,
     NavbarComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    MytestsComponent,
+    MyBooksComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,

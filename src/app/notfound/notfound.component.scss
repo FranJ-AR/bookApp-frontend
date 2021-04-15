@@ -1,0 +1,12 @@
+p.description{
+
+    text-align: center;
+    margin: 40px auto;
+
+    & > a{
+        
+        /* reset values from bootstrap classes */
+        display: inline; 
+        padding: initial;
+    }
+}
