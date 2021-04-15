@@ -16,11 +16,14 @@ main{
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-}
 
-main > *{
+        /* Since router outlet content is rendered next to router-outlet */
+        
+        & > router-outlet + * {
 
-    flex: 1 0 auto;
+     flex: 1 0 auto;
+
+    }
 }
 
 app-footer{
