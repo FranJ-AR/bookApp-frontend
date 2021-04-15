@@ -8,15 +8,21 @@ import { Loan } from 'src/Loan';
 })
 export class LoanService {
 
-  private loanUrl:string = "http://localhost:8080/loans";
+  private getLoansUrl:string = "http://localhost:8080/loans";
+
+  private addLoanUrl:string = "http://localhost:8080/add-loan/{id}";
 
   constructor(private httpClient:HttpClient) { }
 
   getLoansByLoggedUser():Observable<Loan[]>{
 
-    return this.httpClient.get<Loan[]>(this.loanUrl);
+    return this.httpClient.get<Loan[]>(this.getLoansUrl);
 
   }
 
+  addLoanByLoggedUser(id:number):Observable<void>{
+
+    return this.httpClient.post<void>(this.addLoanUrl.replace("{id}",id.toString()),null);
+  }
 
 }
