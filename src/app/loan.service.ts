@@ -27,17 +27,19 @@ export class LoanService {
   }
 
   // Gets the ids of the books loaned, empty list is none
-  getBookIdLoansByLoggedUser(): Observable<number[]> {
+  getBookIdLoansByLoggedUser(): Observable<Map<number, null>> {
 
     return this.getLoansByLoggedUser().pipe(map((loans) => {
 
-      let loanBookIds: number[] = [];
+      let loanBookIds: Map<number, null> = new Map<number, null>();
 
-      loans.map((loan) => loanBookIds.push(loan.book.id));
+      loans.map((loan) => loanBookIds.set(loan.book.id, null));
 
       return loanBookIds;
 
-    }))
+    }
+
+    ))
 
   }
 

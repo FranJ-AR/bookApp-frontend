@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Reservation } from './Reservation';
 
 @Injectable({
@@ -23,5 +24,22 @@ export class ReservationService {
   addReservationByLoggedUser(id:number):Observable<void>{
 
     return this.httpClient.post<void>(this.addReservationUrl.replace("{id}",id.toString()),null);
+
+  }
+
+  getBookIdReservationsByLoggedUser(): Observable<Map<number, null>> {
+
+    return this.getReservationsByLoggedUser().pipe(map((reservations) => {
+
+      let reservationBookIds: Map<number, null> = new Map<number, null>();
+
+      reservations.map((reservation) => reservationBookIds.set(reservation.book.id, null));
+
+      return reservationBookIds;
+
+    }
+
+    ))
+
   }
 }
