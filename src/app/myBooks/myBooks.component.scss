@@ -3,11 +3,26 @@
 p.description{
 
     font-weight: 600;
+    text-align: center;
 
 }
 
 div.my-books{
 
-    margin: 20px;
+    margin: 4px;
+
+}
+
+@media (min-width: 768px){
+
+    p.description{
+
+        text-align: initial;
+    }
+
+    div.my-books{
+
+        margin: 20px;    
+    }
 
 }
