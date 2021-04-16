@@ -5,40 +5,52 @@
 <p>{{books[localIndexArrayBooks].subcategory.name}}</p>
 <p>{{books[localIndexArrayBooks].description}}</p>
 <!-- Show message available for loan -->
-<ng-container *ngIf="books[localIndexArrayBooks].canBeLoaned; else waitList">
-    <!-- Show message 1 left -->
-    <p *ngIf="books[localIndexArrayBooks].copiesLeft === 1; else moreThan1Copies">
-        Disponible para préstamo, hay 1 ejemplar disponible
-    </p>
-    <!-- Show message more than 1 left -->
-    <ng-template #moreThan1Copies>
-        <p>
-            Disponible para préstamo, hay
-            {{ books[localIndexArrayBooks].copiesLeft}} ejemplares disponibles
+
+<ng-container *ngIf="user !== null && books[localIndexArrayBooks].userStatus === undefined">
+
+    <ng-container *ngIf="books[localIndexArrayBooks].canBeLoaned; else waitList">
+        <!-- Show message 1 left -->
+        <p class="c-italic c-bold" *ngIf="books[localIndexArrayBooks].copiesLeft === 1; else moreThan1Copies">
+            Disponible para préstamo, hay 1 ejemplar disponible
+        </p>
+        <!-- Show message more than 1 left -->
+        <ng-template #moreThan1Copies>
+            <p class="c-italic c-bold">
+                Disponible para préstamo, hay
+                {{ books[localIndexArrayBooks].copiesLeft}} ejemplares disponibles
+            </p>
+        </ng-template>
+        <p>Pulse en el botón de abajo para pedir prestado este libro a la biblioteca y recogerlo más tarde</p>
+    </ng-container>
+    <!-- Show message wait list -->
+    <ng-template #waitList>
+        <p #waitList>Préstamo con lista de espera</p>
+        <p class="c-book-status-warning">Pulse el botón de abajo para añadirse a la lista de espera, recibirá una notificación una vez
+            esté disponible para confirmar el préstamo y poder recogerlo en la biblioteca
         </p>
     </ng-template>
-    <p>Pulse en el botón de abajo para pedir prestado este libro a la biblioteca y recogerlo más tarde</p>
 </ng-container>
-<!-- Show message wait list -->
-<ng-template #waitList>
-    <p #waitList>Préstamo con lista de espera</p>
-    <p>Pulse el botón de abajo para añadirse a la lista de espera, recibirá una notificación una vez
-        esté disponible para confirmar el préstamo y poder recogerlo en la biblioteca
-    </p>
-</ng-template>
-<div class = "direction-buttons">
-<button (click)="goUpList()" [disabled]="!hasUp">↑</button>
-<button (click)="goDownList()" [disabled]="!hasDown">↓</button>
+<div class="direction-buttons">
+    <button (click)="goUpList()" [disabled]="!hasUp">↑</button>
+    <button (click)="goDownList()" [disabled]="!hasDown">↓</button>
 </div>
 
-<p *ngIf = "user === null">Necesitas iniciar sesión para pedir prestados 
+<p *ngIf="user === null">Necesitas iniciar sesión para pedir prestados
     libros o añadirse a la lista de espera</p>
 
+<ng-container *ngIf="books[localIndexArrayBooks].userStatus === 'LOANED'">
+    <p class="c-bold c-italics">Ya tienes prestado este libro</p>
+</ng-container>
+
+<ng-container *ngIf="books[localIndexArrayBooks].userStatus === 'RESERVATED'">
+    <p class = "c-bold c-italics">Estás en lista de espera para este libro</p>
+</ng-container>
+
 <ng-container *ngIf="books[localIndexArrayBooks].canBeLoaned; else waitListButton">
-    <button [disabled] = "user === null" 
-    (click) = "addLoan(books[localIndexArrayBooks].id)">Pedir prestado</button>
+    <button [disabled]="user === null || books[localIndexArrayBooks].userStatus === 'LOANED'"
+        (click)="addLoan(books[localIndexArrayBooks].id)">Pedir prestado</button>
 </ng-container>
 <ng-template #waitListButton>
-    <button [disabled] = "user === null"
-    (click) = "addReservation(books[localIndexArrayBooks].id)">Añadir a lista de espera</button>
+    <button [disabled]="user === null || books[localIndexArrayBooks].userStatus === 'RESERVATED'"
+        (click)="addReservation(books[localIndexArrayBooks].id)">Añadir a lista de espera</button>
 </ng-template>

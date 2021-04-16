@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { Book } from 'src/Book';
+import { BookUserStatus } from '../BookUserStatus';
 import { LoanService } from '../loan.service';
 import { ReservationService } from '../reservation.service';
 import { User } from '../User';
@@ -52,13 +53,29 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   addLoan(id:number):void{
 
-    this.loanService.addLoanByLoggedUser(id).subscribe ( () => {} );
+    this.loanService.addLoanByLoggedUser(id).subscribe ( () => {
+
+      //Success
+
+      this.books[this.localIndexArrayBooks].userStatus = BookUserStatus.Loaned;
+
+
+
+    } );
 
   }
 
   addReservation(id:number):void{
 
-    this.reservationService.addReservationByLoggedUser(id).subscribe( () => {});
+    this.reservationService.addReservationByLoggedUser(id).subscribe( () => {
+
+      //Success
+
+      this.books[this.localIndexArrayBooks].userStatus = BookUserStatus.Reservated;
+
+
+
+    });
   }
 
   goUpList() {
