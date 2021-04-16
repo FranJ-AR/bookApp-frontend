@@ -17,6 +17,7 @@ import { Reservation } from '../Reservation';
 import { UserAuthService } from '../user-auth.service';
 import { User } from '../User';
 import { Subscription } from 'rxjs';
+import { BookUserStatus } from '../BookUserStatus';
 
 
 @Component({
@@ -58,10 +59,6 @@ export class IndexComponent implements OnInit, OnDestroy {
   /* book details id */
 
   indexArrayBooks: number = -1;
-
-  loanBookIds: number[] | null = null;
-
-  reservationsBookIds: number[] | null = null;
 
   user: User | null = null;
 
@@ -107,6 +104,8 @@ export class IndexComponent implements OnInit, OnDestroy {
 
       this.books = books;
 
+      this.getLoanAndReservatedBooks();
+
     }, (err) => console.log("Error loading books", err))
 
   }
@@ -131,13 +130,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
       this.showSpinner = false;
 
-      if (!!this.user) { // if user not null or undefined, i.e. a user has not logged in
-
-        this.getLoanBookIdsByLoggedUser();
-
-        this.getReservationBookIdsByLoggedUser();
-
-      }
+      this.getLoanAndReservatedBooks();
 
     }, (err) => {
       console.log("Error loading books", err);
@@ -281,6 +274,18 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   }
 
+  private getLoanAndReservatedBooks():void{
+
+    if (!!this.user) { // if user not null or undefined, i.e. a user has not logged in
+
+      this.getLoanBookIdsByLoggedUser();
+
+      this.getReservationBookIdsByLoggedUser();
+
+    }
+
+  }
+
   private findBookIdByBookIndex(id: number): void {
 
     this.indexArrayBooks = -1;
@@ -306,11 +311,9 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   private getLoanBookIdsByLoggedUser():void{
 
-    this.loanService.getBookIdLoansByLoggedUser().subscribe((loanBookIds: number[]) => {
+    this.loanService.getBookIdLoansByLoggedUser().subscribe((loanBookIds: Map<number,null>) => {
 
-      this.loanBookIds = loanBookIds
-
-      console.log("Loans", this.loanBookIds);
+      this.fillBooksPresentList(loanBookIds, BookUserStatus.Loaned);
 
     })
 
@@ -318,15 +321,47 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   private getReservationBookIdsByLoggedUser():void{
 
-    this.reservationService.getReservationsByLoggedUser().subscribe((reservations: Reservation[]) => {
+    this.reservationService.getBookIdReservationsByLoggedUser().subscribe((reservations: Map<number,null>) => {
 
-      //this.reservations = reservations;
-
-      //console.log("Reservations", this.reservations);
+      this.fillBooksPresentList(reservations, BookUserStatus.Reservated);
 
     })
 
   }
+
+  /* Marks the books with a label (loaned or reservated) depending if the book is currently loaned or 
+  reservated by the logged user */
+
+  private fillBooksPresentList(listBookIds:Map<number,null>,bookUserStatus:BookUserStatus):void{
+
+    this.books.map( (book) => {
+
+      if(this.isPresentBookOnList(book.id, listBookIds) ){
+
+        book.userStatus = bookUserStatus;
+
+      }
+
+    })
+
+
+
+  }
+
+  /* Evaluates the presence or not of the provided book on the booklist
+  (typically because the user is currenly loaning or reservating that book )
+  Returns true if the book is on the booklist
+  returns false when not finding the book on the list, 
+  the list is null (the user has not logged to check or an error loading the list) or the list
+  is empty */
+
+  private isPresentBookOnList(bookId:number, bookIds:Map<number,null>):boolean{
+
+    return bookIds !== null && bookIds.has(bookId);
+
+  }
+
+
 
   showDetails(id: number): void {
 

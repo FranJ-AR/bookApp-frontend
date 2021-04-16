@@ -98,6 +98,12 @@
                   <span class = "c-author">{{book.author.name}}<br></span>
                   <span class = "c-sub-categories">{{book.category.name}} - {{book.subcategory.name}}</span>
                 </p>
+                <ng-container *ngIf="book.userStatus === 'LOANED'">
+                  <p>Tienes prestado este libro</p>
+                </ng-container>
+                <ng-container *ngIf="book.userStatus === 'RESERVATED'">
+                  <p>Estás en lista de espera</p>
+                </ng-container>
                 <!-- Show message available for loan -->
                 <ng-container *ngIf="book.canBeLoaned; else waitList">
                   <!-- Show message 1 left -->
