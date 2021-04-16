@@ -1,4 +1,5 @@
 import { Author } from "./app/Author";
+import { BookUserStatus } from "./app/BookUserStatus";
 import { Category } from "./Category";
 import { Subcategory } from "./Subcategory";
 
@@ -16,5 +17,7 @@ export interface Book{
     numberLoaned:number,
     canBeLoaned:boolean;
     copiesLeft:number;
+    userStatus?:BookUserStatus; // it will be filled 
+    // by the frontend when needed, by default it is undefined
 
 }
