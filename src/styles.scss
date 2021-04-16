@@ -9,6 +9,16 @@ body {
     display: flex;
     flex-direction: column;
     font-family: "Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif";
+
+    & .c-italic{
+
+        font-style: italic;
+    }
+
+    & .c-bold{
+
+        font-weight: bold;
+    }
   }
 
 main{
