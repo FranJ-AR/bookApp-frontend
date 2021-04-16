@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Book } from 'src/Book';
 import { Category } from 'src/Category';
 import { ParamsBookSearch } from 'src/ParamsBookSearch';
@@ -10,6 +10,13 @@ import { CategoryService } from '../category.service';
 import { SubcategoryService } from '../subcategory.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faEraser } from '@fortawesome/free-solid-svg-icons';
+import { LoanService } from '../loan.service';
+import { ReservationService } from '../reservation.service';
+import { Loan } from 'src/Loan';
+import { Reservation } from '../Reservation';
+import { UserAuthService } from '../user-auth.service';
+import { User } from '../User';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -17,7 +24,7 @@ import { faEraser } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent implements OnInit, OnDestroy {
 
   /* icons */
   searchIcon = faSearch;
@@ -52,8 +59,18 @@ export class IndexComponent implements OnInit {
 
   indexArrayBooks: number = -1;
 
+  loanBookIds: number[] | null = null;
+
+  reservationsBookIds: number[] | null = null;
+
+  user: User | null = null;
+
+  userSubscription: Subscription | null = null;
+
   constructor(private bookService: BookService, private authorService: AuthorService,
-    private categoryService: CategoryService, private subcategoryService: SubcategoryService) { }
+    private categoryService: CategoryService, private subcategoryService: SubcategoryService,
+    private loanService: LoanService, private reservationService: ReservationService,
+    private userAuthService: UserAuthService) { }
 
   ngOnInit(): void {
 
@@ -67,6 +84,21 @@ export class IndexComponent implements OnInit {
 
     //this.getBooksByParams();
 
+    this.userSubscription = this.userAuthService.userSubject.subscribe((user) => {
+
+      this.user = user;
+
+    })
+
+  }
+
+  ngOnDestroy(): void {
+
+    if (this.userSubscription !== null) {
+
+      this.userSubscription.unsubscribe();
+
+    }
   }
 
   getAllBooks() {
@@ -98,6 +130,14 @@ export class IndexComponent implements OnInit {
       this.books = books;
 
       this.showSpinner = false;
+
+      if (!!this.user) { // if user not null or undefined, i.e. a user has not logged in
+
+        this.getLoanBookIdsByLoggedUser();
+
+        this.getReservationBookIdsByLoggedUser();
+
+      }
 
     }, (err) => {
       console.log("Error loading books", err);
@@ -264,7 +304,31 @@ export class IndexComponent implements OnInit {
 
   }
 
-  showDetails(id:number):void{
+  private getLoanBookIdsByLoggedUser():void{
+
+    this.loanService.getBookIdLoansByLoggedUser().subscribe((loanBookIds: number[]) => {
+
+      this.loanBookIds = loanBookIds
+
+      console.log("Loans", this.loanBookIds);
+
+    })
+
+  }
+
+  private getReservationBookIdsByLoggedUser():void{
+
+    this.reservationService.getReservationsByLoggedUser().subscribe((reservations: Reservation[]) => {
+
+      //this.reservations = reservations;
+
+      //console.log("Reservations", this.reservations);
+
+    })
+
+  }
+
+  showDetails(id: number): void {
 
     this.findBookIdByBookIndex(id);
   }
