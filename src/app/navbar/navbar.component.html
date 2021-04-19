@@ -1,14 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">LibroApp</a>
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
-      <a class="nav-item nav-link active" href="#">LibraryApp<span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">Search Books</a>
-      <a class="nav-item nav-link" href="#">Rooms</a>
+      <a class="nav-item nav-link active" href="#" routerLink="/index">Buscar Libros<span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="#">La Biblioteca</a>
+      <a class="nav-item nav-link" href="#">Preguntas frecuentes</a>
       <a class="nav-item nav-link" [class.disabled] = "user === null"  
-      routerLink="/my-books">My Books</a>
+      routerLink="/my-books">Mis libros</a>
 
     </div>
 
@@ -18,8 +18,8 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
 
-      <a class="nav-item nav-link" href="#" routerLink="/register" routerLinkActive="active">Register</a>
-      <a class="nav-item nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+      <a class="nav-item nav-link" href="#" routerLink="/register" routerLinkActive="active">Registrarse</a>
+      <a class="nav-item nav-link" routerLink="/login" routerLinkActive="active">Iniciar sesión</a>
 
     </div>
 
@@ -31,8 +31,8 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
 
-        <a class="nav-item nav-link" href="#">Hello {{username}}</a>
-        <a class="nav-item nav-link" href="#" (click)="closeSession()">Logout</a>
+        <a class = "nav-item nav-link">Hola {{username}}</a>
+        <a class="nav-item nav-link" href="#" (click)="closeSession()">Cerrar sesión</a>
         
   
       </div>
