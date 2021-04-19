@@ -60,6 +60,43 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
   }
 
+  removeReservation(bookId: number){
+
+    this.reservationService.removeReservationByLoggedUser(bookId).subscribe( () => 
+    
+    {
+
+      // Success
+
+      let beenFound = false;
+
+      let index = 0;
+
+      this.reservations.some( (reservation, indexFound)  => {
+
+        // find the element in the array
+
+        if( reservation.book.id === bookId) {
+
+          beenFound = true;
+
+          index = indexFound;
+
+          return true;
+
+        }
+
+        return false;
+      })
+
+      this.reservations.splice(index, 1);
+
+    })
+
+    console.log("book removed");
+
+  }
+
   private getReservations():void{
 
     this.reservationService.getReservationsByLoggedUser().subscribe( (reservations) => {
