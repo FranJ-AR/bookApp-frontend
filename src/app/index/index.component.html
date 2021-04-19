@@ -81,7 +81,7 @@
 
 </div>
 <div class="c-content">
-  <div class="c-book-search">
+  <div class="c-book-search" [ngClass] = "{'c-book-search-details-active':showDetails}">
 
     <div class="row c-result-table" *ngIf="books.length !== 0">
 
@@ -89,7 +89,7 @@
 
         <table class="table">
           <tr *ngFor="let book of books">
-            <td class="d-flex flex-row c-book-details">
+            <td class="d-flex flex-row c-book-info">
               <img src='/assets/book_pictures/{{book.imageUrl}}' alt="Portada no disponible">
 
               <div>
@@ -123,7 +123,7 @@
                   <p #waitList>Préstamo con lista de espera</p>
                 </ng-template>
 
-                <p class="c-book-link" (click)="showDetails(book.id)">Pulse aquí para más detalles y opciones de
+                <p class="c-book-link" (click)="showDetailsBook(book.id)">Pulse aquí para más detalles y opciones de
                   préstamo</p>
 
               </div>
@@ -139,27 +139,9 @@
 
   </div>
 
-  <div class="c-book-details">
+  <div class="c-book-info c-book-details" [ngClass]="{'c-book-details-active': showDetails}">
     <app-book-details *ngIf="books.length !== 0 && indexArrayBooks !== -1" [books]="books"
-      [indexArrayBooks]="indexArrayBooks"></app-book-details>
+      [indexArrayBooks]="indexArrayBooks" (showDetailsCloseEvent)="showDetailsOnClose($event)"></app-book-details>
   </div>
 
 </div>
-
-
-
-
-<!-- <table class = "table">
-    <tr *ngFor="let book of books">
-      <td>
-              <p>Título: {{book.name}}</p>
-              <p>Género: {{book.category.name}}</p>
-              <p>Subgénero: {{book.subcategory.name}}</p>
-              <p>Autor: {{book.author.name}}</p>
-              <p>Descripción: {{book.description}}</p>
-              <p *ngIf = "book.canBeLoaned">Disponible para préstamo, 
-                  hay {{ book.numberCopies - book.numberLoaned}} ejemplar/es disponibles</p>
-              <p *ngIf = "! book.canBeLoaned">Préstamo con lista de espera</p>
-    </td>
-      </tr>
-  </table> -->

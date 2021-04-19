@@ -39,14 +39,14 @@
 
 }
 
-.c-book-details > *{
+.c-book-info > *{
 
     padding: 10px;
     justify-self: center;
 
 }
 
-tr:last-child .c-book-details{
+tr:last-child .c-book-info{
 
     border-bottom: 1px solid #dee2e6;
 }
@@ -119,7 +119,31 @@ img{
     overflow: auto;
 }
 
-/* For tablets and desktop */
+.c-book-search{
+
+    width: 100%;
+}
+
+.c-book-details{
+
+   display: none;
+
+}
+
+.c-book-search-details-active{
+
+    width: 0;
+    display: none;
+}
+
+.c-book-details-active{
+
+   display: initial;
+   width: 100%;
+
+}
+
+/* For tablet and desktop */
 @media (min-width: 768px){
 
     .c-group-field{
@@ -140,6 +164,19 @@ img{
     .c-warn-searching p{
 
         width: 100%;
+    }
+
+    .c-book-search-details-active{
+
+        display: initial;
+        width: 50%;
+    }
+    
+    .c-book-details-active{
+    
+       display: initial;
+       width: 50%;
+    
     }
 
 

@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Book } from 'src/Book';
 import { BookUserStatus } from '../BookUserStatus';
 import { LoanService } from '../loan.service';
@@ -16,6 +16,7 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() books: Book[] = [];
   @Input() indexArrayBooks = -1;
+  @Output() showDetailsCloseEvent:EventEmitter<null> = new EventEmitter<null>();
 
   hasUp: boolean = false;
   hasDown: boolean = false;
@@ -126,6 +127,14 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
     }
 
+  }
+
+  closeDetails():void{
+
+    this.showDetailsCloseEvent.emit(null);
+
+    //this.showDetails = false;
+    console.log("close");
   }
 
 }

@@ -12,8 +12,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faEraser } from '@fortawesome/free-solid-svg-icons';
 import { LoanService } from '../loan.service';
 import { ReservationService } from '../reservation.service';
-import { Loan } from 'src/Loan';
-import { Reservation } from '../Reservation';
 import { UserAuthService } from '../user-auth.service';
 import { User } from '../User';
 import { Subscription } from 'rxjs';
@@ -63,6 +61,8 @@ export class IndexComponent implements OnInit, OnDestroy {
   user: User | null = null;
 
   userSubscription: Subscription | null = null;
+
+  showDetails:boolean = false;
 
   constructor(private bookService: BookService, private authorService: AuthorService,
     private categoryService: CategoryService, private subcategoryService: SubcategoryService,
@@ -363,9 +363,17 @@ export class IndexComponent implements OnInit, OnDestroy {
 
 
 
-  showDetails(id: number): void {
+  showDetailsBook(id: number): void {
 
     this.findBookIdByBookIndex(id);
+
+    this.showDetails = true;
+  }
+
+  showDetailsOnClose(newValue:any):void{
+
+    this.showDetails = false;
+
   }
 
 }
