@@ -11,7 +11,8 @@ interface StoredUserDetails{
   username: string;
   _token: string;
   tokenExpirationDate: string;
-
+  maximumBooksLoan:number;
+  maximumBooksReservation:number;
 
 }
 
@@ -47,10 +48,14 @@ export class LoginService {
 
           let expirationDate:Date = new Date(new Date().getTime() + loginResponse.tokenExpirationTime);
 
+          let maximumBooksLoan:number = loginResponse.maximumBooksLoan;
+
+          let maximumBooksReservation: number = loginResponse.maximumBooksReservation;
+
           this.startTimeOut(expirationDate);
 
-          let user: User = new User(username, password, loginResponse.token,
-            expirationDate);
+          let user: User = new User(username, loginResponse.token,
+            expirationDate, maximumBooksLoan, maximumBooksReservation);
           this.storeUserDetails(user);
           this.userAuthService.userSubject.next(user);
         }
@@ -133,10 +138,14 @@ export class LoginService {
 
     let expirationDate:Date = new Date(storedUserDetails.tokenExpirationDate);
 
+    let maximumBooksLoan:number = storedUserDetails.maximumBooksLoan;
+
+    let maximumBooksReservation:number = storedUserDetails.maximumBooksReservation;
+
     console.log("autologinUserDetails",storedUserDetails.tokenExpirationDate);
 
-    let user:User = new User(storedUserDetails.username, "null", 
-    storedUserDetails._token, expirationDate);
+    let user:User = new User(storedUserDetails.username, 
+    storedUserDetails._token, expirationDate, maximumBooksLoan, maximumBooksReservation);
 
     this.startTimeOut(expirationDate)
 

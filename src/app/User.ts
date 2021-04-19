@@ -2,8 +2,9 @@ export class User{
 
     private tokenExpired:boolean = false;
 
-    constructor(public username:string, public password:string, 
-        private _token:string, public tokenExpirationDate:Date){
+    constructor(public username:string,  
+        private _token:string, public tokenExpirationDate:Date, 
+        public maximumBooksLoan:number, public maximumBooksReservation:number){
 
     }
 
