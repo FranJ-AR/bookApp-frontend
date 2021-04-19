@@ -13,6 +13,8 @@ export class ReservationService {
 
   private addReservationUrl:string = "http://localhost:8080/add-reservation/{id}";
 
+  private removeReservationUrl:string = "http://localhost:8080/remove-reservation/{id}";
+
   constructor(private httpClient:HttpClient) { }
 
   getReservationsByLoggedUser():Observable<Reservation[]>{
@@ -24,6 +26,13 @@ export class ReservationService {
   addReservationByLoggedUser(id:number):Observable<void>{
 
     return this.httpClient.post<void>(this.addReservationUrl.replace("{id}",id.toString()),null);
+
+  }
+
+  removeReservationByLoggedUser(id:number):Observable<void>{
+
+
+    return this.httpClient.delete<void>(this.removeReservationUrl.replace("{id}",id.toString()));
 
   }
 
