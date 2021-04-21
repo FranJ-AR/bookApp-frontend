@@ -81,7 +81,7 @@
 
 </div>
 <div class="c-content">
-  <div class="c-book-search" [ngClass] = "{'c-book-search-details-active':showDetails}">
+  <div class="c-book-search" [ngClass]="{'c-book-search-details-active':showDetails}">
 
     <div class="row c-result-table" *ngIf="books.length !== 0">
 
@@ -95,40 +95,40 @@
               <div>
                 <p>
                   <span class="c-title">{{book.name}}</span><br>
-                  <span class = "c-author">{{book.author.name}}<br></span>
-                  <span class = "c-sub-categories">{{book.category.name}} - {{book.subcategory.name}}</span>
+                  <span class="c-author">{{book.author.name}}<br></span>
+                  <span class="c-sub-categories">{{book.category.name}} - {{book.subcategory.name}}</span>
                 </p>
-                <ng-container *ngIf="book.userStatus === 'LOANED'">
-                  <p>Tienes prestado este libro</p>
-                </ng-container>
-                <ng-container *ngIf="book.userStatus === 'RESERVATED'">
-                  <p>Estás en lista de espera</p>
-                </ng-container>
                 <!-- Show message available for loan -->
                 <ng-container *ngIf="book.canBeLoaned; else waitList">
-                  <!-- Show message 1 left -->
-                  <p *ngIf="book.copiesLeft === 1; else moreThan1Copies">
-                    Disponible para préstamo, hay 1 ejemplar disponible
-                  </p>
-                  <!-- Show message more than 1 left -->
-                  <ng-template #moreThan1Copies>
-                    <p>
-                      Disponible para préstamo, hay
-                      {{ book.copiesLeft}} ejemplares disponibles
+                  <ng-container *ngIf="book.userStatus === 'LOANED' else showNumberCopies">
+                    <p>Tienes prestado este libro</p>
+                  </ng-container>
+                  <ng-template #showNumberCopies>
+                    <!-- Show message 1 left -->
+                    <p *ngIf="book.copiesLeft === 1; else moreThan1Copies">
+                      Disponible para préstamo, hay 1 ejemplar disponible
                     </p>
+                    <!-- Show message more than 1 left -->
+                    <ng-template #moreThan1Copies>
+                      <p>
+                        Disponible para préstamo, hay
+                        {{ book.copiesLeft}} ejemplares disponibles
+                      </p>
+                    </ng-template>
                   </ng-template>
                 </ng-container>
                 <!-- Show message wait list -->
                 <ng-template #waitList>
-                  <p #waitList>Préstamo con lista de espera</p>
+                  <ng-container *ngIf="book.userStatus === 'RESERVATED' else showWaitListMessage">
+                    <p>Estás en lista de espera</p>
+                  </ng-container>
+                  <ng-template #showWaitListMessage>
+                    <p>Préstamo con lista de espera</p>
+                  </ng-template>
                 </ng-template>
-
                 <p class="c-book-link" (click)="showDetailsBook(book.id)">Pulse aquí para más detalles y opciones de
                   préstamo</p>
-
               </div>
-
-
             </td>
           </tr>
         </table>
