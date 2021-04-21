@@ -51,4 +51,12 @@ export class ReservationService {
     ))
 
   }
+
+  getNumberReservationsByLoggedUser(): Observable<number>{
+
+    return this.getReservationsByLoggedUser().pipe( map((loans:Reservation[]) => {
+
+      return loans.length; }))
+
+  }
 }

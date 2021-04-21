@@ -43,4 +43,12 @@ export class LoanService {
 
   }
 
+  getNumberLoansByLoggedUser(): Observable<number>{
+
+    return this.getLoansByLoggedUser().pipe( map((loans:Loan[]) => {
+
+      return loans.length; }))
+
+  }
+
 }

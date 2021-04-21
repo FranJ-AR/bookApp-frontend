@@ -4,7 +4,7 @@ export class User{
 
     constructor(public username:string,  
         private _token:string, public tokenExpirationDate:Date, 
-        public maximumBooksLoan:number, public maximumBooksReservation:number){
+        private _maximumBooksLoan:number, private _maximumBooksReservation:number){
 
     }
 
@@ -41,6 +41,17 @@ export class User{
         return this._token;
 
         
+    }
+
+    get maximumBooksLoan():number{
+
+        return this._maximumBooksLoan;
+
+    }
+
+    get maximumBooksReservation():number{
+
+        return this._maximumBooksReservation;
     }
 
 

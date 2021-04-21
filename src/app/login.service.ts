@@ -11,8 +11,8 @@ interface StoredUserDetails{
   username: string;
   _token: string;
   tokenExpirationDate: string;
-  maximumBooksLoan:number;
-  maximumBooksReservation:number;
+  _maximumBooksLoan:string;
+  _maximumBooksReservation:string;
 
 }
 
@@ -132,15 +132,21 @@ export class LoginService {
 
     //let userDetails:UserDetails = storedUser;
 
-    if(!! storedUser ) { // if stored user
+    if(!! storedUser ) { // if stored user not null not undefined
 
     let storedUserDetails:StoredUserDetails = JSON.parse(storedUser);
 
     let expirationDate:Date = new Date(storedUserDetails.tokenExpirationDate);
 
-    let maximumBooksLoan:number = storedUserDetails.maximumBooksLoan;
+    console.log("typeof expirationDate", typeof(storedUserDetails.tokenExpirationDate));
 
-    let maximumBooksReservation:number = storedUserDetails.maximumBooksReservation;
+    console.log("typeof maximumBooksLoan", typeof(storedUserDetails._maximumBooksLoan));
+
+    console.log("maximumBooksLoan", Number(storedUserDetails._maximumBooksLoan));
+
+    let maximumBooksLoan:number = Number(storedUserDetails._maximumBooksLoan);
+
+    let maximumBooksReservation:number = Number(storedUserDetails._maximumBooksReservation);
 
     console.log("autologinUserDetails",storedUserDetails.tokenExpirationDate);
 
