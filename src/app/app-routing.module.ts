@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth.guard';
+import { AuthAlreadyLogged } from './authAlreadyLogged.guard';
 import { IndexComponent } from './index/index.component';
 import { AuthComponent } from './auth/auth.component';
-import { PrivateSectionComponent } from './private-section/private-section.component';
-import { PublicSectionComponent } from './public-section/public-section.component';
 import { MyBooksComponent } from './myBooks/myBooks.component';
-import { MytestsComponent } from './mytests/mytests.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { AuthNotLogged } from './authNotLogged.guard';
 
 const routes: Routes = [
 
@@ -15,10 +13,10 @@ const routes: Routes = [
  
   { path: 'index', component: IndexComponent },
   {
-    path: 'login', component: AuthComponent, canActivate: [AuthGuard]
+    path: 'login', component: AuthComponent, canActivate: [AuthAlreadyLogged]
   },
   {
-    path: 'register', component: AuthComponent, canActivate: [AuthGuard]
+    path: 'register', component: AuthComponent, canActivate: [AuthAlreadyLogged]
   },
   /*{
     path: 'public-section', loadChildren: () =>
@@ -27,7 +25,7 @@ const routes: Routes = [
   },*/
 
   {
-    path: 'my-books', component: MyBooksComponent
+    path: 'my-books', component: MyBooksComponent, canActivate: [AuthNotLogged]
 
   },
 

@@ -8,7 +8,11 @@ import { UserAuthService } from './user-auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+
+/* Redirected routes such as login and register, so the user cannot access
+   when the user is already logged */
+
+export class AuthAlreadyLogged implements CanActivate {
 
   constructor(private userAuthService: UserAuthService, private router: Router) {
 
@@ -29,7 +33,7 @@ export class AuthGuard implements CanActivate {
 
         //this.router.navigate(["/"]);
 
-        return this.router.createUrlTree(['/private-section']);
+        return this.router.createUrlTree(['/index']);
 
       }
 

@@ -7,7 +7,7 @@ import { PrivateSectionComponent } from './private-section/private-section.compo
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { AuthGuard } from './auth.guard';
+import { AuthAlreadyLogged } from './authAlreadyLogged.guard';
 import { IndexComponent } from './index/index.component';
 import { PublicSectionRoutingModule } from './public-section/public-section-routing.module';
 import { AuthInterceptorService } from './auth-interceptor.service';
@@ -43,7 +43,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
     FontAwesomeModule,
     
   ],
-  providers: [AuthGuard, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi:true}],
+  providers: [AuthAlreadyLogged, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
