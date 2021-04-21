@@ -39,6 +39,18 @@
 <p *ngIf="user === null">Necesitas iniciar sesión para pedir prestados
     libros o añadirse a la lista de espera</p>
 
+    <ng-container *ngIf="books[localIndexArrayBooks].canBeLoaned && loanLimitReached === true && books[localIndexArrayBooks].userStatus !== 'LOANED'">
+        <p class="c-bold c-italics">No puedes pedir prestado este libro, has alcanzado el número
+            máximo de préstamos, reintenta cuando tengas menos libros prestados
+        </p>
+    </ng-container>
+
+    <ng-container *ngIf="!books[localIndexArrayBooks].canBeLoaned && reservationLimitReached === true && books[localIndexArrayBooks].userStatus !== 'RESERVATED'">
+        <p class="c-bold c-italics">No puedes entrar en lista de espera para este libro, 
+            has alcanzado el número máximo de reservas, cancela al menos una reserva e intenta de nuevo
+        </p>
+    </ng-container>
+
 <ng-container *ngIf="books[localIndexArrayBooks].userStatus === 'LOANED'">
     <p class="c-bold c-italics">Ya tienes prestado este libro</p>
 </ng-container>
@@ -47,11 +59,18 @@
     <p class = "c-bold c-italics">Estás en lista de espera para este libro</p>
 </ng-container>
 
+
 <ng-container *ngIf="books[localIndexArrayBooks].canBeLoaned; else waitListButton">
+    <ng-container *ngIf="books[localIndexArrayBooks].userStatus !== 'LOANED' &&
+    loanLimitReached === false">
     <button [disabled]="user === null || books[localIndexArrayBooks].userStatus === 'LOANED'"
         (click)="addLoan(books[localIndexArrayBooks].id)">Pedir prestado</button>
+    </ng-container>
 </ng-container>
 <ng-template #waitListButton>
+    <ng-container *ngIf="books[localIndexArrayBooks].userStatus !== 'RESERVATED' &&
+    reservationLimitReached === false">
     <button [disabled]="user === null || books[localIndexArrayBooks].userStatus === 'RESERVATED'"
         (click)="addReservation(books[localIndexArrayBooks].id)">Añadir a lista de espera</button>
+    </ng-container>
 </ng-template>

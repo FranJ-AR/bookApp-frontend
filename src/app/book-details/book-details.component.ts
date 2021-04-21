@@ -24,6 +24,8 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
   localIndexArrayBooks:number = -1;
   user:User | null = null;
   userSubscription: Subscription | null = null;
+  loanLimitReached = false;
+  reservationLimitReached = false;
 
   nombre = "";
 
@@ -36,6 +38,41 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
     this.localIndexArrayBooks = this.indexArrayBooks;
     this.userSubscription = this.userAuthService.userSubject.subscribe( (user) => {
       this.user = user;
+
+      if(!! user){ // if there is a logged user
+
+        this.loanService.getNumberLoansByLoggedUser().subscribe( (currentLoans:number) => {
+
+          console.log("maximumLoans", user.maximumBooksLoan);
+
+          console.log("currentLoans", currentLoans);
+
+          if(user.maximumBooksLoan === currentLoans){
+
+          this.loanLimitReached = true;
+
+          }
+
+        })
+
+        this.reservationService.getNumberReservationsByLoggedUser().subscribe( (currentReservations:number) => {
+
+          console.log("maximumReservations", user.maximumBooksReservation);
+
+          console.log("currentReservations", currentReservations);
+
+          if(user.maximumBooksReservation === currentReservations){
+
+          this.reservationLimitReached = true;
+
+          }
+
+        })
+
+        
+
+      }
+
     })
 
   }
