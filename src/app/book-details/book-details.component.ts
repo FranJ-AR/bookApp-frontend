@@ -42,8 +42,11 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
     this.localIndexArrayBooks = this.indexArrayBooks;
     this.userSubscription = this.userAuthService.userSubject.subscribe( (user) => {
       this.user = user;
+      this.updateLimitLoanOrReservation();
 
     })
+
+    
 
   }
 
@@ -58,7 +61,7 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
     this.localIndexArrayBooks = this.indexArrayBooks;
     this.updateArrows();
 
-    this.updateLoanAndReservations();
+    this.updateLimitLoanOrReservation();
   }
 
   addLoan(id:number):void{
@@ -146,7 +149,7 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
     console.log("close");
   }
 
-  private updateLoanAndReservations():void{
+  private updateLimitLoanOrReservation():void{
 
     if(!! this.user){ // if there is a logged user
 
