@@ -43,40 +43,6 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
     this.userSubscription = this.userAuthService.userSubject.subscribe( (user) => {
       this.user = user;
 
-      if(!! user){ // if there is a logged user
-
-        this.loanService.getNumberLoansByLoggedUser().subscribe( (currentLoans:number) => {
-
-          console.log("maximumLoans", user.maximumBooksLoan);
-
-          console.log("currentLoans", currentLoans);
-
-          if(user.maximumBooksLoan === currentLoans){
-
-          this.loanLimitReached = true;
-
-          }
-
-        })
-
-        this.reservationService.getNumberReservationsByLoggedUser().subscribe( (currentReservations:number) => {
-
-          console.log("maximumReservations", user.maximumBooksReservation);
-
-          console.log("currentReservations", currentReservations);
-
-          if(user.maximumBooksReservation === currentReservations){
-
-          this.reservationLimitReached = true;
-
-          }
-
-        })
-
-        
-
-      }
-
     })
 
   }
@@ -91,6 +57,8 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
     this.localIndexArrayBooks = this.indexArrayBooks;
     this.updateArrows();
+
+    this.updateLoanAndReservations();
   }
 
   addLoan(id:number):void{
@@ -176,6 +144,51 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
     //this.showDetails = false;
     console.log("close");
+  }
+
+  private updateLoanAndReservations():void{
+
+    if(!! this.user){ // if there is a logged user
+
+      this.loanService.getNumberLoansByLoggedUser().subscribe( (currentLoans:number) => {
+
+        if(!! this.user){
+
+        console.log("maximumLoans", this.user.maximumBooksLoan);
+
+        console.log("currentLoans", currentLoans);
+
+        if(this.user.maximumBooksLoan === currentLoans){
+
+        this.loanLimitReached = true;
+
+        }
+
+      }
+
+      })
+
+      this.reservationService.getNumberReservationsByLoggedUser().subscribe( (currentReservations:number) => {
+
+        if(!! this.user){
+
+        console.log("maximumReservations", this.user.maximumBooksReservation);
+
+        console.log("currentReservations", currentReservations);
+
+        if(this.user.maximumBooksReservation === currentReservations){
+
+        this.reservationLimitReached = true;
+
+        }
+
+      }
+
+      })
+
+    
+
+    }
   }
 
 }
