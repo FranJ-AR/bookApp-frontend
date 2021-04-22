@@ -19,6 +19,10 @@ import { BookDetailsComponent } from './book-details/book-details.component';
 import { MytestsComponent } from './mytests/mytests.component';
 import { MyBooksComponent } from './myBooks/myBooks.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { FaqComponent } from './faq/faq.component';
+import { LibraryInfoComponent } from './library-info/library-info.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { OnlineChatComponent } from './online-chat/online-chat.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { NotfoundComponent } from './notfound/notfound.component';
     BookDetailsComponent,
     MytestsComponent,
     MyBooksComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    FaqComponent,
+    LibraryInfoComponent,
+    AboutUsComponent,
+    OnlineChatComponent
   ],
   imports: [
     BrowserModule,

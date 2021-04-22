@@ -6,6 +6,10 @@ import { AuthComponent } from './auth/auth.component';
 import { MyBooksComponent } from './myBooks/myBooks.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { AuthNotLogged } from './authNotLogged.guard';
+import { FaqComponent } from './faq/faq.component';
+import { LibraryInfoComponent } from './library-info/library-info.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { OnlineChatComponent } from './online-chat/online-chat.component';
 
 const routes: Routes = [
 
@@ -26,6 +30,26 @@ const routes: Routes = [
 
   {
     path: 'my-books', component: MyBooksComponent, canActivate: [AuthNotLogged]
+
+  },
+
+  {
+    path: 'faq', component: FaqComponent
+
+  },
+
+  {
+    path: 'library-info', component: LibraryInfoComponent
+
+  },
+
+  {
+    path: 'about-us', component: AboutUsComponent
+
+  },
+
+  {
+    path: 'online-chat', component: OnlineChatComponent
 
   },
 
