@@ -99,7 +99,7 @@
                   <span class="c-sub-categories">{{book.category.name}} - {{book.subcategory.name}}</span>
                 </p>
                 <!-- Show message available for loan -->
-                <ng-container *ngIf="book.canBeLoaned; else waitList">
+                <ng-container *ngIf="book.canBeLoaned || book.userStatus === 'LOANED'; else waitList">
                   <ng-container *ngIf="book.userStatus === 'LOANED' else showNumberCopies">
                     <p>Tienes prestado este libro</p>
                   </ng-container>

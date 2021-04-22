@@ -78,9 +78,9 @@
             </ng-container>
         </ng-container>
         <ng-template #waitListButton>
-            <ng-container *ngIf="user !== null && books[localIndexArrayBooks].userStatus !== 'RESERVATED' &&
-    reservationLimitReached === false">
-                <p class="c-book-status-warning">Pulse el botón de abajo para añadirse a la lista de espera,
+            <ng-container *ngIf="user !== null && books[localIndexArrayBooks].userStatus !== 'LOANED' &&
+            books[localIndexArrayBooks].userStatus !== 'RESERVATED' && reservationLimitReached === false">
+                <p>Pulse el botón de abajo para añadirse a la lista de espera,
                     recibirá una notificación una vez
                     esté disponible para confirmar el préstamo y poder recogerlo en la biblioteca
                 </p> <button class="btn btn-primary" (click)="addReservation(books[localIndexArrayBooks].id)">Añadir a
