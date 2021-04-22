@@ -1,10 +1,40 @@
-img{
+.c-book-details{
 
-    height: 225px;
-    width: 148px;
+    padding: 20px;
+}
+
+.c-containerInfoBook{
+
+    display: flex;
+    flex-direction: row;
+
+    img{
+
+        height: 225px;
+        width: 148px;
+        margin-right: 5px;
+    }
+
+}
+.c-textBook{
+
+    margin: 10px;
+    align-self: center;
+}
+
+.c-secondaryInfoBook{
+
+    margin-top: 15px;
 }
 
 .direction-buttons{
 
     display: none;
+}
+
+.c-close{
+
+    position: absolute; 
+    top: 20px;
+    right: 50px;
 }

@@ -44,7 +44,7 @@
 
   <div class="c-group-field">
     <div class="c-field">
-      <label for="cars">Categorías</label>
+      <label for="cars">Formato</label>
 
       <select class="form-control c-form" name="cars" id="cars" [(ngModel)]="selectedCategoryId"
         (change)="triggerSearch()">
@@ -54,7 +54,7 @@
 
     </div>
     <div class="c-field">
-      <label for="cars">Subcategorías</label>
+      <label for="cars">Género</label>
       <select class="form-control c-form" name="cars" id="cars" [(ngModel)]="selectedSubcategoryId"
         (change)="triggerSearch()">
         <option *ngFor="let subcategory of subcategories" [value]="subcategory.id"> {{subcategory.name}}

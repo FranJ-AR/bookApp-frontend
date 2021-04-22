@@ -6,6 +6,7 @@ import { LoanService } from '../loan.service';
 import { ReservationService } from '../reservation.service';
 import { User } from '../User';
 import { UserAuthService } from '../user-auth.service';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-book-details',
@@ -13,6 +14,9 @@ import { UserAuthService } from '../user-auth.service';
   styleUrls: ['./book-details.component.scss']
 })
 export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
+
+  // icon
+  faWindowClose = faWindowClose;
 
   @Input() books: Book[] = [];
   @Input() indexArrayBooks = -1;
