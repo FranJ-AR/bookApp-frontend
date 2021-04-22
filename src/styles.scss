@@ -37,9 +37,22 @@ main{
         & > router-outlet + * {
 
      flex: 1 0 auto;
+     display: flex;
+     flex-direction: column;
 
     }
 }
+
+.c-generic-info-content{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px 10px;
+    flex-grow: 1;
+    
+  }
 
 app-footer{
 

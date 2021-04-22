@@ -1,9 +1,6 @@
-p.description{
+div.c-content{
 
-    text-align: center;
-    margin: 40px auto;
-
-    & > a{
+    & > p > a{
         
         /* reset values from bootstrap classes */
         display: inline; 
