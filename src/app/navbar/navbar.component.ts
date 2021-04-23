@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
 import { User } from '../User';
 import { UserAuthService } from '../user-auth.service';
+import { faBars, faUser } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-navbar',
@@ -10,11 +12,19 @@ import { UserAuthService } from '../user-auth.service';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
+  faBars = faBars;
+
+  faUser = faUser;
+
   authenticated:boolean = false;
 
   username:string = "";
 
   user:User | null = null;
+
+  navBarLinksMobile:boolean = false;
+
+  navBarUserMobile:boolean = false;
 
   constructor(private userAuthService:UserAuthService, private loginService:LoginService) { }
 
@@ -48,6 +58,24 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     this.loginService.logout();
 
+  }
+
+  visibilityLinksNavBarMobile():void{
+
+    this.navBarUserMobile = false;
+
+    this.navBarLinksMobile = ! this.navBarLinksMobile;
+
+    console.log(this.navBarLinksMobile);
+  }
+
+  visibilityUserNavBarMobile():void{
+
+    this.navBarLinksMobile = false;
+
+    this.navBarUserMobile = ! this.navBarUserMobile;
+
+    console.log(this.navBarUserMobile);
   }
 
 }

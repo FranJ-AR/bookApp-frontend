@@ -1,14 +1,28 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-light bg-light">
 
-    <a class="navbar-brand" href="#">LibroApp</a>
+  <div class = "c-left-mobile-section" (click) = "visibilityLinksNavBarMobile()">
 
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <a class="navbar-brand">LibroApp</a>
 
-      <a class="nav-item nav-link active" href="#" routerLink="/index">Buscar Libros<span class="sr-only">(current)</span></a>
+    <fa-icon class = "icon-bar" [icon]="faBars"></fa-icon>
+
+  </div>
+
+  <div class = "c-right-mobile-section" (click) = "visibilityUserNavBarMobile()">
+
+    <fa-icon class = "icon-user" [icon]="faUser" ></fa-icon>
+
+  </div>
+
+    <div 
+    [ngClass] = "{'show-navlinks-mobile': !navBarLinksMobile}" 
+    class="navbar-collapse navbar-expand c-library-options" 
+    id="navbarNavAltMarkup">
+
+      <a class="nav-item nav-link active" href="#" 
+      routerLink="/index">Buscar Libros<span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="#" routerLink="/library-info">La Biblioteca</a>
       <a class="nav-item nav-link" href="#" routerLink="/faq">Preguntas frecuentes</a>
-      <a class="nav-item nav-link" *ngIf = "user !== null"
-      routerLink="/my-books">Mis libros</a>
 
     </div>
 
@@ -16,7 +30,8 @@
 
     <ng-template #thenBlock>
 
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+    <div [ngClass] = "{'show-user-mobile': !navBarUserMobile}" 
+    class="navbar-collapse navbar-expand c-user-options" id="navbarNavAltMarkup">
 
       <a class="nav-item nav-link" href="#" routerLink="/register" routerLinkActive="active">Registrarse</a>
       <a class="nav-item nav-link" routerLink="/login" routerLinkActive="active">Iniciar sesión</a>
@@ -29,9 +44,12 @@
 
     
 
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+    <div [ngClass] = "{'show-user-mobile': !navBarUserMobile}" 
+    class="navbar-collapse navbar-expand c-user-options" id="navbarNavAltMarkup">
 
-        <a class = "nav-item nav-link">Hola {{username}}</a>
+        <a class ="nav-item nav-link c-user-logged">Hola {{username}}</a>
+        <a class="nav-item nav-link" *ngIf = "user !== null"
+      routerLink="/my-books">Mis libros</a>
         <a class="nav-item nav-link" href="#" (click)="closeSession()">Cerrar sesión</a>
         
   
@@ -72,10 +90,5 @@
             </ul>
 
             -->
-
-     
-
-
-   
 
 </nav>
