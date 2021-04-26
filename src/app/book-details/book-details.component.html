@@ -1,4 +1,4 @@
-<div class="c-book-details">
+<div class="c-book-details-component">
     <fa-icon class="c-close" [icon]="faWindowClose" size="3x" (click)="closeDetails()">
 
     </fa-icon>
@@ -37,7 +37,7 @@
                 <p #waitList>Préstamo con lista de espera</p>
             </ng-template>
         </ng-container>
-        <div class="direction-buttons">
+        <div class="c-direction-buttons">
             <button (click)="goUpList()" [disabled]="!hasUp">↑</button>
             <button (click)="goDownList()" [disabled]="!hasDown">↓</button>
         </div>
@@ -53,7 +53,10 @@
         </ng-container>
 
         <ng-container
-            *ngIf="!books[localIndexArrayBooks].canBeLoaned && reservationLimitReached === true && books[localIndexArrayBooks].userStatus !== 'RESERVATED'">
+            *ngIf="!books[localIndexArrayBooks].canBeLoaned 
+            && reservationLimitReached === true 
+            && books[localIndexArrayBooks].userStatus !== 'LOANED' &&
+            books[localIndexArrayBooks].userStatus !== 'RESERVATED'">
             <p class="c-bold c-italics">No puedes entrar en lista de espera para este libro,
                 has alcanzado el número máximo de reservas, cancela al menos una reserva e intenta de nuevo
             </p>
@@ -83,8 +86,9 @@
                 <p>Pulse el botón de abajo para añadirse a la lista de espera,
                     recibirá una notificación una vez
                     esté disponible para confirmar el préstamo y poder recogerlo en la biblioteca
-                </p> <button class="btn btn-primary" (click)="addReservation(books[localIndexArrayBooks].id)">Añadir a
-                    lista de espera</button>
+                </p> <button class="btn btn-primary" 
+                (click)="addReservation(books[localIndexArrayBooks].id)">
+                Añadir a lista de espera</button>
             </ng-container>
         </ng-template>
     </div>

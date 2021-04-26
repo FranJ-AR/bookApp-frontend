@@ -22,6 +22,8 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() indexArrayBooks = -1;
   @Output() showDetailsCloseEvent:EventEmitter<null> = new EventEmitter<null>();
 
+  showDetails:boolean = false;
+
   hasUp: boolean = false;
   hasDown: boolean = false;
 
@@ -173,8 +175,6 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
       }
 
       })
-
-    
 
     }
   }
