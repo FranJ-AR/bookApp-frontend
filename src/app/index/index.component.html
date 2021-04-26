@@ -126,7 +126,8 @@
                     <p>Préstamo con lista de espera</p>
                   </ng-template>
                 </ng-template>
-                <p class="c-book-link" (click)="showDetailsBook(book.id)">Pulse aquí para más detalles y opciones de
+                <p class="c-book-link" 
+                (click)="showDetailsBook(book.id)">Pulse aquí para más detalles y opciones de
                   préstamo</p>
               </div>
             </td>
@@ -141,7 +142,8 @@
 
   <div class="c-book-info c-book-details" [ngClass]="{'c-book-details-active': showDetails}">
     <app-book-details *ngIf="books.length !== 0 && indexArrayBooks !== -1" [books]="books"
-      [indexArrayBooks]="indexArrayBooks" (showDetailsCloseEvent)="showDetailsOnClose($event)"></app-book-details>
+      [indexArrayBooks]="indexArrayBooks"
+      (showDetailsCloseEvent)="showDetailsOnClose($event)" ></app-book-details>
   </div>
 
 </div>

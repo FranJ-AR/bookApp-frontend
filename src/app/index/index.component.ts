@@ -332,8 +332,6 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     })
 
-
-
   }
 
   /* Evaluates the presence or not of the provided book on the booklist
@@ -349,8 +347,6 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   }
 
-
-
   showDetailsBook(id: number): void {
 
     this.findBookIdByBookIndex(id);
@@ -358,6 +354,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.showDetails = true;
   }
 
+  // has a placeholder value, required by Angular but not needed
   showDetailsOnClose(newValue:any):void{
 
     this.showDetails = false;
