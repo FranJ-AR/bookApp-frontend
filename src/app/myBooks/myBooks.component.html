@@ -1,106 +1,134 @@
-<div class = "my-books">
+<div class="my-books">
 
-<p class="description">Libros prestados (máximo 6 libros)</p>
+    <div class="c-book-list">
 
-<ng-container *ngIf="loans.length === 0; else showLoans">
+        <p class="description">Libros prestados (máximo 6 libros)</p>
 
-    <p>Esta cuenta no tiene ningún libro prestado en este momento</p>
+        <ng-container *ngIf="loans.length === 0; else showLoans">
 
-</ng-container>
+            <p>Esta cuenta no tiene ningún libro prestado en este momento</p>
 
-<ng-template #showLoans>
+        </ng-container>
 
-    <table class="table">
+        <ng-template #showLoans>
 
-        <thead>
+            <section class="c-section-loans">
 
-            <tr>
+                <table class="table c-loans">
 
-                <th scope="col">Título</th>
-                <th scope="col">Fecha préstamo</th>
-                <th scope="col">Fecha máxima recogida</th>
-                <th scope="col">Fecha máxima devolución</th>
-                <th scope="col">Detalles libro</th>
+                    <thead>
 
-            </tr>
+                        <tr>
 
-        </thead>
+                            <th scope="col">Título</th>
+                            <th scope="col">Fecha préstamo</th>
+                            <th scope="col">Fecha máxima recogida</th>
+                            <th scope="col">Fecha máxima devolución</th>
+                            <th scope="col">Detalles libro</th>
 
-        <tbody>
+                        </tr>
 
-            <tr *ngFor="let loan of loans">
+                    </thead>
 
-                <td>{{loan.book.name}}</td>
+                    <tbody>
 
-                <td>{{loan.timestamp | date:'dd/MM/yy HH:mm:ss'}}</td>
+                        <tr *ngFor="let loan of loans">
 
-                <ng-container *ngIf="loan.maximumPickedUpDate === null; else AlreadyPickedUp">
+                            <td>{{loan.book.name}}</td>
 
-                    <td>Ya recogido</td>
+                            <td>{{loan.timestamp | date:'dd/MM/yy HH:mm:ss'}}</td>
 
-                </ng-container>
+                            <ng-container *ngIf="loan.maximumPickedUpDate === null; else AlreadyPickedUp">
 
-                <ng-template #AlreadyPickedUp>
+                                <td>Ya recogido</td>
 
-                    <td>{{loan.maximumPickedUpDate | date:'dd/MM/yy HH:mm:ss'}}</td>
+                            </ng-container>
 
-                </ng-template>
+                            <ng-template #AlreadyPickedUp>
 
-                <td>{{loan.maximumReturnDate | date:'dd/MM/yy HH:mm:ss'}}</td>
+                                <td>{{loan.maximumPickedUpDate | date:'dd/MM/yy HH:mm:ss'}}</td>
 
-                <td>Pulsa para ver detalles</td>
+                            </ng-template>
 
-            </tr>
+                            <td>{{loan.maximumReturnDate | date:'dd/MM/yy HH:mm:ss'}}</td>
 
-        </tbody>
+                            <td (click)="showDetailsBookLoaned(loan.book.id)">Pulsa para ver detalles
+                            </td>
 
-    </table>
+                        </tr>
 
-</ng-template>
+                    </tbody>
 
-<p class="description">Listas de espera (máximo 6 libros)</p>
+                </table>
 
-<ng-container *ngIf="reservations.length === 0; else showReservation">
+                <div class="c-book-info c-book-details" [ngClass]="{'c-book-details-active': showDetails}">
+                    <app-book-details *ngIf="books.length !== 0 && indexArrayBooks !== -1" [books]="books"
+                        [indexArrayBooks]="indexArrayBooks" (showDetailsCloseEvent)="showDetailsOnClose($event)">
+                    </app-book-details>
+                </div>
 
-    <p>Esta cuenta no tiene ningún libro en lista de espera en este momento</p>
+            </section>
 
-</ng-container>
+        </ng-template>
 
-<ng-template #showReservation>
+        <p class="description">Listas de espera (máximo 6 libros)</p>
 
-    <table class="table">
+        <ng-container *ngIf="reservations.length === 0; else showReservation">
 
-        <thead>
+            <p>Esta cuenta no tiene ningún libro en lista de espera en este momento</p>
 
-            <tr>
+        </ng-container>
 
-                <th scope="col">Título</th>
-                <th scope="col">Fecha solicitud</th>
-                <th scope="col">¿Eliminar solicitud?</th>
-                <th scope="col">Detalles libro</th>
+        <ng-template #showReservation>
 
-            </tr>
+            <section class="c-section-reservations">
 
-        </thead>
+                <table class="table">
 
-        <tbody>
+                    <thead>
 
-            <tr *ngFor="let reservation of reservations">
+                        <tr>
 
-                <td>{{reservation.book.name}}</td>
+                            <th scope="col">Título</th>
+                            <th scope="col">Fecha solicitud</th>
+                            <th scope="col">¿Eliminar solicitud?</th>
+                            <th scope="col">
+                                Detalles libro</th>
 
-                <td>{{reservation.timestamp | date:'dd/MM/yy HH:mm:ss'}}</td>
+                        </tr>
 
-                <td><span class = "c-cursor-pointer" (click) = "removeReservation(reservation.book.id)"> Eliminar solicitud </span></td>
+                    </thead>
 
-                <td>Pulsa para ver detalles</td>
+                    <tbody>
 
-            </tr>
+                        <tr *ngFor="let reservation of reservations">
 
-        </tbody>
+                            <td>{{reservation.book.name}}</td>
 
-    </table>
+                            <td>{{reservation.timestamp | date:'dd/MM/yy HH:mm:ss'}}</td>
 
-</ng-template>
+                            <td><span class="c-cursor-pointer" (click)="removeReservation(reservation.book.id)">
+                                    Eliminar
+                                    solicitud </span></td>
+
+                            <td (click)="showDetailsBookReservated(reservation.book.id)">Pulsa para ver detalles</td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+                <div class="c-book-info c-book-details" [ngClass]="{'c-book-details-active': showDetails}">
+                    <app-book-details *ngIf="books.length !== 0 && indexArrayBooks !== -1" [books]="books"
+                        [indexArrayBooks]="indexArrayBooks" (showDetailsCloseEvent)="showDetailsOnClose($event)">
+                    </app-book-details>
+                </div>
+
+            </section>
+
+        </ng-template>
+
+    </div>
 
 </div>

@@ -1,4 +1,7 @@
+.c-section-reservations, .c-section-loans{
 
+    display: flex;
+}
 
 p.description{
 
@@ -7,11 +10,46 @@ p.description{
 
 }
 
+.c-book-list{
+
+    flex-grow: 1;
+}
+
 div.my-books{
 
     margin: 4px;
+    display: flex;
 
 }
+
+.c-book-info > *{
+
+    padding: 10px;
+    justify-self: center;
+
+}
+
+.c-book-details{
+
+    display: none;
+    position: relative;
+    padding: 20px;
+    padding-top: 25px;
+
+    & > * + *{
+
+        padding: 40px !important;
+        padding-top: 45px !important;
+    }
+ 
+ }
+
+.c-book-details-active{
+
+    display: initial;
+    width: 100%;
+ 
+ }
 
 @media (min-width: 768px){
 
