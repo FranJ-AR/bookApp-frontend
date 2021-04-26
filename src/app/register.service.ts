@@ -31,8 +31,6 @@ export class RegisterService {
 
   private setErrorMessage(error: any): string {
 
-    console.log("mensaje error",error);
-
     let errorMessage:string = error.error.errorMessage;
 
     if(errorMessage === "User already exists"){

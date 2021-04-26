@@ -39,10 +39,6 @@ export class AuthComponent implements OnInit {
 
     this.router.onSameUrlNavigation = 'reload';
 
-    console.log("This route", this.isLoginMode);
-
-    console.log("This route", this.router.url);
-
     if (this.isLoginMode) { this.infoSection = this.messageLogin; }
 
     else { this.infoSection = this.messageRegister; }
@@ -133,9 +129,7 @@ export class AuthComponent implements OnInit {
 
         // user succeeds to login, so redirect
 
-        console.log("user fully logged", val), this.messageErrorLogin = false;
-
-        this.router.navigate(['private-section']);
+        this.router.navigate(['index']);
 
       },
 
@@ -151,6 +145,10 @@ export class AuthComponent implements OnInit {
   register(username:string, password: string){
 
     this.registerService.register(username, password).subscribe( (_) => {
+
+      // Success
+
+    this.login(username, password);
       
       this.messageErrorLogin = false;
 
@@ -172,14 +170,9 @@ export class AuthComponent implements OnInit {
 
   }
 
-
-
   // user fails to login
-
 
   // Sometimes the error retrieved from the server is descriptive 
   //enough to send it back to the user 
-
-
 
 }

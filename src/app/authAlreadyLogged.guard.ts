@@ -25,21 +25,13 @@ export class AuthAlreadyLogged implements CanActivate {
 
     return this.userAuthService.userSubject.pipe(take(1), map((user: User | null) => {
 
-      console.log(user);
-
       if ((!!user)) { // user logged
-
-        console.log("redirect");
-
-        //this.router.navigate(["/"]);
 
         return this.router.createUrlTree(['/index']);
 
       }
 
       else { // user not logged
-
-        console.log("stay");
 
         return true;
 

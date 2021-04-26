@@ -124,17 +124,12 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
     }
 
-    console.log("indexArrayBooks",this.indexArrayBooks);
-    console.log("booksLength",this.books.length);
-
     if (this.localIndexArrayBooks < this.books.length-1) {
 
-      console.log("hasDown",this.hasDown);
       this.hasDown = true;
 
     } else {
 
-      console.log("hasDown",this.hasDown);
       this.hasDown = false;
 
     }
@@ -145,8 +140,6 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
     this.showDetailsCloseEvent.emit(null);
 
-    //this.showDetails = false;
-    console.log("close");
   }
 
   private updateLimitLoanOrReservation():void{
@@ -156,10 +149,6 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
       this.loanService.getNumberLoansByLoggedUser().subscribe( (currentLoans:number) => {
 
         if(!! this.user){
-
-        console.log("maximumLoans", this.user.maximumBooksLoan);
-
-        console.log("currentLoans", currentLoans);
 
         if(this.user.maximumBooksLoan === currentLoans){
 
@@ -174,10 +163,6 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
       this.reservationService.getNumberReservationsByLoggedUser().subscribe( (currentReservations:number) => {
 
         if(!! this.user){
-
-        console.log("maximumReservations", this.user.maximumBooksReservation);
-
-        console.log("currentReservations", currentReservations);
 
         if(this.user.maximumBooksReservation === currentReservations){
 

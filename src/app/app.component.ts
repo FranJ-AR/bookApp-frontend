@@ -11,15 +11,7 @@ import { UserAuthService } from './user-auth.service';
 export class AppComponent implements OnInit{
   title = 'angularAuth2';
 
-  //authenticated:boolean = false;
-
-  //username:string = "";
-
   constructor(private loginService:LoginService){
-
-    //const result:Observable<User|null> = userAuthService.user.pipe( tap( (user:User|null) => {console.log(user)} ));
-
-    //result.subscribe( (user:User) => {});
 
   }
   

@@ -38,8 +38,6 @@ export class LoginService {
       (this.loginUrl, { username: username, password: password }).pipe(
         catchError((error) => {
 
-          console.log(error);
-          console.log(error.error.errorMessage);
           throw this.setErrorMessage(error) // rethrows the error, sends a human 
           // readable description of the error to the user
         }),
@@ -128,27 +126,15 @@ export class LoginService {
 
     let storedUser: string | null = localStorage.getItem(this.KEY_USER_SESSION_STORAGE);
 
-    console.log("storedUserData", storedUser);
-
-    //let userDetails:UserDetails = storedUser;
-
     if(!! storedUser ) { // if stored user not null not undefined
 
     let storedUserDetails:StoredUserDetails = JSON.parse(storedUser);
 
     let expirationDate:Date = new Date(storedUserDetails.tokenExpirationDate);
 
-    console.log("typeof expirationDate", typeof(storedUserDetails.tokenExpirationDate));
-
-    console.log("typeof maximumBooksLoan", typeof(storedUserDetails._maximumBooksLoan));
-
-    console.log("maximumBooksLoan", Number(storedUserDetails._maximumBooksLoan));
-
     let maximumBooksLoan:number = Number(storedUserDetails._maximumBooksLoan);
 
     let maximumBooksReservation:number = Number(storedUserDetails._maximumBooksReservation);
-
-    console.log("autologinUserDetails",storedUserDetails.tokenExpirationDate);
 
     let user:User = new User(storedUserDetails.username, 
     storedUserDetails._token, expirationDate, maximumBooksLoan, maximumBooksReservation);
@@ -156,8 +142,6 @@ export class LoginService {
     this.startTimeOut(expirationDate)
 
     this.userAuthService.userSubject.next(user);
-
-    console.log("autologin",user);
 
     }
 
@@ -211,8 +195,6 @@ export class LoginService {
 
         () => {
 
-          console.log("set timer");
-
           this.endTimeOut();
 
         },timeRemainingInms);
@@ -220,8 +202,6 @@ export class LoginService {
   }
 
   private endTimeOut():void{
-
-    console.log("token has expired");
 
     if(!!this.timer){ // if timer is not null
 

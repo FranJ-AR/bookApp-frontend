@@ -16,8 +16,6 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     return this.userAuthService.userSubject.pipe(take(1), exhaustMap((user: User | null) => {
 
-      console.log("intercepted");
-
       let newReq: HttpRequest<any> | undefined;
 
       if (!!user) { // if there is user logged AND the token has not expired yet

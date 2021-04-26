@@ -106,7 +106,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
       this.getLoanAndReservatedBooks();
 
-    }, (err) => console.log("Error loading books", err))
+    }, (err) => {} )
 
   }
 
@@ -133,7 +133,6 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.getLoanAndReservatedBooks();
 
     }, (err) => {
-      console.log("Error loading books", err);
 
       this.showSpinner = false;
 
@@ -150,8 +149,6 @@ export class IndexComponent implements OnInit, OnDestroy {
         this.categories = categories;
 
         this.categories.unshift(this.getDefaultCategory());
-
-        console.log(categories);
 
       }, (error) => { }
 
@@ -188,19 +185,14 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     this.showAuthorDropdown = true;
 
-    console.log("author");
-
     this.authorService.getAuthorBySubstring(substringAuthor).subscribe(
 
       (authors: Author[]) => {
 
         this.authors = authors;
 
-        console.log("authors", authors);
-
       }, (error) => {
 
-        console.log("authorerror", error);
       }
 
     )
@@ -222,8 +214,6 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     this.searchPerformed = true;
 
-    console.log("Author", authorId + " " + authorName);
-
     this.selectedAuthorId = authorId;
 
     this.selectedAuthorName = authorName;
@@ -243,8 +233,6 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     // If there is no author selected or a substring title provided, disallow search
 
-    console.log(this.selectedAuthorId);
-    console.log(this.selectedTitleSubString);
     if (this.selectedAuthorId === 0 && this.selectedTitleSubString === "") {
 
       this.noAuthorAndNoTitleError = true;

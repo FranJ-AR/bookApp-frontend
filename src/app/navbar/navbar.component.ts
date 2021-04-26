@@ -66,7 +66,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     this.navBarLinksMobile = ! this.navBarLinksMobile;
 
-    console.log(this.navBarLinksMobile);
   }
 
   visibilityUserNavBarMobile():void{
@@ -75,7 +74,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     this.navBarUserMobile = ! this.navBarUserMobile;
 
-    console.log(this.navBarUserMobile);
   }
 
 }

@@ -24,13 +24,9 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    console.log("launchMyBooks");
-
     this.userSubscription = this.userAuthService.userSubject.subscribe( (user:User|null) => {
 
       this.user = user;
-
-      console.log("MyBooksUser",user);
 
     })
 
@@ -53,8 +49,6 @@ export class MyBooksComponent implements OnInit, OnDestroy {
     this.loanService.getLoansByLoggedUser().subscribe( (loans) => {
 
       this.loans = loans;
-
-      console.log("Loans ", loans);
 
     })
 
@@ -92,8 +86,6 @@ export class MyBooksComponent implements OnInit, OnDestroy {
       this.reservations.splice(index, 1);
 
     })
-
-    console.log("book removed");
 
   }
 

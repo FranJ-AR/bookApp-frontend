@@ -33,10 +33,6 @@ export class MytestsComponent implements OnInit, OnDestroy {
 
       this.loans = loans;
 
-      console.log("Loans ", loans);
-
-      console.log("Loan0", loans[0].book.name)
-
     })
   }
 
