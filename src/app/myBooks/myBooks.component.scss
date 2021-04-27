@@ -1,6 +1,12 @@
 .c-section-loans, .c-section-reservations{
 
     display: flex;
+
+    & > table,div{
+
+        height: 100%;
+        
+    }
 }
 
 p.description{
@@ -10,9 +16,10 @@ p.description{
 
 }
 
-.c-book-list{
+div.c-book-list{
 
     flex-grow: 1;
+
 }
 
 div.my-books{
@@ -22,19 +29,19 @@ div.my-books{
 
 }
 
-.c-book-info > *{
+// .c-book-info > *{
 
-    padding: 10px;
-    justify-self: center;
+//     padding: 10px;
+//     justify-self: center;
 
-}
+// }
 
 .c-book-details{
 
     display: none;
     position: relative;
     padding: 20px;
-    padding-top: 25px;
+    margin-top: 33px;
 
     & > * + *{
 
@@ -62,5 +69,10 @@ div.my-books{
 
         margin: 20px;    
     }
+
+}
+
+@media (min-width: 992px){
+
 
 }
