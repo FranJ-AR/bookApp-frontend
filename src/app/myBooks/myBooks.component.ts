@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Book } from 'src/Book';
 import { Loan } from 'src/Loan';
@@ -21,20 +22,33 @@ export class MyBooksComponent implements OnInit, OnDestroy {
   reservations: Reservation[] = [];
   userSubscription: Subscription | null = null;
   
-  books:Book[] = [];
+  loanedBooks:Book[] = [];
+  reservatedBooks:Book[] = [];
 
-  showDetails:boolean = false;
+  showDetailsLoanedBook:boolean = false;
+  showDetailsReservatedBook:boolean = false;
 
-  indexArrayBooks: number = -1;
+  indexArrayBooksLoaned: number = -1;
+  indexArrayBooksReservated: number = -1;
 
   constructor(private userAuthService:UserAuthService, 
-    private loanService:LoanService, private reservationService:ReservationService) { }
+    private loanService:LoanService, private reservationService:ReservationService, 
+    private router:Router) { }
 
   ngOnInit(): void {
 
     this.userSubscription = this.userAuthService.userSubject.subscribe( (user:User|null) => {
 
       this.user = user;
+
+      // When session ends, redirect
+
+      if(user === null) {
+
+        this.router.navigate(['/index']);
+
+
+      }
 
     })
 
@@ -70,8 +84,6 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
       // Success
 
-      let beenFound = false;
-
       let index = 0;
 
       this.reservations.some( (reservation, indexFound)  => {
@@ -79,8 +91,6 @@ export class MyBooksComponent implements OnInit, OnDestroy {
         // find the element in the array
 
         if( reservation.book.id === bookId) {
-
-          beenFound = true;
 
           index = indexFound;
 
@@ -90,6 +100,15 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
         return false;
       })
+
+      // If the user is checking book details and it is removed, close the details' view
+
+      if(this.showDetailsReservatedBook &&
+         this.reservatedBooks[this.indexArrayBooksReservated].id === bookId){
+
+        this.showDetailsOnReservationBookClose(null);
+
+      }
 
       this.reservations.splice(index, 1);
 
@@ -107,18 +126,18 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
   }
 
-  private findBookIdByBookIndex(id: number): void {
-
-    this.indexArrayBooks = -1;
+  private getBookIdByBookIndex(bookList: Book[], id: number):number {
 
     /* checks every value until from index 0 to size-1 until 
        one matches the condition and stops */
 
-    this.books.some((element, index) => {
+    let indexFound:number = -1;
+
+    bookList.some((element, index) => {
 
       if (element.id === id) {
 
-        this.indexArrayBooks = index;
+        indexFound = index;
 
         return true;
 
@@ -128,15 +147,17 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
     })
 
+    return indexFound;
+
   }
 
   showDetailsBookLoaned(bookId:number):void{
 
     this.loansToBooks();
 
-    this.showDetails = true;
+    this.indexArrayBooksLoaned = this.getBookIdByBookIndex(this.loanedBooks, bookId);
 
-    this.findBookIdByBookIndex(bookId);
+    this.showDetailsLoanedBook = true;
     
   }
 
@@ -144,43 +165,48 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
     this.reservationsToBooks();
 
-    this.showDetails = true;
+    this.indexArrayBooksReservated = this.getBookIdByBookIndex(this.reservatedBooks, bookId);
 
-    this.findBookIdByBookIndex(bookId);
+    this.showDetailsReservatedBook = true;
     
   }
 
   private loansToBooks():void{
 
-    this.books = [];
+    this.loanedBooks = [];
 
     this.loans.map( (loan) => {
 
       loan.book.userStatus = BookUserStatus.Loaned;
 
-      this.books.push(loan.book);
+      this.loanedBooks.push(loan.book);
 
     })
   }
 
   private reservationsToBooks():void{
 
-    this.books = [];
+    this.reservatedBooks = [];
 
     this.reservations.map( (loan) => {
 
       loan.book.userStatus = BookUserStatus.Reservated;
 
-      this.books.push(loan.book);
+      this.reservatedBooks.push(loan.book);
 
     })
 
   }
 
-  // has a placeholder value, required by Angular but not needed
-  showDetailsOnClose(newValue:any):void{
+  showDetailsOnLoanBookClose(newValue:any):void{
 
-    this.showDetails = false;
+    this.showDetailsLoanedBook = false;
+
+  }
+
+  showDetailsOnReservationBookClose(newValue:any):void{
+
+    this.showDetailsReservatedBook = false;
 
   }
 

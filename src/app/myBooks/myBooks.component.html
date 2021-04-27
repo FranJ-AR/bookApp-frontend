@@ -14,7 +14,7 @@
 
             <section class="c-section-loans">
 
-                <table class="table c-loans">
+                <table class="table">
 
                     <thead>
 
@@ -61,9 +61,12 @@
 
                 </table>
 
-                <div class="c-book-info c-book-details" [ngClass]="{'c-book-details-active': showDetails}">
-                    <app-book-details *ngIf="books.length !== 0 && indexArrayBooks !== -1" [books]="books"
-                        [indexArrayBooks]="indexArrayBooks" (showDetailsCloseEvent)="showDetailsOnClose($event)">
+                <div class="c-book-info c-book-details" 
+                [ngClass]="{'c-book-details-active': showDetailsLoanedBook}">
+                    <app-book-details *ngIf="loanedBooks.length !== 0 && indexArrayBooksLoaned !== -1"
+                        [books]="loanedBooks"
+                        [indexArrayBooks]="indexArrayBooksLoaned" 
+                        (showDetailsCloseEvent)="showDetailsOnLoanBookClose($event)">
                     </app-book-details>
                 </div>
 
@@ -92,8 +95,7 @@
                             <th scope="col">Título</th>
                             <th scope="col">Fecha solicitud</th>
                             <th scope="col">¿Eliminar solicitud?</th>
-                            <th scope="col">
-                                Detalles libro</th>
+                            <th scope="col">Detalles libro</th>
 
                         </tr>
 
@@ -119,9 +121,11 @@
 
                 </table>
 
-                <div class="c-book-info c-book-details" [ngClass]="{'c-book-details-active': showDetails}">
-                    <app-book-details *ngIf="books.length !== 0 && indexArrayBooks !== -1" [books]="books"
-                        [indexArrayBooks]="indexArrayBooks" (showDetailsCloseEvent)="showDetailsOnClose($event)">
+                <div class="c-book-info c-book-details"
+                    [ngClass]="{'c-book-details-active': showDetailsReservatedBook}">
+                    <app-book-details *ngIf="reservatedBooks.length !== 0 && indexArrayBooksReservated !== -1"
+                        [books]="reservatedBooks" [indexArrayBooks]="indexArrayBooksReservated"
+                        (showDetailsCloseEvent)="showDetailsOnReservationBookClose($event)">
                     </app-book-details>
                 </div>
 
