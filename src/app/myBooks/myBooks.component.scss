@@ -36,22 +36,32 @@ div.my-books{
 
 // }
 
-.c-book-details{
+.c-book-details-loaned, .c-book-details-reservated{
 
     display: none;
-    position: relative;
+    position: relative; /* aligns the X button */
     padding: 20px;
-    margin-top: 33px;
-
-    & > * + *{
-
-        padding: 40px !important;
-        padding-top: 45px !important;
-    }
  
  }
 
-.c-book-details-active{
+ .c-book-details-loaned{
+
+    margin-top: 55px;
+ }
+
+ .c-book-details-reservated{
+
+    margin-top: 33px;
+ }
+
+ table.c-book-table-results-details-active, p.c-book-table-results-details-active{
+
+    display: none;
+
+ }
+
+
+div.c-book-details-active{
 
     display: initial;
     width: 100%;
@@ -72,7 +82,42 @@ div.my-books{
 
 }
 
+.c-description-details{
+
+    font-weight: 600;
+    text-align: center;
+}
+
+/* For desktop devices */
+
 @media (min-width: 992px){
+
+    table.c-book-table-results-details-active
+    
+    {
+
+        display: initial;
+    }
+
+    p.c-book-table-results-details-active{
+
+        display: inherit;
+    }
+
+    .c-description-details{
+
+        display: none;
+    }
+
+}
+
+/* special case, keep aligned table with content */
+@media (min-width: 1332px){
+
+    .c-book-details-loaned{
+
+        margin-top: 31px;
+    }
 
 
 }

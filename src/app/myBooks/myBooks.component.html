@@ -2,7 +2,8 @@
 
     <div class="c-book-list">
 
-        <p class="description">Libros prestados (máximo 6 libros)</p>
+        <p class="description" [ngClass]="{'c-book-table-results-details-active': showDetailsLoanedBook}">Libros
+            prestados (máximo 6 libros)</p>
 
         <ng-container *ngIf="loans.length === 0; else showLoans">
 
@@ -14,7 +15,7 @@
 
             <section class="c-section-loans">
 
-                <table class="table">
+                <table class="table " [ngClass]="{'c-book-table-results-details-active': showDetailsLoanedBook}">
 
                     <thead>
 
@@ -60,11 +61,14 @@
 
                 </table>
 
-                <div class="c-book-info c-book-details" 
-                [ngClass]="{'c-book-details-active': showDetailsLoanedBook}">
+                <div class="c-book-info c-book-details-loaned" [ngClass]="{'c-book-details-active': showDetailsLoanedBook}">
+
+                    <p class="c-description-details"
+                        [ngClass]="{'c-book-table-results-details-active': !showDetailsLoanedBook}">Detalles libro
+                        prestado</p>
+
                     <app-book-details *ngIf="loanedBooks.length !== 0 && indexArrayBooksLoaned !== -1"
-                        [books]="loanedBooks"
-                        [indexArrayBooks]="indexArrayBooksLoaned" 
+                        [books]="loanedBooks" [indexArrayBooks]="indexArrayBooksLoaned"
                         (showDetailsCloseEvent)="showDetailsOnLoanBookClose($event)">
                     </app-book-details>
                 </div>
@@ -73,7 +77,8 @@
 
         </ng-template>
 
-        <p class="description">Listas de espera (máximo 6 libros)</p>
+        <p class="description" [ngClass]="{'c-book-table-results-details-active': showDetailsReservatedBook}"
+        >Listas de espera (máximo 6 libros)</p>
 
         <ng-container *ngIf="reservations.length === 0; else showReservation">
 
@@ -85,7 +90,7 @@
 
             <section class="c-section-reservations">
 
-                <table class="table">
+                <table class="table" [ngClass]="{'c-book-table-results-details-active': showDetailsReservatedBook}">
 
                     <thead>
 
@@ -108,11 +113,10 @@
 
                             <td>{{reservation.timestamp | date:'dd/MM/yy HH:mm:ss'}}</td>
 
-                            <td class = "c-cursor-pointer"
-                                (click)="removeReservation(reservation.book.id)">Eliminar solicitud</td>
+                            <td class="c-cursor-pointer" (click)="removeReservation(reservation.book.id)">Eliminar
+                                solicitud</td>
 
-                            <td 
-                            (click)="showDetailsBookReservated(reservation.book.id)">Pulsa para ver detalles</td>
+                            <td (click)="showDetailsBookReservated(reservation.book.id)">Pulsa para ver detalles</td>
 
                         </tr>
 
@@ -120,8 +124,13 @@
 
                 </table>
 
-                <div class="c-book-info c-book-details"
+                <div class="c-book-info c-book-details-reservated"
                     [ngClass]="{'c-book-details-active': showDetailsReservatedBook}">
+
+                    <p class="c-description-details"
+                        [ngClass]="{'c-book-table-results-details-active': !showDetailsReservatedBook}"
+                        >Detalles libro en lista de espera</p>
+
                     <app-book-details *ngIf="reservatedBooks.length !== 0 && indexArrayBooksReservated !== -1"
                         [books]="reservatedBooks" [indexArrayBooks]="indexArrayBooksReservated"
                         (showDetailsCloseEvent)="showDetailsOnReservationBookClose($event)">
