@@ -9,20 +9,22 @@
 
       <p class = "c-info-section">{{infoSection}}</p>
 
-      <label for="Username">Username</label>
+      <label for="Username">Nombre de usuario</label>
       <input type="text" name="username" ngModel class="form-control" id="inputUsername" 
-        placeholder="Enter username">
+        placeholder="Introduce el nombre de usuario">
     </div>
     <div class="form-group">
-      <label for="Password">Password</label>
-      <input type="password" name="password" ngModel class="form-control" id="inputPassword" placeholder="Password">
+      <label for="Password">Contraseña</label>
+      <input type="password" name="password" ngModel class="form-control" id="inputPassword" 
+      placeholder="Introduce la contraseña">
     </div>
     <div class="form-group" *ngIf = "! isLoginMode">
-      <label for="Confirm Password">Confirm Password</label>
-      <input type="password" name="confirmPassword" ngModel class="form-control" id="inputPassword" placeholder="Password">
+      <label for="Confirm Password">Reintroduce la contraseña</label>
+      <input type="password" name="confirmPassword" ngModel class="form-control" id="inputPassword" 
+      placeholder="Vuelve a introducir la contraseña">
     </div>
     <div class="form-submit">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
   </div>
 </form>
