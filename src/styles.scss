@@ -52,7 +52,31 @@ main{
     margin: 20px 10px;
     flex-grow: 1;
     
-  }
+}
+
+.c-info-extense-content{
+
+    margin: 30px 40px;
+    line-height: 2em;
+}
+
+.c-extense-content{
+
+    width: 100%;
+
+}
+
+/* For tablets and desktop*/
+
+@media (min-width: 576px){
+
+    .c-extense-content{
+
+        width: 60%;
+    
+    }
+
+}
 
 app-footer{
 
