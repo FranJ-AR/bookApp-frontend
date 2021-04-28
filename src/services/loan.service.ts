@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Loan } from 'src/Loan';
+import { Loan } from '../interfaces/Loan';
 
 @Injectable({
   providedIn: 'root'

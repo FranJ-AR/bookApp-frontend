@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Category } from 'src/Category';
+import { Category } from 'src/interfaces/Category';
 
 @Injectable({
   providedIn: 'root'

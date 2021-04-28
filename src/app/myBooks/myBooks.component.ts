@@ -1,14 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Book } from 'src/Book';
-import { Loan } from 'src/Loan';
-import { BookUserStatus } from '../BookUserStatus';
-import { LoanService } from '../loan.service';
-import { Reservation } from '../Reservation';
-import { ReservationService } from '../reservation.service';
-import { User } from '../User';
-import { UserAuthService } from '../user-auth.service';
+import { BookUserStatus } from '../../interfaces/BookUserStatus';
+import { Book } from '../../interfaces/Book';
+import { Loan } from '../../interfaces/Loan';
+import { Reservation } from '../../interfaces/Reservation';
+import { User } from '../../interfaces/User';
+import { UserAuthService } from 'src/services/user-auth.service';
+import { ReservationService } from 'src/services/reservation.service';
+import { LoanService } from 'src/services/loan.service';
+
 
 @Component({
   selector: 'app-myBooks',

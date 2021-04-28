@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { LoginResponse } from './loginResponse'
 import { catchError, exhaustMap, take, tap } from 'rxjs/operators';
-import { User } from './User';
+import { LoginResponse } from '../interfaces/LoginResponse';
+import { User } from '../interfaces/User';
 import { UserAuthService } from './user-auth.service';
 
 interface StoredUserDetails{

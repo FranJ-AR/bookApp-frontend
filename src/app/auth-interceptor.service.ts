@@ -2,8 +2,8 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { exhaustMap, take } from 'rxjs/operators';
-import { User } from './User';
-import { UserAuthService } from './user-auth.service';
+import { UserAuthService } from 'src/services/user-auth.service';
+import { User } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root'

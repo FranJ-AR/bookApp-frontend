@@ -1,4 +1,4 @@
-import { Book } from "src/Book";
+import { Book } from "./Book";
 
 export interface Reservation{
 

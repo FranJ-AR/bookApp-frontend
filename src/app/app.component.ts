@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LoginService } from './login.service';
-import { User } from './User';
-import { UserAuthService } from './user-auth.service';
+import { LoginService } from 'src/services/login.service';
 
 @Component({
   selector: 'app-root',

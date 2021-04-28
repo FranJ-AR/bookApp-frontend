@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Book } from 'src/Book';
-import { BookUserStatus } from '../BookUserStatus';
-import { LoanService } from '../loan.service';
-import { ReservationService } from '../reservation.service';
-import { User } from '../User';
-import { UserAuthService } from '../user-auth.service';
+import { BookUserStatus } from '../../interfaces/BookUserStatus';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { Book } from '../../interfaces/Book';
+import { User } from '../../interfaces/User';
+import { UserAuthService } from 'src/services/user-auth.service';
+import { LoanService } from 'src/services/loan.service';
+import { ReservationService } from 'src/services/reservation.service';
 
 @Component({
   selector: 'app-book-details',

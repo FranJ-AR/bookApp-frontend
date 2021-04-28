@@ -1,21 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Book } from 'src/Book';
-import { Category } from 'src/Category';
-import { ParamsBookSearch } from 'src/ParamsBookSearch';
+import { Category } from 'src/interfaces/Category';
+import { ParamsBookSearch } from 'src/interfaces/ParamsBookSearch';
 import { Subcategory } from 'src/Subcategory';
-import { Author } from '../Author';
-import { AuthorService } from '../author.service';
-import { BookService } from '../book.service';
-import { CategoryService } from '../category.service';
-import { SubcategoryService } from '../subcategory.service';
+import { Author } from '../../interfaces/Author';
+import { AuthorService } from '../../services/author.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faEraser } from '@fortawesome/free-solid-svg-icons';
-import { LoanService } from '../loan.service';
-import { ReservationService } from '../reservation.service';
-import { UserAuthService } from '../user-auth.service';
-import { User } from '../User';
 import { Subscription } from 'rxjs';
-import { BookUserStatus } from '../BookUserStatus';
+import { BookUserStatus } from '../../interfaces/BookUserStatus';
+import { Book } from '../../interfaces/Book';
+import { User } from '../../interfaces/User';
+import { BookService } from 'src/services/book.service';
+import { CategoryService } from 'src/services/category.service';
+import { LoanService } from 'src/services/loan.service';
+import { UserAuthService } from 'src/services/user-auth.service';
+import { ReservationService } from 'src/services/reservation.service';
+import { SubcategoryService } from 'src/services/subcategory.service';
 
 
 @Component({

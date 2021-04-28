@@ -1,7 +1,8 @@
-import { Author } from "./app/Author";
-import { BookUserStatus } from "./app/BookUserStatus";
-import { Category } from "./Category";
-import { Subcategory } from "./Subcategory";
+import { Category } from "src/interfaces/Category";
+import { Subcategory } from "src/Subcategory";
+import { BookUserStatus } from "./BookUserStatus";
+import { Author } from "./Author";
+
 
 export interface Book{
 
