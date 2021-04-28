@@ -2,13 +2,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { constants } from 'src/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
 
-  private registerUrl = "http://localhost:8080/register";
+  private registerUrl = constants.ROOT_CONNECTION+"register";
 
   constructor(private HttpClient: HttpClient) { }
 

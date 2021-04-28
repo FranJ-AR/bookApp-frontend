@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { constants } from 'src/constants';
 import { ParamsBookSearch } from 'src/interfaces/ParamsBookSearch';
 import { Book } from '../interfaces/Book';
 
@@ -9,11 +10,11 @@ import { Book } from '../interfaces/Book';
 })
 export class BookService {
 
-  private urlAllBooks: string = "http://localhost:8080/all-books";
+  private urlAllBooks: string = constants.ROOT_CONNECTION+"all-books";
 
-  private urlBooksByParams: string = "http://localhost:8080/books-by-params";
+  private urlBooksByParams: string = constants.ROOT_CONNECTION+"books-by-params";
 
-  private urlBook:string = "http://localhost:8080/{id}";
+  private urlBook:string = constants.ROOT_CONNECTION+"{id}";
 
   constructor(private httpClient: HttpClient) { }
 

@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { constants } from 'src/constants';
 import { Subcategory } from 'src/interfaces/Subcategory';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class SubcategoryService {
 
-  private subcategoryUrl:string = "http://localhost:8080/all-subcategories";
+  private subcategoryUrl:string = constants.ROOT_CONNECTION+"all-subcategories";
 
   constructor(private httpClient:HttpClient) { }
 

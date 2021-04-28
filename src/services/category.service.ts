@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { constants } from 'src/constants';
 import { Category } from 'src/interfaces/Category';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { Category } from 'src/interfaces/Category';
 })
 export class CategoryService {
 
-  private categoriesUrl:string = "http://localhost:8080/all-categories";
+  private categoriesUrl:string = constants.ROOT_CONNECTION+"all-categories";
 
   constructor(private httpClient:HttpClient) { }
 

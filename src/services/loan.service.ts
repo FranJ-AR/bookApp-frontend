@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { constants } from 'src/constants';
 import { Loan } from '../interfaces/Loan';
 
 @Injectable({
@@ -9,9 +10,9 @@ import { Loan } from '../interfaces/Loan';
 })
 export class LoanService {
 
-  private getLoansUrl: string = "http://localhost:8080/loans";
+  private getLoansUrl: string = constants.ROOT_CONNECTION+"loans";
 
-  private addLoanUrl: string = "http://localhost:8080/add-loan/{id}";
+  private addLoanUrl: string = constants.ROOT_CONNECTION+"add-loan/{id}";
 
   constructor(private httpClient: HttpClient) { }
 

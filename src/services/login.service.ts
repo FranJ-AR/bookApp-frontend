@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, exhaustMap, take, tap } from 'rxjs/operators';
+import { constants } from 'src/constants';
 import { LoginResponse } from '../interfaces/LoginResponse';
 import { User } from '../interfaces/User';
 import { UserAuthService } from './user-auth.service';
@@ -26,7 +27,7 @@ export class LoginService {
 
   private KEY_USER_SESSION_STORAGE = "user-details";
 
-  private loginUrl = "http://localhost:8080/login";
+  private loginUrl = constants.ROOT_CONNECTION+"login";
 
   private timer:any|null;
 

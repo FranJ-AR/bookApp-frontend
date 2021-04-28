@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { constants } from 'src/constants';
 import { Reservation } from '../interfaces/Reservation';
 
 
@@ -10,11 +11,11 @@ import { Reservation } from '../interfaces/Reservation';
 })
 export class ReservationService {
 
-  private getReservationsUrl:string = "http://localhost:8080/reservations";
+  private getReservationsUrl:string = constants.ROOT_CONNECTION+"reservations";
 
-  private addReservationUrl:string = "http://localhost:8080/add-reservation/{id}";
+  private addReservationUrl:string = constants.ROOT_CONNECTION+"add-reservation/{id}";
 
-  private removeReservationUrl:string = "http://localhost:8080/remove-reservation/{id}";
+  private removeReservationUrl:string = constants.ROOT_CONNECTION+"remove-reservation/{id}";
 
   constructor(private httpClient:HttpClient) { }
 
