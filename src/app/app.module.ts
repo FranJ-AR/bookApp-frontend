@@ -7,7 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthAlreadyLogged } from './authAlreadyLogged.guard';
 import { IndexComponent } from './index/index.component';
-import { AuthInterceptorService } from './auth-interceptor.service';
+import { AuthInterceptorService } from '../services/auth-interceptor.service';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AuthComponent } from './auth/auth.component';
