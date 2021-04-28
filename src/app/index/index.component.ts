@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Category } from 'src/interfaces/Category';
 import { ParamsBookSearch } from 'src/interfaces/ParamsBookSearch';
-import { Subcategory } from 'src/Subcategory';
+import { Subcategory } from 'src/interfaces/Subcategory';
 import { Author } from '../../interfaces/Author';
 import { AuthorService } from '../../services/author.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
