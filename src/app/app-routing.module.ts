@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthAlreadyLogged } from './authAlreadyLogged.guard';
+import { AuthAlreadyLogged } from '../guards/authAlreadyLogged.guard';
 import { IndexComponent } from './index/index.component';
 import { AuthComponent } from './auth/auth.component';
 import { MyBooksComponent } from './myBooks/myBooks.component';
 import { NotfoundComponent } from './notfound/notfound.component';
-import { AuthNotLogged } from './authNotLogged.guard';
+import { AuthNotLogged } from '../guards/authNotLogged.guard';
 import { FaqComponent } from './faq/faq.component';
 import { LibraryInfoComponent } from './library-info/library-info.component';
 import { AboutUsComponent } from './about-us/about-us.component';

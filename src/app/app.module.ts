@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { AuthAlreadyLogged } from './authAlreadyLogged.guard';
+import { AuthAlreadyLogged } from '../guards/authAlreadyLogged.guard';
 import { IndexComponent } from './index/index.component';
 import { AuthInterceptorService } from '../services/auth-interceptor.service';
 import { FooterComponent } from './footer/footer.component';
