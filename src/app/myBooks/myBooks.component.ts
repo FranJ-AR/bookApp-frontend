@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BookUserStatus } from '../../interfaces/BookUserStatus';
-import { Book } from '../../interfaces/Book';
-import { Loan } from '../../interfaces/Loan';
-import { Reservation } from '../../interfaces/Reservation';
-import { User } from '../../interfaces/User';
+import { BookUserStatus } from '../../model/BookUserStatus';
+import { Book } from '../../model/Book';
+import { Loan } from '../../model/Loan';
+import { Reservation } from '../../model/Reservation';
+import { User } from '../../model/User';
 import { UserAuthService } from 'src/services/user-auth.service';
 import { ReservationService } from 'src/services/reservation.service';
 import { LoanService } from 'src/services/loan.service';
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { DialogConfirmDeletionReservationComponent } from '../dialog-confirm-deletion-reservation/dialog-confirm-deletion-reservation.component';
-import { constants } from 'src/constants';
+import { Constants } from 'src/constants';
 
 
 @Component({
@@ -222,11 +222,7 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
   openDialog(bookId:number) {
 
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.maxWidth = constants.MAX_WIDTH_DIALOG;
+    const dialogConfig = Constants.getDefaultDialogConfig();
 
     const dialogRef = this.dialog.open(DialogConfirmDeletionReservationComponent, dialogConfig);
 
