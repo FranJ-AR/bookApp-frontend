@@ -7,6 +7,11 @@ import { User } from '../../interfaces/User';
 import { UserAuthService } from 'src/services/user-auth.service';
 import { LoanService } from 'src/services/loan.service';
 import { ReservationService } from 'src/services/reservation.service';
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { DialogConfirmLoanComponent } from '../dialog-confirm-loan/dialog-confirm-loan.component';
+import { DialogConfirmReservationComponent } from '../dialog-confirm-reservation/dialog-confirm-reservation.component';
+import { constants } from 'src/constants';
+
 
 @Component({
   selector: 'app-book-details',
@@ -36,7 +41,7 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
   nombre = "";
 
   constructor(private userAuthService:UserAuthService, private loanService:LoanService,
-    private reservationService:ReservationService) { }
+    private reservationService:ReservationService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -177,6 +182,50 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
       })
 
     }
+  }
+
+  openLoanDialog(bookId:number) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.maxWidth = constants.MAX_WIDTH_DIALOG;
+
+    const dialogRef = this.dialog.open(DialogConfirmLoanComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe( (data) => {
+
+      if(data === true){
+
+      this.addLoan(bookId);
+
+      }
+
+    })
+
+  }
+
+  openReservationDialog(bookId:number) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.maxWidth = constants.MAX_WIDTH_DIALOG;
+
+    const dialogRef = this.dialog.open(DialogConfirmReservationComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe( (data) => {
+
+      if(data === true){
+
+      this.addReservation(bookId);
+
+      }
+
+    })
+
   }
 
 }

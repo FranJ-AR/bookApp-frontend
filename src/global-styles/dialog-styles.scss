@@ -1,0 +1,24 @@
+.c-confirm-or-cancel{
+
+    display: flex;
+
+}
+
+.btn:active, .btn-primary:active{
+
+    all: initial;
+    transition: none !important;
+}
+
+.c-confirm{
+
+    margin-right: auto;
+
+    
+}
+
+.c-cancel{
+
+    margin-left: auto;
+
+}

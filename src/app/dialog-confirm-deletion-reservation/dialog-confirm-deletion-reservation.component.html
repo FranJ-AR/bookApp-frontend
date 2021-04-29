@@ -1,0 +1,15 @@
+<p mat-dialog-title>¿Realmente desea borrar la solicitud de lista de espera
+    del libro seleccionado?</p>
+
+
+<p>Recuerda que volver a solicitar el libro le situará
+    en la última posición en ese momento al añadirse a la lista de espera
+</p>
+
+<mat-dialog-actions class="c-confirm-or-cancel">
+
+    <button class="btn btn-primary c-confirm" (click)="confirm()">Eliminar solicitud</button>
+
+    <button class="btn btn-secondary c-cancel" (click)="cancel()">No realizar cambios</button>
+
+</mat-dialog-actions>

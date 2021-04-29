@@ -9,6 +9,9 @@ import { User } from '../../interfaces/User';
 import { UserAuthService } from 'src/services/user-auth.service';
 import { ReservationService } from 'src/services/reservation.service';
 import { LoanService } from 'src/services/loan.service';
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { DialogConfirmDeletionReservationComponent } from '../dialog-confirm-deletion-reservation/dialog-confirm-deletion-reservation.component';
+import { constants } from 'src/constants';
 
 
 @Component({
@@ -22,29 +25,29 @@ export class MyBooksComponent implements OnInit, OnDestroy {
   loans: Loan[] = []
   reservations: Reservation[] = [];
   userSubscription: Subscription | null = null;
-  
-  loanedBooks:Book[] = [];
-  reservatedBooks:Book[] = [];
 
-  showDetailsLoanedBook:boolean = false;
-  showDetailsReservatedBook:boolean = false;
+  loanedBooks: Book[] = [];
+  reservatedBooks: Book[] = [];
+
+  showDetailsLoanedBook: boolean = false;
+  showDetailsReservatedBook: boolean = false;
 
   indexArrayBooksLoaned: number = -1;
   indexArrayBooksReservated: number = -1;
 
-  constructor(private userAuthService:UserAuthService, 
-    private loanService:LoanService, private reservationService:ReservationService, 
-    private router:Router) { }
+  constructor(private userAuthService: UserAuthService,
+    private loanService: LoanService, private reservationService: ReservationService,
+    private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
 
-    this.userSubscription = this.userAuthService.userSubject.subscribe( (user:User|null) => {
+    this.userSubscription = this.userAuthService.userSubject.subscribe((user: User | null) => {
 
       this.user = user;
 
       // When session ends, redirect
 
-      if(user === null) {
+      if (user === null) {
 
         this.router.navigate(['/index']);
 
@@ -60,16 +63,16 @@ export class MyBooksComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    
-    if(this.userSubscription !== null){
+
+    if (this.userSubscription !== null) {
 
       this.userSubscription.unsubscribe();
     }
   }
 
-  private getLoans():void{
+  private getLoans(): void {
 
-    this.loanService.getLoansByLoggedUser().subscribe( (loans) => {
+    this.loanService.getLoansByLoggedUser().subscribe((loans) => {
 
       this.loans = loans;
 
@@ -77,21 +80,27 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
   }
 
-  removeReservation(bookId: number){
+  selectedRemoveReservation(bookId: number){
 
-    this.reservationService.removeReservationByLoggedUser(bookId).subscribe( () => 
+    this.openDialog(bookId);
+
+  }
+
+  removeReservation(bookId: number) {
+
     
-    {
+
+    this.reservationService.removeReservationByLoggedUser(bookId).subscribe(() => {
 
       // Success
 
       let index = 0;
 
-      this.reservations.some( (reservation, indexFound)  => {
+      this.reservations.some((reservation, indexFound) => {
 
         // find the element in the array
 
-        if( reservation.book.id === bookId) {
+        if (reservation.book.id === bookId) {
 
           index = indexFound;
 
@@ -104,8 +113,8 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
       // If the user is checking book details and it is removed, close the details' view
 
-      if(this.showDetailsReservatedBook &&
-         this.reservatedBooks[this.indexArrayBooksReservated].id === bookId){
+      if (this.showDetailsReservatedBook &&
+        this.reservatedBooks[this.indexArrayBooksReservated].id === bookId) {
 
         this.showDetailsOnReservationBookClose(null);
 
@@ -117,9 +126,9 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
   }
 
-  private getReservations():void{
+  private getReservations(): void {
 
-    this.reservationService.getReservationsByLoggedUser().subscribe( (reservations) => {
+    this.reservationService.getReservationsByLoggedUser().subscribe((reservations) => {
 
       this.reservations = reservations;
 
@@ -127,12 +136,12 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
   }
 
-  private getBookIdByBookIndex(bookList: Book[], id: number):number {
+  private getBookIdByBookIndex(bookList: Book[], id: number): number {
 
     /* checks every value until from index 0 to size-1 until 
        one matches the condition and stops */
 
-    let indexFound:number = -1;
+    let indexFound: number = -1;
 
     bookList.some((element, index) => {
 
@@ -152,31 +161,31 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
   }
 
-  showDetailsBookLoaned(bookId:number):void{
+  showDetailsBookLoaned(bookId: number): void {
 
     this.loansToBooks();
 
     this.indexArrayBooksLoaned = this.getBookIdByBookIndex(this.loanedBooks, bookId);
 
     this.showDetailsLoanedBook = true;
-    
+
   }
 
-  showDetailsBookReservated(bookId:number):void{
+  showDetailsBookReservated(bookId: number): void {
 
     this.reservationsToBooks();
 
     this.indexArrayBooksReservated = this.getBookIdByBookIndex(this.reservatedBooks, bookId);
 
     this.showDetailsReservatedBook = true;
-    
+
   }
 
-  private loansToBooks():void{
+  private loansToBooks(): void {
 
     this.loanedBooks = [];
 
-    this.loans.map( (loan) => {
+    this.loans.map((loan) => {
 
       loan.book.userStatus = BookUserStatus.Loaned;
 
@@ -185,11 +194,11 @@ export class MyBooksComponent implements OnInit, OnDestroy {
     })
   }
 
-  private reservationsToBooks():void{
+  private reservationsToBooks(): void {
 
     this.reservatedBooks = [];
 
-    this.reservations.map( (loan) => {
+    this.reservations.map((loan) => {
 
       loan.book.userStatus = BookUserStatus.Reservated;
 
@@ -199,16 +208,39 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
   }
 
-  showDetailsOnLoanBookClose(newValue:any):void{
+  showDetailsOnLoanBookClose(newValue: any): void {
 
     this.showDetailsLoanedBook = false;
 
   }
 
-  showDetailsOnReservationBookClose(newValue:any):void{
+  showDetailsOnReservationBookClose(newValue: any): void {
 
     this.showDetailsReservatedBook = false;
 
   }
+
+  openDialog(bookId:number) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.maxWidth = constants.MAX_WIDTH_DIALOG;
+
+    const dialogRef = this.dialog.open(DialogConfirmDeletionReservationComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe( (data) => {
+
+      if(data === true){
+
+      this.removeReservation(bookId);
+
+      }
+
+    })
+
+  }
+  
 
 }

@@ -19,6 +19,12 @@ import { FaqComponent } from './faq/faq.component';
 import { LibraryInfoComponent } from './library-info/library-info.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { OnlineChatComponent } from './online-chat/online-chat.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from "@angular/material/dialog";
+import { DialogConfirmDeletionReservationComponent } from './dialog-confirm-deletion-reservation/dialog-confirm-deletion-reservation.component';
+import { DialogConfirmLoanComponent } from './dialog-confirm-loan/dialog-confirm-loan.component';
+import { DialogConfirmReservationComponent } from './dialog-confirm-reservation/dialog-confirm-reservation.component';
+import { MatCommonModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -33,8 +39,11 @@ import { OnlineChatComponent } from './online-chat/online-chat.component';
     FaqComponent,
     LibraryInfoComponent,
     AboutUsComponent,
-    OnlineChatComponent
-  ],
+    OnlineChatComponent,
+    DialogConfirmDeletionReservationComponent,
+    DialogConfirmLoanComponent,
+    DialogConfirmReservationComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -42,7 +51,12 @@ import { OnlineChatComponent } from './online-chat/online-chat.component';
     HttpClientModule,
     FormsModule,
     FontAwesomeModule,
-    
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatCommonModule
+  ],
+  entryComponents: [
+    DialogConfirmDeletionReservationComponent
   ],
   providers: [AuthAlreadyLogged, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi:true}],
   bootstrap: [AppComponent]

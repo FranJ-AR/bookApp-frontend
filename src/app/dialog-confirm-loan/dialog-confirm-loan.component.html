@@ -1,0 +1,13 @@
+<p mat-dialog-title class="font-weight-bold">¿Realmente desea pedir en préstamo el libro seleccionado?
+</p>
+<p>Si lo pide prestado deberá recogerlo en la biblioteca en el 
+    plazo indicado en "Mis libros" o contactar con la biblioteca 
+    para cancelar el préstamo lo antes posible </p>
+
+<mat-dialog-actions class="c-confirm-or-cancel">
+
+    <button class="btn btn-primary c-confirm" (click)="confirm()">Pedir prestado</button>
+
+    <button class="btn btn-secondary c-cancel" (click)="cancel()">No realizar cambios</button>
+
+</mat-dialog-actions>

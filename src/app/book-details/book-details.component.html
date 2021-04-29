@@ -75,8 +75,10 @@
             <ng-container *ngIf="user!== null && books[localIndexArrayBooks].userStatus !== 'LOANED' &&
     loanLimitReached === false">
                 <p>Pulse en el botón de abajo para pedir prestado este libro
-                    a la biblioteca y recogerlo más tarde</p>
-                <button class="btn btn-primary" (click)="addLoan(books[localIndexArrayBooks].id)">Pedir
+                    a la biblioteca y recogerlo más tarde. Recuerde que se le puede denegar la opción de
+                    pedir prestado libros durante unos días si no cancela el préstamo en caso de no 
+                    recoger el libro en el plazo indicado en "Mis libros"</p>
+                <button class="btn btn-primary" (click)="openLoanDialog(books[localIndexArrayBooks].id)">Pedir
                     prestado</button>
             </ng-container>
         </ng-container>
@@ -87,7 +89,7 @@
                     recibirá una notificación una vez
                     esté disponible para confirmar el préstamo y poder recogerlo en la biblioteca
                 </p> <button class="btn btn-primary" 
-                (click)="addReservation(books[localIndexArrayBooks].id)">
+                (click)="openReservationDialog(books[localIndexArrayBooks].id)">
                 Añadir a lista de espera</button>
             </ng-container>
         </ng-template>
