@@ -134,9 +134,21 @@ export class AuthComponent implements OnInit {
       },
 
         (errorMessage: string) => {
-          this.messageErrorLogin = true;
 
-          this.errorMessage = errorMessage;
+          if(errorMessage ===  "Username not found"){
+
+            this.errorMessage = "El nombre de usuario no existe";
+
+          }else if(errorMessage ===  "Incorrect password"){
+
+            this.errorMessage = "La contraseña introducida no es correcta, inténtalo de nuevo";
+
+          }else{
+
+            this.errorMessage = "Ocurrió un error desconocido, intenta de nuevo más tarde";
+
+          }
+          this.messageErrorLogin = true;
 
         });
 
@@ -160,9 +172,6 @@ export class AuthComponent implements OnInit {
 
       this.errorMessage = errorMessage;
 
-
-      
-    
     }
     
     );
