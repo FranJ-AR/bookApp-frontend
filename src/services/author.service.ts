@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { constants } from 'src/constants';
+import { Constants } from 'src/constants';
 import { Author } from '../model/Author';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { Author } from '../model/Author';
 })
 export class AuthorService {
 
-  private authorUrl:string = constants.ROOT_CONNECTION+"authors-by-substring-name/author={author}";
+  private authorUrl:string = Constants.ROOT_CONNECTION+"authors-by-substring-name/author={author}";
 
   constructor(private httpClient:HttpClient) { }
 

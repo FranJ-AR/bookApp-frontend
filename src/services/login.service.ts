@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, exhaustMap, take, tap } from 'rxjs/operators';
-import { constants } from 'src/constants';
+import { Constants } from 'src/constants';
 import { LoginResponse } from '../model/LoginResponse';
 import { User } from '../model/User';
 import { UserAuthService } from './user-auth.service';
@@ -27,7 +27,7 @@ export class LoginService {
 
   private KEY_USER_SESSION_STORAGE = "user-details";
 
-  private loginUrl = constants.ROOT_CONNECTION+"login";
+  private loginUrl = Constants.ROOT_CONNECTION+"login";
 
   private timer:any|null;
 
