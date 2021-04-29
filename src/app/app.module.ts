@@ -58,7 +58,8 @@ import { DialogErrorComponent } from './dialog-error/dialog-error.component';
     MatCommonModule
   ],
   entryComponents: [
-    DialogConfirmDeletionReservationComponent
+    DialogConfirmDeletionReservationComponent,
+    DialogErrorComponent
   ],
   providers: [AuthAlreadyLogged, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi:true}],
   bootstrap: [AppComponent]

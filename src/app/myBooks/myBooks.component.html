@@ -115,7 +115,7 @@
                             <td>{{reservation.timestamp | date:'dd/MM/yy HH:mm:ss'}}</td>
 
                             <td class="c-cursor-pointer" 
-                            (click)="selectedRemoveReservation(reservation.book.id)">Eliminar
+                            (click)="openRemoveReservationDialog(reservation.book.id)">Eliminar
                                 solicitud</td>
 
                             <td class="c-cursor-pointer"

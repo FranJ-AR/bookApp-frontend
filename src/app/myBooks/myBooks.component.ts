@@ -9,9 +9,10 @@ import { User } from '../../model/User';
 import { UserAuthService } from 'src/services/user-auth.service';
 import { ReservationService } from 'src/services/reservation.service';
 import { LoanService } from 'src/services/loan.service';
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DialogConfirmDeletionReservationComponent } from '../dialog-confirm-deletion-reservation/dialog-confirm-deletion-reservation.component';
 import { Constants } from 'src/constants';
+import { DialogErrorComponent } from '../dialog-error/dialog-error.component';
 
 
 @Component({
@@ -80,15 +81,9 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
   }
 
-  selectedRemoveReservation(bookId: number){
-
-    this.openDialog(bookId);
-
-  }
-
   removeReservation(bookId: number) {
 
-    
+
 
     this.reservationService.removeReservationByLoggedUser(bookId).subscribe(() => {
 
@@ -122,7 +117,15 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
       this.reservations.splice(index, 1);
 
+    }, ((_:any) => {
+
+      // Failure
+
+      this.openRemoveReservationFailed();
+
     })
+
+    )
 
   }
 
@@ -220,23 +223,35 @@ export class MyBooksComponent implements OnInit, OnDestroy {
 
   }
 
-  openDialog(bookId:number) {
+  openRemoveReservationDialog(bookId: number) {
 
     const dialogConfig = Constants.getDefaultDialogConfig();
 
     const dialogRef = this.dialog.open(DialogConfirmDeletionReservationComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe( (data) => {
+    dialogRef.afterClosed().subscribe((data) => {
 
-      if(data === true){
+      if (data === true) {
 
-      this.removeReservation(bookId);
+        this.removeReservation(bookId);
 
       }
 
     })
 
   }
-  
+
+  openRemoveReservationFailed(): void {
+
+    const dialogConfig = Constants.getDefaultDialogConfig();
+    
+    dialogConfig.data = {
+      title: Constants.DEFAULT_TITLE_DIALOG_ERROR,
+      message: Constants.DEFAULT_MESSAGE_DIALOG_ERROR
+    }
+
+    this.dialog.open(DialogErrorComponent, dialogConfig);
+
+  }
 
 }

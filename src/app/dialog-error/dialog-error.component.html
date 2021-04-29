@@ -1,1 +1,13 @@
-<p>dialog-error works!</p>
+<p mat-dialog-title class = "font-weight-bold">
+    {{title}}
+</p>
+
+<p *ngIf = "message !== null">
+    {{message}}
+</p>
+
+<mat-dialog-actions class="c-confirm-or-cancel">
+    
+<button class = "btn btn-primary c-close" (click) = "close()">Aceptar</button>
+
+</mat-dialog-actions>
