@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { constants } from 'src/constants';
-import { Reservation } from '../interfaces/Reservation';
+import { Reservation } from '../model/Reservation';
 
 
 @Injectable({

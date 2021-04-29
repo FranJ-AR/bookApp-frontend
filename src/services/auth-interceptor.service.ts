@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { exhaustMap, take } from 'rxjs/operators';
 import { UserAuthService } from 'src/services/user-auth.service';
-import { User } from '../interfaces/User';
+import { User } from '../model/User';
 
 @Injectable({
   providedIn: 'root'

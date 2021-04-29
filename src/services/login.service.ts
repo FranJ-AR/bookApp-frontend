@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, exhaustMap, take, tap } from 'rxjs/operators';
 import { constants } from 'src/constants';
-import { LoginResponse } from '../interfaces/LoginResponse';
-import { User } from '../interfaces/User';
+import { LoginResponse } from '../model/LoginResponse';
+import { User } from '../model/User';
 import { UserAuthService } from './user-auth.service';
 
 interface StoredUserDetails{

@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { BookUserStatus } from '../../interfaces/BookUserStatus';
+import { BookUserStatus } from '../../model/BookUserStatus';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
-import { Book } from '../../interfaces/Book';
-import { User } from '../../interfaces/User';
+import { Book } from '../../model/Book';
+import { User } from '../../model/User';
 import { UserAuthService } from 'src/services/user-auth.service';
 import { LoanService } from 'src/services/loan.service';
 import { ReservationService } from 'src/services/reservation.service';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DialogConfirmLoanComponent } from '../dialog-confirm-loan/dialog-confirm-loan.component';
 import { DialogConfirmReservationComponent } from '../dialog-confirm-reservation/dialog-confirm-reservation.component';
-import { constants } from 'src/constants';
+import { Constants } from 'src/constants';
 
 
 @Component({
@@ -190,7 +190,7 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.maxWidth = constants.MAX_WIDTH_DIALOG;
+    dialogConfig.maxWidth = Constants.MAX_WIDTH_DIALOG;
 
     const dialogRef = this.dialog.open(DialogConfirmLoanComponent, dialogConfig);
 
@@ -208,11 +208,7 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   openReservationDialog(bookId:number) {
 
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.maxWidth = constants.MAX_WIDTH_DIALOG;
+    const dialogConfig = Constants.defaultDialogConfig();
 
     const dialogRef = this.dialog.open(DialogConfirmReservationComponent, dialogConfig);
 

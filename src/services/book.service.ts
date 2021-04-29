@@ -2,8 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { constants } from 'src/constants';
-import { ParamsBookSearch } from 'src/interfaces/ParamsBookSearch';
-import { Book } from '../interfaces/Book';
+import { ParamsBookSearch } from 'src/model/ParamsBookSearch';
+import { Book } from '../model/Book';
 
 @Injectable({
   providedIn: 'root'

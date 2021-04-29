@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { constants } from 'src/constants';
-import { Loan } from '../interfaces/Loan';
+import { Loan } from '../model/Loan';
 
 @Injectable({
   providedIn: 'root'

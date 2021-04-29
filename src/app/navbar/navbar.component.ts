@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faBars, faUser } from '@fortawesome/free-solid-svg-icons';
 import { LoginService } from 'src/services/login.service';
 import { UserAuthService } from 'src/services/user-auth.service';
-import { User } from '../../interfaces/User';
+import { User } from '../../model/User';
 
 
 @Component({

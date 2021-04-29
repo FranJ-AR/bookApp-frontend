@@ -1,5 +1,5 @@
-import { Category } from "src/interfaces/Category";
-import { Subcategory } from "src/interfaces/Subcategory";
+import { Category } from "src/model/Category";
+import { Subcategory } from "src/model/Subcategory";
 import { BookUserStatus } from "./BookUserStatus";
 import { Author } from "./Author";
 

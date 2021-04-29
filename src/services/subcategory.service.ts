@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { constants } from 'src/constants';
-import { Subcategory } from 'src/interfaces/Subcategory';
+import { Constants } from 'src/constants';
+import { Subcategory } from 'src/model/Subcategory';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { Subcategory } from 'src/interfaces/Subcategory';
 
 export class SubcategoryService {
 
-  private subcategoryUrl:string = constants.ROOT_CONNECTION+"all-subcategories";
+  private subcategoryUrl:string = Constants.ROOT_CONNECTION+"all-subcategories";
 
   constructor(private httpClient:HttpClient) { }
 
