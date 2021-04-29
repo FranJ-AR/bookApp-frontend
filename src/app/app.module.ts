@@ -25,6 +25,7 @@ import { DialogConfirmDeletionReservationComponent } from './dialog-confirm-dele
 import { DialogConfirmLoanComponent } from './dialog-confirm-loan/dialog-confirm-loan.component';
 import { DialogConfirmReservationComponent } from './dialog-confirm-reservation/dialog-confirm-reservation.component';
 import { MatCommonModule } from '@angular/material/core';
+import { DialogErrorComponent } from './dialog-error/dialog-error.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MatCommonModule } from '@angular/material/core';
     OnlineChatComponent,
     DialogConfirmDeletionReservationComponent,
     DialogConfirmLoanComponent,
-    DialogConfirmReservationComponent
+    DialogConfirmReservationComponent,
+    DialogErrorComponent
     ],
   imports: [
     BrowserModule,
