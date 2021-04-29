@@ -186,11 +186,7 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   openLoanDialog(bookId:number) {
 
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.maxWidth = Constants.MAX_WIDTH_DIALOG;
+    const dialogConfig = Constants.getDefaultDialogConfig();
 
     const dialogRef = this.dialog.open(DialogConfirmLoanComponent, dialogConfig);
 
@@ -208,7 +204,7 @@ export class BookDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   openReservationDialog(bookId:number) {
 
-    const dialogConfig = Constants.defaultDialogConfig();
+    const dialogConfig = Constants.getDefaultDialogConfig();
 
     const dialogRef = this.dialog.open(DialogConfirmReservationComponent, dialogConfig);
 
