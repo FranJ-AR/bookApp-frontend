@@ -21,7 +21,7 @@ p.description{
 
 }
 
-div.c-book-list{
+div.c-book-list, div.c-table-wrapper{
 
     flex-grow: 1;
 
@@ -78,12 +78,6 @@ div.c-book-details-active{
     overflow-x: auto;
 }
 
-table{
-
-    max-width: 100vw;
-
-}
-
 @media (min-width: 768px){
 
     p.description{
@@ -101,7 +95,8 @@ table{
 .c-description-details{
 
     font-weight: 600;
-    text-align: center;
+    text-align: left;
+    padding-left: 20px;
 }
 
 /* For desktop devices */
