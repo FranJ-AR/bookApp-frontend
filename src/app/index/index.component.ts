@@ -77,7 +77,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     this.getAllSubcategories();
 
-    this.getAllBooks(); /* on and off to see all books, useful when debugging*/
+    //this.getAllBooks(); /* on and off to see all books, useful when debugging*/
 
     //this.getBooksByParams();
 
