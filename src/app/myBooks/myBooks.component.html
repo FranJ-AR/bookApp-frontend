@@ -15,54 +15,59 @@
 
             <section class="c-section-loans">
 
-                <table class="table " [ngClass]="{'c-book-table-results-details-active': showDetailsLoanedBook}">
+                <div class="c-table-wrapper">
 
-                    <thead>
+                    <table class="table " [ngClass]="{'c-book-table-results-details-active': showDetailsLoanedBook}">
 
-                        <tr>
+                        <thead>
 
-                            <th scope="col">Título</th>
-                            <th scope="col">Fecha préstamo</th>
-                            <th scope="col">Fecha máxima recogida</th>
-                            <th scope="col">Fecha máxima devolución</th>
-                            <th scope="col">Detalles libro</th>
+                            <tr>
 
-                        </tr>
+                                <th scope="col">Título</th>
+                                <th scope="col">Fecha préstamo</th>
+                                <th scope="col">Fecha máxima recogida</th>
+                                <th scope="col">Fecha máxima devolución</th>
+                                <th scope="col">Detalles libro</th>
 
-                    </thead>
+                            </tr>
 
-                    <tbody>
+                        </thead>
 
-                        <tr *ngFor="let loan of loans">
+                        <tbody>
 
-                            <td>{{loan.book.name}}</td>
+                            <tr *ngFor="let loan of loans">
 
-                            <td>{{loan.timestamp | date:'dd/MM/yy HH:mm:ss'}}</td>
+                                <td>{{loan.book.bookName}}</td>
 
-                            <ng-container *ngIf="loan.maximumPickedUpDate === null; else AlreadyPickedUp">
+                                <td>{{loan.timestamp | date:'dd/MM/yy HH:mm:ss'}}</td>
 
-                                <td>Ya recogido</td>
+                                <ng-container *ngIf="loan.maximumPickedUpDate === null; else AlreadyPickedUp">
 
-                            </ng-container>
+                                    <td>Ya recogido</td>
 
-                            <ng-template #AlreadyPickedUp>
+                                </ng-container>
 
-                                <td>{{loan.maximumPickedUpDate | date:'dd/MM/yy HH:mm:ss'}}</td>
+                                <ng-template #AlreadyPickedUp>
 
-                            </ng-template>
+                                    <td>{{loan.maximumPickedUpDate | date:'dd/MM/yy HH:mm:ss'}}</td>
 
-                            <td>{{loan.maximumReturnDate | date:'dd/MM/yy HH:mm:ss'}}</td>
+                                </ng-template>
 
-                            <td class="c-cursor-pointer"
-                            (click)="showDetailsBookLoaned(loan.book.id)">Pulsa para ver detalles</td>
+                                <td>{{loan.maximumReturnDate | date:'dd/MM/yy HH:mm:ss'}}</td>
 
-                        </tr>
+                                <td class="c-cursor-pointer" (click)="showDetailsBookLoaned(loan.book.id)">Pulsa para
+                                    ver detalles</td>
 
-                    </tbody>
+                            </tr>
 
-                </table>
+                        </tbody>
 
-                <div class="c-book-info c-book-details-loaned" [ngClass]="{'c-book-details-active': showDetailsLoanedBook}">
+                    </table>
+
+                </div>
+
+                <div class="c-book-info c-book-details-loaned"
+                    [ngClass]="{'c-book-details-active': showDetailsLoanedBook}">
 
                     <p class="c-description-details"
                         [ngClass]="{'c-book-table-results-details-active': !showDetailsLoanedBook}">Detalles libro
@@ -78,8 +83,8 @@
 
         </ng-template>
 
-        <p class="description" [ngClass]="{'c-book-table-results-details-active': showDetailsReservatedBook}"
-        >Listas de espera (máximo 6 libros)</p>
+        <p class="description" [ngClass]="{'c-book-table-results-details-active': showDetailsReservatedBook}">Listas de
+            espera (máximo 6 libros)</p>
 
         <ng-container *ngIf="reservations.length === 0; else showReservation">
 
@@ -90,6 +95,8 @@
         <ng-template #showReservation>
 
             <section class="c-section-reservations">
+
+                <div class="c-table-wrapper">
 
                 <table class="table" [ngClass]="{'c-book-table-results-details-active': showDetailsReservatedBook}">
 
@@ -110,16 +117,16 @@
 
                         <tr *ngFor="let reservation of reservations">
 
-                            <td>{{reservation.book.name}}</td>
+                            <td>{{reservation.book.bookName}}</td>
 
                             <td>{{reservation.timestamp | date:'dd/MM/yy HH:mm:ss'}}</td>
 
-                            <td class="c-cursor-pointer" 
-                            (click)="openRemoveReservationDialog(reservation.book.id)">Eliminar
+                            <td class="c-cursor-pointer" (click)="openRemoveReservationDialog(reservation.book.id)">
+                                Eliminar
                                 solicitud</td>
 
-                            <td class="c-cursor-pointer"
-                            (click)="showDetailsBookReservated(reservation.book.id)">Pulsa para ver detalles</td>
+                            <td class="c-cursor-pointer" (click)="showDetailsBookReservated(reservation.book.id)">Pulsa
+                                para ver detalles</td>
 
                         </tr>
 
@@ -127,12 +134,14 @@
 
                 </table>
 
+                </div>
+
                 <div class="c-book-info c-book-details-reservated"
                     [ngClass]="{'c-book-details-active': showDetailsReservatedBook}">
 
                     <p class="c-description-details"
-                        [ngClass]="{'c-book-table-results-details-active': !showDetailsReservatedBook}"
-                        >Detalles libro en lista de espera</p>
+                        [ngClass]="{'c-book-table-results-details-active': !showDetailsReservatedBook}">Detalles libro
+                        en lista de espera</p>
 
                     <app-book-details *ngIf="reservatedBooks.length !== 0 && indexArrayBooksReservated !== -1"
                         [books]="reservatedBooks" [indexArrayBooks]="indexArrayBooksReservated"
