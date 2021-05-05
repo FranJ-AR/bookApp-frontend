@@ -15,9 +15,8 @@
   </div>
 
     <div 
-    [ngClass] = "{'show-navlinks-mobile': !navBarLinksMobile}" 
-    class="navbar-collapse navbar-expand c-library-options" 
-    id="navbarNavAltMarkup">
+    [ngClass] = "{'hide-navlinks-mobile': !showNavBarLinksMobile}" 
+    class="navbar-collapse navbar-expand c-library-options" (click) = "hideLinksMobile()">
 
       <a class="nav-item nav-link active" href="#" 
       routerLink="/index">Buscar Libros<span class="sr-only">(current)</span></a>
@@ -30,8 +29,8 @@
 
     <ng-template #thenBlock>
 
-    <div [ngClass] = "{'show-user-mobile': !navBarUserMobile}" 
-    class="navbar-collapse navbar-expand c-user-options" id="navbarNavAltMarkup">
+    <div [ngClass] = "{'hide-user-mobile': !showNavBarUserMobile}" 
+    class="navbar-collapse navbar-expand c-user-options" (click) = "hideLinksMobile()">
 
       <a class="nav-item nav-link" href="#" routerLink="/register" routerLinkActive="active">Registrarse</a>
       <a class="nav-item nav-link" routerLink="/login" routerLinkActive="active">Iniciar sesión</a>
@@ -44,8 +43,8 @@
 
     
 
-    <div [ngClass] = "{'show-user-mobile': !navBarUserMobile}" 
-    class="navbar-collapse navbar-expand c-user-options" id="navbarNavAltMarkup">
+    <div [ngClass] = "{'hide-user-mobile': !showNavBarUserMobile}" 
+    class="navbar-collapse navbar-expand c-user-options" (click) = "hideLinksMobile()">
 
         <a class ="nav-item nav-link c-user-logged">Hola {{username}}</a>
         <a class="nav-item nav-link" *ngIf = "user !== null"

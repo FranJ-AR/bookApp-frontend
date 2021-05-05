@@ -22,9 +22,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   user:User | null = null;
 
-  navBarLinksMobile:boolean = false;
+  showNavBarLinksMobile:boolean = false;
 
-  navBarUserMobile:boolean = false;
+  showNavBarUserMobile:boolean = false;
 
   constructor(private userAuthService:UserAuthService, private loginService:LoginService) { }
 
@@ -62,18 +62,24 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   visibilityLinksNavBarMobile():void{
 
-    this.navBarUserMobile = false;
+    this.showNavBarUserMobile = false;
 
-    this.navBarLinksMobile = ! this.navBarLinksMobile;
+    this.showNavBarLinksMobile = ! this.showNavBarLinksMobile;
 
   }
 
   visibilityUserNavBarMobile():void{
 
-    this.navBarLinksMobile = false;
+    this.showNavBarLinksMobile = false;
 
-    this.navBarUserMobile = ! this.navBarUserMobile;
+    this.showNavBarUserMobile = ! this.showNavBarUserMobile;
 
+  }
+
+  hideLinksMobile():void{
+
+    this.showNavBarLinksMobile = false;
+    this.showNavBarUserMobile = false;
   }
 
 }
