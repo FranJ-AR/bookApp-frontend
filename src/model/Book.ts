@@ -7,7 +7,7 @@ import { Author } from "./Author";
 export interface Book{
 
     id:number,
-    name:string,
+    bookName:string,
     category:Category,
     subcategory:Subcategory,
     author:Author,
