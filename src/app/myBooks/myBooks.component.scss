@@ -1,3 +1,8 @@
+*{
+
+    overflow-x: hidden; /* avoid width to become higher than 100% */
+}
+
 .c-section-loans, .c-section-reservations{
 
     display: flex;
@@ -68,6 +73,17 @@ div.c-book-details-active{
  
  }
 
+.c-table-wrapper{
+
+    overflow-x: auto;
+}
+
+table{
+
+    max-width: 100vw;
+
+}
+
 @media (min-width: 768px){
 
     p.description{
@@ -110,6 +126,7 @@ div.c-book-details-active{
     }
 
 }
+
 
 /* special case, keep aligned table with content */
 @media (min-width: 1348px){
