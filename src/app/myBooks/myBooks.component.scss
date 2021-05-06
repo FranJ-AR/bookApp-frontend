@@ -76,6 +76,7 @@ div.c-book-details-active{
 .c-table-wrapper{
 
     overflow-x: auto;
+    width: 0%;
 }
 
 @media (min-width: 768px){
@@ -126,11 +127,16 @@ div.c-book-details-active{
      
      }
 
+     .c-table-wrapper{
+
+        width: 100%;
+     }
+
 }
 
 
 /* special case, keep aligned table with content */
-@media (min-width: 1266px){
+@media (min-width: 1098px){
 
     .c-book-details-loaned{
 
