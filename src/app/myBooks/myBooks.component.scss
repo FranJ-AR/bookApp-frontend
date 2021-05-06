@@ -51,12 +51,12 @@ div.my-books{
 
  .c-book-details-loaned{
 
-    margin-top: 55px;
+    margin-top: 32px;
  }
 
  .c-book-details-reservated{
 
-    margin-top: 33px;
+    margin-top: 12px;
  }
 
  table.c-book-table-results-details-active, p.c-book-table-results-details-active{
@@ -120,15 +120,21 @@ div.c-book-details-active{
         display: none;
     }
 
+    div.c-book-details-active{
+
+        width: 70%; // it needs less space than 100%
+     
+     }
+
 }
 
 
 /* special case, keep aligned table with content */
-@media (min-width: 1348px){
+@media (min-width: 1266px){
 
     .c-book-details-loaned{
 
-        margin-top: 31px;
+        margin-top: 8px;
     }
 
 
